@@ -1,3 +1,4 @@
+import 'package:dictionary/screens/home/home.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -17,19 +18,6 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: const HomePage(),
-    );
-  }
-}
-
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Simple Flutter app'),
-      ),
     );
   }
 }
