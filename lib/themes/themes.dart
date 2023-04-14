@@ -27,6 +27,12 @@ class AppColors {
 }
 
 class AppTextStyle {
+  static final regular10 = GoogleFonts.robotoMono(
+    fontSize: 10,
+    color: AppColors.black,
+    fontWeight: FontWeight.w400,
+  );
+
   static final regular15 = GoogleFonts.robotoMono(
     fontSize: 15,
     color: AppColors.black,
@@ -51,13 +57,19 @@ class AppTextStyle {
     fontWeight: FontWeight.w700,
   );
 
+  static final medium20 = GoogleFonts.robotoMono(
+    fontSize: 20,
+    color: AppColors.black,
+    fontWeight: FontWeight.w700,
+  );
+
   static final medium25 = GoogleFonts.robotoMono(
     fontSize: 25,
     color: AppColors.black,
     fontWeight: FontWeight.w700,
   );
 
-  static final medium25medium35 = GoogleFonts.robotoMono(
+  static final medium35 = GoogleFonts.robotoMono(
     fontSize: 35,
     color: AppColors.black,
     fontWeight: FontWeight.w700,
@@ -91,5 +103,16 @@ class AppTextStyle {
     fontSize: 40,
     color: AppColors.black,
     fontWeight: FontWeight.w900,
+  );
+}
+
+class AppContainerStyle {
+  static final border = BoxDecoration(
+    color: AppColors.base,
+    border: Border.all(
+      color: AppColors.black,
+      width: 2,
+    ),
+    borderRadius: BorderRadius.circular(30),
   );
 }

@@ -1,3 +1,4 @@
+import 'package:dictionary/navigator/navigation_sceen.dart';
 import 'package:dictionary/screens/dictionary/dictionary_screen.dart';
 import 'package:dictionary/screens/training/training_screen.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const TrainingScreen(),
+      home: const NavigatorScreen(),
     );
   }
 }

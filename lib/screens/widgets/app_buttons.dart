@@ -2,15 +2,15 @@ import 'package:dictionary/themes/themes.dart';
 import 'package:flutter/material.dart';
 
 class AppButton extends StatelessWidget {
-  final void Function() onPressed;
-  final Widget label;
+  final void Function()? onPressed;
+  final Widget? label;
   final Widget? icon;
   final Color? backgroundColor;
   final ButtonStyle? style;
 
   factory AppButton({
-    required void Function() onPressed,
-    required Widget label,
+    void Function()? onPressed,
+    Widget? label,
     Widget? icon,
     Color? backgroundColor = AppColors.base,
     ButtonStyle? style,
@@ -25,8 +25,8 @@ class AppButton extends StatelessWidget {
   }
 
   const AppButton._internal({
-    required this.onPressed,
-    required this.label,
+    this.onPressed,
+    this.label,
     this.icon,
     this.backgroundColor,
     this.style,

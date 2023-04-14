@@ -181,7 +181,7 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
           hintStyle: AppTextStyle.regular15,
           prefixIconColor: AppColors.black,
           suffixIconColor: AppColors.black,
-          border: OutlineInputBorder(
+          enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(
               30,
             ),

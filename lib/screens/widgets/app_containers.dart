@@ -1,42 +1,6 @@
 import 'package:dictionary/themes/themes.dart';
 import 'package:flutter/material.dart';
 
-class AppContainer extends StatelessWidget {
-  final Widget? childWidget;
-  final Color? background;
-
-  factory AppContainer({
-    Widget? childWidget,
-    Color? background = AppColors.base,
-  }) {
-    return AppContainer._internal(
-      childWidget: childWidget,
-      background: background,
-    );
-  }
-
-  const AppContainer._internal({
-    this.childWidget,
-    this.background,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: background,
-        border: Border.all(
-          color: AppColors.black,
-          width: 2,
-        ),
-        borderRadius: BorderRadius.circular(30),
-      ),
-      child: childWidget,
-    );
-  }
-}
-
 class AppHorizontalContainer extends StatelessWidget {
   final String leadingTitle;
   final String title;
