@@ -1,13 +1,5 @@
 import 'package:flutter/material.dart';
 
-// class AppNavBarItemProvider extends ChangeNotifier {
-//   bool _isSelected = false;
-
-//   set isSelected() {
-//     _isSelected = true;
-//   }
-// }
-
 class AppNavigationBarProvider extends ChangeNotifier {
   int _currentIndex = 0;
   bool _enable = true;

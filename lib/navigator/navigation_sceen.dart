@@ -68,36 +68,3 @@ class _NavigatorScreenState extends State<NavigatorScreen> {
     );
   }
 }
-
-
-// BottomNavigationBar(
-//           type: BottomNavigationBarType.fixed,
-//           items: const <BottomNavigationBarItem>[
-//             BottomNavigationBarItem(
-//               icon: Icon(CupertinoIcons.house_alt_fill),
-//               label: 'Home',
-//             ),
-//             BottomNavigationBarItem(
-//               icon: Icon(CupertinoIcons.create),
-//               label: 'Training',
-//             ),
-//             BottomNavigationBarItem(
-//               icon: Icon(CupertinoIcons.rocket_fill),
-//               label: 'Game',
-//             ),
-//             BottomNavigationBarItem(
-//               icon: Icon(CupertinoIcons.person_fill),
-//               label: 'User',
-//             ),
-//           ],
-//           currentIndex: pageIndex,
-//           backgroundColor: AppColors.darkGreen,
-//           unselectedItemColor: AppColors.white,
-//           selectedItemColor: AppColors.black,
-//           onTap: (changedIndex) {
-//             provider.currentIndex = changedIndex;
-//           },
-//           // onTap: (changedIndex) => context
-//           //     .read<AppNavigationBarProvider>()
-//           //     .currentIndex(changedIndex),
-//         ),

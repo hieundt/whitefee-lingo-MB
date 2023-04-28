@@ -1,29 +1,24 @@
 import 'package:dictionary/providers/navigation_bar_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:provider/provider.dart';
 import '../../themes/themes.dart';
 
 class AppNavigationBarItem {
   final IconData icon;
-  //final Function? onTap;
 
   AppNavigationBarItem({
     required this.icon,
-    //this.onTap,
   });
 }
 
 class AppNavigationBar extends StatefulWidget {
   final List<AppNavigationBarItem> items;
-  //final int selectedIndex;
   final ValueChanged<int>? onTap;
 
   const AppNavigationBar({
     super.key,
     required this.items,
-    //this.selectedIndex = 0,
     this.onTap,
   });
 
