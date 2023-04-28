@@ -1,4 +1,4 @@
-import 'package:dictionary/navigator/components/app_navigation_bar.dart';
+import 'package:dictionary/navigator/widgets/app_navigation_bar.dart';
 import 'package:dictionary/screens/game/game.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -28,6 +28,7 @@ class _NavigatorScreenState extends State<NavigatorScreen> {
   Widget build(BuildContext context) {
     var provider = Provider.of<AppNavigationBarProvider>(context);
     int pageIndex = provider.currentIndex;
+    print('pageindex $pageIndex');
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(

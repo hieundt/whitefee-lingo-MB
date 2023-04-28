@@ -1,7 +1,8 @@
-import 'package:dictionary/navigator/navigation_sceen.dart';
-import 'package:dictionary/providers/navigation_bar_provider.dart';
+import 'package:dictionary/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'navigator/navigation_sceen.dart';
+import 'providers/navigation_bar_provider.dart';
 
 void main() {
   runApp(
@@ -23,6 +24,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
         ),
         home: const NavigatorScreen(),
+        routes: appRoutes,
       ),
     );
   }

@@ -32,10 +32,13 @@ class _AppNavigationBarState extends State<AppNavigationBar> {
     var provider = Provider.of<AppNavigationBarProvider>(context);
     var enable = provider.enable;
     var currentIndex = provider.currentIndex;
-
+    print('navbar $currentIndex');
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 10),
-      margin: const EdgeInsets.symmetric(horizontal: 5),
+      margin: const EdgeInsets.symmetric(
+        vertical: 10,
+        horizontal: 10,
+      ),
       decoration: AppContainerStyle.border.copyWith(
         color: AppColors.darkGreen,
       ),
@@ -52,6 +55,7 @@ class _AppNavigationBarState extends State<AppNavigationBar> {
                   enable = false;
                 }
                 widget.onTap?.call(currentIndex);
+                enable = true;
               },
               child: widget.items.indexOf(item) == currentIndex
                   ? Container(

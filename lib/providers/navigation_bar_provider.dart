@@ -15,5 +15,6 @@ class AppNavigationBarProvider extends ChangeNotifier {
 
   set enable(isEnable) {
     _enable = isEnable;
+    notifyListeners();
   }
 }

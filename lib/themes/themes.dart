@@ -116,3 +116,16 @@ class AppContainerStyle {
     borderRadius: BorderRadius.circular(30),
   );
 }
+
+class AppButtonStyle {
+  static final boder = ElevatedButton.styleFrom(
+    backgroundColor: AppColors.base,
+    side: const BorderSide(
+      width: 3,
+      color: AppColors.black,
+    ),
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(30),
+    ),
+  );
+}
