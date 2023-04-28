@@ -1,4 +1,3 @@
-import 'package:dictionary/screens/widgets/app_buttons.dart';
 import 'package:dictionary/themes/themes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -181,16 +180,18 @@ class UserScreen extends StatelessWidget {
                 endIndent: 20,
               ),
               const SizedBox(height: 10),
-              AppButton(
+              ElevatedButton.icon(
+                onPressed: () {},
+                style: AppButtonStyle.boder,
                 icon: const Icon(
                   CupertinoIcons.square_arrow_right,
+                  size: 50,
                   color: AppColors.black,
                 ),
                 label: Text(
                   'Log out',
                   style: AppTextStyle.bold15,
                 ),
-                onPressed: () {},
               ),
             ],
           ),

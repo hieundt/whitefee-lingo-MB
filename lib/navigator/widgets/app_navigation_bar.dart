@@ -1,7 +1,5 @@
-import 'package:dictionary/providers/navigation_bar_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import '../../themes/themes.dart';
 
 class AppNavigationBarItem {
@@ -12,70 +10,52 @@ class AppNavigationBarItem {
   });
 }
 
-class AppNavigationBar extends StatefulWidget {
+class AppNavigationBar extends StatelessWidget {
   final List<AppNavigationBarItem> items;
-  final ValueChanged<int>? onTap;
+  final int currentIndex;
+  final Function(int)? onTap;
 
   const AppNavigationBar({
     super.key,
     required this.items,
+    this.currentIndex = 0,
     this.onTap,
   });
 
   @override
-  State<AppNavigationBar> createState() => _AppNavigationBarState();
-}
-
-class _AppNavigationBarState extends State<AppNavigationBar> {
-  @override
   Widget build(BuildContext context) {
-    var provider = Provider.of<AppNavigationBarProvider>(context);
-    var enable = provider.enable;
-    var currentIndex = provider.currentIndex;
-    print('navbar $currentIndex');
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 10),
       margin: const EdgeInsets.symmetric(
-        vertical: 10,
-        horizontal: 10,
+        horizontal: 5,
+        vertical: 5,
       ),
+      height: 65,
       decoration: AppContainerStyle.border.copyWith(
         color: AppColors.darkGreen,
       ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: widget.items.map(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: items.map(
           (item) {
             return GestureDetector(
-              onTap: () {
-                if (!enable) {
-                  return;
-                } else {
-                  currentIndex = widget.items.indexOf(item);
-                  enable = false;
-                }
-                widget.onTap?.call(currentIndex);
-                enable = true;
-              },
-              child: widget.items.indexOf(item) == currentIndex
+              onTap: () => onTap?.call(items.indexOf(item)),
+              child: items.indexOf(item) == currentIndex
                   ? Container(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 5,
-                        horizontal: 15,
-                      ),
+                      width: 65,
                       decoration: AppContainerStyle.border.copyWith(
                         color: AppColors.yellow,
                       ),
                       child: Icon(
                         item.icon,
                         color: AppColors.black,
-                        size: 50,
+                        size: 35,
                       ),
                     )
                   : Icon(
                       item.icon,
                       color: AppColors.white,
-                      size: 50,
+                      size: 35,
                     ),
             );
           },

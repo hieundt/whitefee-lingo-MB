@@ -1,11 +1,11 @@
 import 'package:dictionary/navigator/widgets/app_navigation_bar.dart';
-import 'package:dictionary/screens/game/game.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/navigation_bar_provider.dart';
 import '../screens/auth/user_screen.dart';
 import '../screens/dictionary/dictionary_screen.dart';
+import '../screens/game/words_game_screen.dart';
 import '../screens/training/training_screen.dart';
 import '../themes/themes.dart';
 
@@ -20,7 +20,7 @@ class _NavigatorScreenState extends State<NavigatorScreen> {
   final pages = [
     const DictionaryScreen(),
     const TrainingScreen(),
-    const GameScreen(),
+    const WordsGameScreen(),
     const UserScreen(),
   ];
 
@@ -61,6 +61,7 @@ class _NavigatorScreenState extends State<NavigatorScreen> {
             AppNavigationBarItem(icon: CupertinoIcons.rocket_fill),
             AppNavigationBarItem(icon: CupertinoIcons.person_fill),
           ],
+          currentIndex: pageIndex,
           onTap: (changedIndex) {
             provider.currentIndex = changedIndex;
           },

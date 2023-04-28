@@ -1,7 +1,9 @@
-import 'package:dictionary/screens/widgets/app_text_fields.dart';
-import 'package:dictionary/themes/themes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../../providers/dictionary_provider.dart';
+import '../../themes/themes.dart';
+import '../widgets/app_text_fields.dart';
 
 class HeaderWidget extends StatelessWidget {
   const HeaderWidget({super.key});
@@ -47,11 +49,18 @@ class HeaderWidget extends StatelessWidget {
   }
 }
 
-class DictionaryScreen extends StatelessWidget {
+class DictionaryScreen extends StatefulWidget {
   const DictionaryScreen({super.key});
 
   @override
+  State<DictionaryScreen> createState() => _DictionaryScreenState();
+}
+
+class _DictionaryScreenState extends State<DictionaryScreen> {
+  @override
   Widget build(BuildContext context) {
+    //var provider = Provider.of<DictionaryProvider>(context);
+
     return ListView(
       children: [
         const HeaderWidget(),
@@ -70,9 +79,9 @@ class DictionaryScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Expanded(
+                    flex: 2,
                     child: Column(
                       children: [
                         Text(
@@ -91,10 +100,31 @@ class DictionaryScreen extends StatelessWidget {
                     ),
                   ),
                   const Expanded(
+                    flex: 2,
                     child: Icon(
                       CupertinoIcons.speaker_3,
                       size: 40,
                     ),
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: GestureDetector(
+                        onTap: () {
+                          // var markFavorite = provider.markFavorite;
+                          // markFavorite;
+                        },
+                        child: // provider.isFavorite
+                            // ?
+                            const Icon(
+                          CupertinoIcons.bookmark_fill,
+                          size: 50,
+                          color: AppColors.darkBrown,
+                        )
+                        // : const Icon(
+                        //     CupertinoIcons.bookmark,
+                        //     size: 50,
+                        //   ),
+                        ),
                   ),
                 ],
               ),

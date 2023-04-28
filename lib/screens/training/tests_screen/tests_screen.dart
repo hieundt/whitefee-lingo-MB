@@ -10,12 +10,12 @@ class TestsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final tests = [
       'Photos',
-      'Question - Response',
-      'Short conversations',
-      'Short talk',
-      'Incomplete sentences',
-      'Text completion',
-      'Reading comprehension',
+      'Ques - Res',
+      'Conversations',
+      'Short Talk',
+      'Sentences',
+      'Complete Text',
+      'Reading',
     ];
 
     return Scaffold(
@@ -46,27 +46,36 @@ class TestsScreen extends StatelessWidget {
         centerTitle: true,
       ),
       body: GridView.builder(
+        padding: const EdgeInsets.all(10),
         gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-            maxCrossAxisExtent: 200,
-            childAspectRatio: 3 / 2,
-            crossAxisSpacing: 20,
-            mainAxisSpacing: 20),
+          maxCrossAxisExtent: 300,
+          crossAxisSpacing: 20,
+          mainAxisSpacing: 10,
+        ),
         itemCount: tests.length,
         itemBuilder: (context, index) {
-          return Container(
-            decoration: AppContainerStyle.border.copyWith(
-              color: AppColors.white,
-            ),
-            child: Column(
-              children: [
-                Image.network(
-                  'https://cdn-icons-png.flaticon.com/128/3068/3068553.png',
-                ),
-                Text(
-                  tests[index],
-                  style: AppTextStyle.medium20,
-                ),
-              ],
+          return GestureDetector(
+            onTap: () {},
+            child: Container(
+              decoration: AppContainerStyle.border.copyWith(
+                color: AppColors.white,
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Image.network(
+                    'https://cdn-icons-png.flaticon.com/128/3068/3068553.png',
+                    width: 100,
+                    height: 60,
+                  ),
+                  const SizedBox(height: 10),
+                  Text(
+                    tests[index],
+                    style: AppTextStyle.medium15,
+                  ),
+                ],
+              ),
             ),
           );
         },
