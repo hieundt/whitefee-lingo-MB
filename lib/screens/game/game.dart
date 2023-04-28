@@ -1,3 +1,4 @@
+import 'package:dictionary/themes/themes.dart';
 import 'package:flutter/material.dart';
 
 class GameScreen extends StatelessWidget {
@@ -5,6 +6,6 @@ class GameScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Placeholder();
   }
 }

@@ -26,8 +26,8 @@ class _NavigatorScreenState extends State<NavigatorScreen> {
 
   @override
   Widget build(BuildContext context) {
-    int pageIndex = context.watch<AppNavigationBarProvider>().currentIndex;
-
+    var provider = Provider.of<AppNavigationBarProvider>(context);
+    int pageIndex = provider.currentIndex;
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -53,35 +53,51 @@ class _NavigatorScreenState extends State<NavigatorScreen> {
           padding: const EdgeInsets.all(10),
           child: pages.elementAt(pageIndex),
         ),
-        bottomNavigationBar: BottomNavigationBar(
-          type: BottomNavigationBarType.fixed,
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(CupertinoIcons.house_alt_fill),
-              label: 'Home',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(CupertinoIcons.create),
-              label: 'Training',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(CupertinoIcons.rocket_fill),
-              label: 'Game',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(CupertinoIcons.person_fill),
-              label: 'User',
-            ),
+        bottomNavigationBar: AppNavigationBar(
+          items: [
+            AppNavigationBarItem(icon: CupertinoIcons.house_alt_fill),
+            AppNavigationBarItem(icon: CupertinoIcons.create),
+            AppNavigationBarItem(icon: CupertinoIcons.rocket_fill),
+            AppNavigationBarItem(icon: CupertinoIcons.person_fill),
           ],
-          currentIndex: pageIndex,
-          backgroundColor: AppColors.darkGreen,
-          unselectedItemColor: AppColors.white,
-          selectedItemColor: AppColors.black,
-          onTap: (changedIndex) => context
-              .read<AppNavigationBarProvider>()
-              .onTapChanged(changedIndex),
+          onTap: (changedIndex) {
+            provider.currentIndex = changedIndex;
+          },
         ),
       ),
     );
   }
 }
+
+
+// BottomNavigationBar(
+//           type: BottomNavigationBarType.fixed,
+//           items: const <BottomNavigationBarItem>[
+//             BottomNavigationBarItem(
+//               icon: Icon(CupertinoIcons.house_alt_fill),
+//               label: 'Home',
+//             ),
+//             BottomNavigationBarItem(
+//               icon: Icon(CupertinoIcons.create),
+//               label: 'Training',
+//             ),
+//             BottomNavigationBarItem(
+//               icon: Icon(CupertinoIcons.rocket_fill),
+//               label: 'Game',
+//             ),
+//             BottomNavigationBarItem(
+//               icon: Icon(CupertinoIcons.person_fill),
+//               label: 'User',
+//             ),
+//           ],
+//           currentIndex: pageIndex,
+//           backgroundColor: AppColors.darkGreen,
+//           unselectedItemColor: AppColors.white,
+//           selectedItemColor: AppColors.black,
+//           onTap: (changedIndex) {
+//             provider.currentIndex = changedIndex;
+//           },
+//           // onTap: (changedIndex) => context
+//           //     .read<AppNavigationBarProvider>()
+//           //     .currentIndex(changedIndex),
+//         ),
