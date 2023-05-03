@@ -43,6 +43,7 @@ dependencies:
 
   email_validator: ^2.1.17
   uuid: ^3.0.7
+  audioplayers: ^4.0.1
 
 
 
