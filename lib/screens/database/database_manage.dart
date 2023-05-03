@@ -137,6 +137,39 @@ class ManageTest extends StatefulWidget {
 }
 
 class _ManageTestState extends State<ManageTest> {
+  late TextEditingController _type;
+  late TextEditingController _word;
+  late TextEditingController _hint;
+
+  late TextEditingController _phonetics;
+  late TextEditingController _pronounce;
+  late TextEditingController _image;
+  late TextEditingController _meaning;
+
+  @override
+  void initState() {
+    _type = TextEditingController();
+    _word = TextEditingController();
+    _hint = TextEditingController();
+    _phonetics = TextEditingController();
+    _pronounce = TextEditingController();
+    _image = TextEditingController();
+    _meaning = TextEditingController();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _type.dispose();
+    _word.dispose();
+    _hint.dispose();
+    _phonetics.dispose();
+    _pronounce.dispose();
+    _image.dispose();
+    _meaning.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -151,7 +184,7 @@ class _ManageTestState extends State<ManageTest> {
                 style: AppTextStyle.bold35,
               ),
               const TextField(
-                decoration: InputDecoration(hintText: 'Question Id'),
+                decoration: InputDecoration(hintText: 'Option Id'),
               ),
               const TextField(
                 decoration: InputDecoration(hintText: 'value'),
@@ -200,16 +233,16 @@ class _ManageTestState extends State<ManageTest> {
                 child: Column(
                   children: const [
                     TextField(
-                      decoration: InputDecoration(hintText: 'Question A Id Id'),
+                      decoration: InputDecoration(hintText: 'Option A Id '),
                     ),
                     TextField(
-                      decoration: InputDecoration(hintText: 'Question B Id Id'),
+                      decoration: InputDecoration(hintText: 'Option B Id '),
                     ),
                     TextField(
-                      decoration: InputDecoration(hintText: 'Question C Id Id'),
+                      decoration: InputDecoration(hintText: 'Option C Id '),
                     ),
                     TextField(
-                      decoration: InputDecoration(hintText: 'Question D Id Id'),
+                      decoration: InputDecoration(hintText: 'Option D Id '),
                     ),
                   ],
                 ),
