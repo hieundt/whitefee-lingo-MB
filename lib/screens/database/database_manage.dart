@@ -2,8 +2,6 @@ import 'package:dictionary/themes/themes.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
-class Api {}
-
 //*Vocabulary
 class ManageVocabulary extends StatefulWidget {
   const ManageVocabulary({super.key});
@@ -137,36 +135,73 @@ class ManageTest extends StatefulWidget {
 }
 
 class _ManageTestState extends State<ManageTest> {
-  late TextEditingController _type;
-  late TextEditingController _word;
-  late TextEditingController _hint;
+  late TextEditingController _optValue;
+  late TextEditingController _optCorrect;
 
-  late TextEditingController _phonetics;
-  late TextEditingController _pronounce;
-  late TextEditingController _image;
-  late TextEditingController _meaning;
+  late TextEditingController _quesType;
+  late TextEditingController _quesTitle;
+  late TextEditingController _quesDes;
+  late TextEditingController _quesAns;
+  late TextEditingController _quesPoint;
+  late TextEditingController _quesOptA;
+  late TextEditingController _quesOptB;
+  late TextEditingController _quesOptC;
+  late TextEditingController _quesOptD;
 
+  late TextEditingController _testName;
+  late TextEditingController _testImage;
+  late TextEditingController _testQues1;
+  late TextEditingController _testQues2;
+  late TextEditingController _testQues3;
+  late TextEditingController _testQues4;
+  late TextEditingController _testQues5;
   @override
   void initState() {
-    _type = TextEditingController();
-    _word = TextEditingController();
-    _hint = TextEditingController();
-    _phonetics = TextEditingController();
-    _pronounce = TextEditingController();
-    _image = TextEditingController();
-    _meaning = TextEditingController();
+    _optValue = TextEditingController();
+    _optCorrect = TextEditingController();
+
+    _quesType = TextEditingController();
+    _quesTitle = TextEditingController();
+    _quesDes = TextEditingController();
+    _quesAns = TextEditingController();
+    _quesPoint = TextEditingController();
+    _quesOptA = TextEditingController();
+    _quesOptB = TextEditingController();
+    _quesOptC = TextEditingController();
+    _quesOptD = TextEditingController();
+
+    _testName = TextEditingController();
+    _testImage = TextEditingController();
+    _testQues1 = TextEditingController();
+    _testQues2 = TextEditingController();
+    _testQues3 = TextEditingController();
+    _testQues4 = TextEditingController();
+    _testQues5 = TextEditingController();
     super.initState();
   }
 
   @override
   void dispose() {
-    _type.dispose();
-    _word.dispose();
-    _hint.dispose();
-    _phonetics.dispose();
-    _pronounce.dispose();
-    _image.dispose();
-    _meaning.dispose();
+    _optValue.dispose();
+    _optCorrect.dispose();
+
+    _quesType.dispose();
+    _quesTitle.dispose();
+    _quesDes.dispose();
+    _quesAns.dispose();
+    _quesPoint.dispose();
+    _quesOptA.dispose();
+    _quesOptB.dispose();
+    _quesOptC.dispose();
+    _quesOptD.dispose();
+
+    _testName.dispose();
+    _testImage.dispose();
+    _testQues1.dispose();
+    _testQues2.dispose();
+    _testQues3.dispose();
+    _testQues4.dispose();
+    _testQues5.dispose();
     super.dispose();
   }
 
@@ -175,134 +210,251 @@ class _ManageTestState extends State<ManageTest> {
     return Column(
       children: [
         //*Option
-        Container(
-          decoration: AppContainerStyle.border,
-          child: Column(
-            children: [
-              Text(
-                'Option',
-                style: AppTextStyle.bold35,
-              ),
-              const TextField(
-                decoration: InputDecoration(hintText: 'Option Id'),
-              ),
-              const TextField(
-                decoration: InputDecoration(hintText: 'value'),
-              ),
-              const TextField(
-                decoration: InputDecoration(hintText: 'isCorrect'),
-              ),
-              ElevatedButton(
-                onPressed: () {},
-                child: const Text('Add'),
-              ),
-            ],
+        FutureBuilder(
+          future: Dio().get(
+            'https://backenddictionary-production.up.railway.app/option',
           ),
+          builder: (context, snapshot) {
+            if (!(snapshot.connectionState == ConnectionState.waiting)) {
+              return Container(
+                decoration: AppContainerStyle.border,
+                child: Column(
+                  children: [
+                    Text(
+                      'Option',
+                      style: AppTextStyle.bold35,
+                    ),
+                    TextField(
+                      controller: _optValue,
+                      decoration: const InputDecoration(hintText: 'value'),
+                    ),
+                    TextField(
+                      controller: _optCorrect,
+                      decoration: const InputDecoration(hintText: 'isCorrect'),
+                    ),
+                    ElevatedButton(
+                      onPressed: () async {
+                        await Dio().post(
+                          'https://backenddictionary-production.up.railway.app/option',
+                          data: {
+                            "value": _optValue.text.toString().trim(),
+                            "correct": _optCorrect.text.toString().trim()
+                          },
+                        );
+                        setState(() {
+                          _optValue.clear();
+                          _optCorrect.clear();
+                        });
+                      },
+                      child: const Text('Add'),
+                    ),
+                  ],
+                ),
+              );
+            } else {
+              return const CircularProgressIndicator();
+            }
+          },
         ),
+
         const SizedBox(height: 20),
         //*Question
-        Container(
-          decoration: AppContainerStyle.border,
-          child: Column(
-            children: [
-              Text(
-                'Question',
-                style: AppTextStyle.bold35,
-              ),
-              const TextField(
-                decoration: InputDecoration(hintText: 'Question id'),
-              ),
-              const TextField(
-                decoration: InputDecoration(hintText: 'type'),
-              ),
-              const TextField(
-                decoration: InputDecoration(hintText: 'title'),
-              ),
-              const TextField(
-                decoration: InputDecoration(hintText: 'description'),
-              ),
-              const TextField(
-                decoration: InputDecoration(hintText: 'answer'),
-              ),
-              const TextField(
-                decoration: InputDecoration(hintText: 'point'),
-              ),
-              Container(
-                decoration:
-                    AppContainerStyle.border.copyWith(color: AppColors.white),
+        FutureBuilder(
+          future: Dio().get(
+            'https://backenddictionary-production.up.railway.app/question',
+          ),
+          builder: (context, snapshot) {
+            if (!(snapshot.connectionState == ConnectionState.waiting)) {
+              return Container(
+                decoration: AppContainerStyle.border,
                 child: Column(
-                  children: const [
-                    TextField(
-                      decoration: InputDecoration(hintText: 'Option A Id '),
+                  children: [
+                    Text(
+                      'Question',
+                      style: AppTextStyle.bold35,
                     ),
                     TextField(
-                      decoration: InputDecoration(hintText: 'Option B Id '),
+                      controller: _quesType,
+                      decoration: const InputDecoration(hintText: 'type'),
                     ),
                     TextField(
-                      decoration: InputDecoration(hintText: 'Option C Id '),
+                      controller: _quesTitle,
+                      decoration: const InputDecoration(hintText: 'title'),
                     ),
                     TextField(
-                      decoration: InputDecoration(hintText: 'Option D Id '),
+                      controller: _quesDes,
+                      decoration:
+                          const InputDecoration(hintText: 'description'),
+                    ),
+                    TextField(
+                      controller: _quesAns,
+                      decoration: const InputDecoration(hintText: 'answer'),
+                    ),
+                    TextField(
+                      controller: _quesPoint,
+                      decoration: const InputDecoration(hintText: 'point'),
+                    ),
+                    Container(
+                      decoration: AppContainerStyle.border
+                          .copyWith(color: AppColors.white),
+                      child: Column(
+                        children: [
+                          TextField(
+                            controller: _quesOptA,
+                            decoration:
+                                const InputDecoration(hintText: 'Option A Id '),
+                          ),
+                          TextField(
+                            controller: _quesOptB,
+                            decoration:
+                                const InputDecoration(hintText: 'Option B Id '),
+                          ),
+                          TextField(
+                            controller: _quesOptC,
+                            decoration:
+                                const InputDecoration(hintText: 'Option C Id '),
+                          ),
+                          TextField(
+                            controller: _quesOptD,
+                            decoration:
+                                const InputDecoration(hintText: 'Option D Id '),
+                          ),
+                        ],
+                      ),
+                    ),
+                    ElevatedButton(
+                      onPressed: () async {
+                        await Dio().post(
+                          'https://backenddictionary-production.up.railway.app/question',
+                          data: {
+                            "type": _quesType.text.toString().trim(),
+                            "title": _quesTitle.text.toString().trim(),
+                            "description": _quesDes.text.toString().trim(),
+                            "answer": _quesAns.text.toString().trim(),
+                            "point": _quesPoint.text.toString().trim(),
+                            "options": [
+                              _quesOptA.text.toString().trim(),
+                              _quesOptB.text.toString().trim(),
+                              _quesOptC.text.toString().trim(),
+                              _quesOptD.text.toString().trim()
+                            ]
+                          },
+                        );
+                        setState(() {
+                          _quesType.clear();
+                          _quesTitle.clear();
+                          _quesDes.clear();
+                          _quesAns.clear();
+                          _quesPoint.clear();
+                          _quesOptA.clear();
+                          _quesOptB.clear();
+                          _quesOptC.clear();
+                          _quesOptD.clear();
+                        });
+                      },
+                      child: const Text('Add'),
                     ),
                   ],
                 ),
-              ),
-              ElevatedButton(
-                onPressed: () {},
-                child: const Text('Add'),
-              ),
-            ],
-          ),
+              );
+            } else {
+              return const CircularProgressIndicator();
+            }
+          },
         ),
+
         const SizedBox(height: 20),
         //*Test
-        Container(
-          decoration: AppContainerStyle.border,
-          child: Column(
-            children: [
-              Text(
-                'Test',
-                style: AppTextStyle.bold35,
-              ),
-              const TextField(
-                decoration: InputDecoration(hintText: 'Test id'),
-              ),
-              const TextField(
-                decoration: InputDecoration(hintText: 'name'),
-              ),
-              const TextField(
-                decoration:
-                    InputDecoration(hintText: 'Unit Has Vocabulary Id '),
-              ),
-              Container(
-                decoration:
-                    AppContainerStyle.border.copyWith(color: AppColors.white),
+        FutureBuilder(
+          future: Dio().get(
+            'https://backenddictionary-production.up.railway.app/test',
+          ),
+          builder: (context, snapshot) {
+            if (!(snapshot.connectionState == ConnectionState.waiting)) {
+              return Container(
+                decoration: AppContainerStyle.border,
                 child: Column(
-                  children: const [
-                    TextField(
-                      decoration: InputDecoration(hintText: 'Question 1 Id'),
+                  children: [
+                    Text(
+                      'Test',
+                      style: AppTextStyle.bold35,
                     ),
                     TextField(
-                      decoration: InputDecoration(hintText: 'Question 2 Id'),
+                      controller: _testName,
+                      decoration: const InputDecoration(hintText: 'name'),
                     ),
                     TextField(
-                      decoration: InputDecoration(hintText: 'Question 3 Id'),
+                      controller: _testImage,
+                      decoration: const InputDecoration(hintText: 'Image'),
                     ),
-                    TextField(
-                      decoration: InputDecoration(hintText: 'Question 4 Id'),
+                    Container(
+                      decoration: AppContainerStyle.border
+                          .copyWith(color: AppColors.white),
+                      child: Column(
+                        children: [
+                          TextField(
+                            controller: _testQues1,
+                            decoration: const InputDecoration(
+                                hintText: 'Question 1 Id'),
+                          ),
+                          TextField(
+                            controller: _testQues2,
+                            decoration: const InputDecoration(
+                                hintText: 'Question 2 Id'),
+                          ),
+                          TextField(
+                            controller: _testQues3,
+                            decoration: const InputDecoration(
+                                hintText: 'Question 3 Id'),
+                          ),
+                          TextField(
+                            controller: _testQues4,
+                            decoration: const InputDecoration(
+                                hintText: 'Question 4 Id'),
+                          ),
+                          TextField(
+                            controller: _testQues5,
+                            decoration: const InputDecoration(
+                                hintText: 'Question 5 Id'),
+                          ),
+                        ],
+                      ),
                     ),
-                    TextField(
-                      decoration: InputDecoration(hintText: 'Question 5 Id'),
+                    ElevatedButton(
+                      onPressed: () async {
+                        await Dio().post(
+                          'https://backenddictionary-production.up.railway.app/test',
+                          data: {
+                            "name": _testName.text.toString().trim(),
+                            "image": _testImage.text.toString().trim(),
+                            "questions": [
+                              _testQues1.text.toString().trim(),
+                              _testQues2.text.toString().trim(),
+                              _testQues3.text.toString().trim(),
+                              _testQues4.text.toString().trim(),
+                              _testQues5.text.toString().trim()
+                            ]
+                          },
+                        );
+                        setState(() {
+                          _testName.clear();
+                          _testImage.clear();
+                          _testQues1.clear();
+                          _testQues2.clear();
+                          _testQues3.clear();
+                          _testQues4.clear();
+                          _testQues5.clear();
+                        });
+                      },
+                      child: const Text('Add'),
                     ),
                   ],
                 ),
-              ),
-              ElevatedButton(
-                onPressed: () {},
-                child: const Text('Add'),
-              ),
-            ],
-          ),
+              );
+            } else {
+              return const CircularProgressIndicator();
+            }
+          },
         ),
       ],
     );
@@ -328,14 +480,10 @@ class ManageUnit extends StatelessWidget {
                 style: AppTextStyle.bold35,
               ),
               const TextField(
-                decoration: InputDecoration(hintText: 'Question 1 Id'),
-              ),
-              const TextField(
                 decoration: InputDecoration(hintText: 'name'),
               ),
               const TextField(
-                decoration:
-                    InputDecoration(hintText: 'Unit Has Vocabulary Id '),
+                decoration: InputDecoration(hintText: 'image'),
               ),
               Container(
                 decoration: AppContainerStyle.border.copyWith(
@@ -371,18 +519,6 @@ class ManageUnit extends StatelessWidget {
                       decoration:
                           InputDecoration(hintText: 'Unit Has Vocabulary Id 7'),
                     ),
-                    TextField(
-                      decoration:
-                          InputDecoration(hintText: 'Unit Has Vocabulary Id 8'),
-                    ),
-                    TextField(
-                      decoration:
-                          InputDecoration(hintText: 'Unit Has Vocabulary Id 9'),
-                    ),
-                    TextField(
-                      decoration: InputDecoration(
-                          hintText: 'Unit Has Vocabulary Id 10'),
-                    ),
                   ],
                 ),
               ),
@@ -403,9 +539,6 @@ class ManageUnit extends StatelessWidget {
               Text(
                 'Unit Has Vocabularies',
                 style: AppTextStyle.bold35,
-              ),
-              const TextField(
-                decoration: InputDecoration(hintText: 'Id'),
               ),
               const TextField(
                 decoration: InputDecoration(hintText: 'Unit Id'),
@@ -438,11 +571,11 @@ class DatabaseMange extends StatelessWidget {
       body: ListView(
         padding: const EdgeInsets.all(20),
         children: const [
-          ManageVocabulary(),
+          //ManageVocabulary(),
           SizedBox(height: 20),
           ManageTest(),
           SizedBox(height: 20),
-          ManageUnit(),
+          //ManageUnit(),
         ],
       ),
     );
