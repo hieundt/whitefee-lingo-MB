@@ -1,4 +1,4 @@
-import 'package:dictionary/themes/themes.dart';
+import 'package:dictionary/res/themes.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

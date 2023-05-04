@@ -1,6 +1,7 @@
+import 'package:dictionary/res/images.dart';
 import 'package:dictionary/routes.dart';
 import 'package:flutter/material.dart';
-import '../../themes/themes.dart';
+import '../../res/themes.dart';
 import '../widgets/app_containers.dart';
 
 class GreetingWidget extends StatelessWidget {
@@ -74,20 +75,17 @@ class TrainingScreen extends StatelessWidget {
         const SizedBox(height: 10),
         GestureDetector(
           onTap: () {
-            print('unit');
             Navigator.of(context).pushNamed(AppRoutes.unitsScreen);
           },
           child: AppHorizontalContainer(
             contentName: 'Training',
             title: 'Unit',
             description: 'Learn new vocabulary pronunciation',
-            image: Image.network(
-              'https://cdn-icons-png.flaticon.com/512/2232/2232688.png',
+            image: Image.asset(
+              TrainingScreenImage.unit,
             ),
             progressValue: '10',
             progressTitle: 'Finished',
-            scoreValue: '136',
-            scoreTitle: 'Total point',
             mainColor: AppColors.lightGreen,
             leadingColor: AppColors.darkGreen,
             leadingTitleColor: AppColors.white,
@@ -96,15 +94,14 @@ class TrainingScreen extends StatelessWidget {
         const SizedBox(height: 20),
         GestureDetector(
           onTap: () {
-            print('test');
             Navigator.of(context).pushNamed(AppRoutes.testsScreen);
           },
           child: AppHorizontalContainer(
             contentName: 'Training',
             title: 'Test',
             description: 'Our test simulator will help you!',
-            image: Image.network(
-              'https://cdn-icons-png.flaticon.com/128/3068/3068553.png',
+            image: Image.asset(
+              TrainingScreenImage.test,
             ),
             progressValue: '3',
             progressTitle: 'Finished',

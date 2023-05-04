@@ -1,4 +1,4 @@
-import 'package:dictionary/themes/themes.dart';
+import 'package:dictionary/res/themes.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
@@ -462,97 +462,142 @@ class _ManageTestState extends State<ManageTest> {
 }
 
 //*Unit
-class ManageUnit extends StatelessWidget {
+class ManageUnit extends StatefulWidget {
   const ManageUnit({super.key});
+
+  @override
+  State<ManageUnit> createState() => _ManageUnitState();
+}
+
+class _ManageUnitState extends State<ManageUnit> {
+  late TextEditingController _unitName;
+  late TextEditingController _unitImage;
+
+  late TextEditingController _unitId;
+  late TextEditingController _vocaId;
+
+  @override
+  void initState() {
+    _unitName = TextEditingController();
+    _unitImage = TextEditingController();
+
+    _unitId = TextEditingController();
+    _vocaId = TextEditingController();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _unitName.dispose();
+    _unitImage.dispose();
+
+    _unitId.dispose();
+    _vocaId.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Container(
-          decoration: AppContainerStyle.border.copyWith(
-            color: AppColors.lightGreen,
+        FutureBuilder(
+          future: Dio().get(
+            'https://backenddictionary-production.up.railway.app/unit',
           ),
-          child: Column(
-            children: [
-              Text(
-                'Unit',
-                style: AppTextStyle.bold35,
-              ),
-              const TextField(
-                decoration: InputDecoration(hintText: 'name'),
-              ),
-              const TextField(
-                decoration: InputDecoration(hintText: 'image'),
-              ),
-              Container(
+          builder: (context, snapshot) {
+            if (!(snapshot.connectionState == ConnectionState.waiting)) {
+              return Container(
                 decoration: AppContainerStyle.border.copyWith(
-                  color: AppColors.white,
+                  color: AppColors.lightGreen,
                 ),
                 child: Column(
-                  children: const [
-                    TextField(
-                      decoration:
-                          InputDecoration(hintText: 'Unit Has Vocabulary Id 1'),
+                  children: [
+                    Text(
+                      'Unit',
+                      style: AppTextStyle.bold35,
                     ),
                     TextField(
-                      decoration:
-                          InputDecoration(hintText: 'Unit Has Vocabulary Id 2'),
+                      controller: _unitName,
+                      decoration: const InputDecoration(hintText: 'name'),
                     ),
                     TextField(
-                      decoration:
-                          InputDecoration(hintText: 'Unit Has Vocabulary Id 3'),
+                      controller: _unitImage,
+                      decoration: const InputDecoration(hintText: 'image'),
                     ),
-                    TextField(
-                      decoration:
-                          InputDecoration(hintText: 'Unit Has Vocabulary Id 4'),
-                    ),
-                    TextField(
-                      decoration:
-                          InputDecoration(hintText: 'Unit Has Vocabulary Id 5'),
-                    ),
-                    TextField(
-                      decoration:
-                          InputDecoration(hintText: 'Unit Has Vocabulary Id 6'),
-                    ),
-                    TextField(
-                      decoration:
-                          InputDecoration(hintText: 'Unit Has Vocabulary Id 7'),
+                    ElevatedButton(
+                      onPressed: () async {
+                        await Dio().post(
+                          'https://backenddictionary-production.up.railway.app/unit',
+                          data: {
+                            "name": _unitName.text.toString().trim(),
+                            "image": _unitImage.text.toString().trim(),
+                          },
+                        );
+                        setState(() {
+                          _unitName.clear();
+                          _unitImage.clear();
+                        });
+                      },
+                      child: const Text('Add'),
                     ),
                   ],
                 ),
-              ),
-              ElevatedButton(
-                onPressed: () {},
-                child: const Text('Add'),
-              ),
-            ],
-          ),
+              );
+            } else {
+              return const CircularProgressIndicator();
+            }
+          },
         ),
         const SizedBox(height: 20),
-        Container(
-          decoration: AppContainerStyle.border.copyWith(
-            color: AppColors.lightGreen,
+        FutureBuilder(
+          future: Dio().get(
+            'https://backenddictionary-production.up.railway.app/unithasvocabulary',
           ),
-          child: Column(
-            children: [
-              Text(
-                'Unit Has Vocabularies',
-                style: AppTextStyle.bold35,
-              ),
-              const TextField(
-                decoration: InputDecoration(hintText: 'Unit Id'),
-              ),
-              const TextField(
-                decoration: InputDecoration(hintText: 'Vocabulary Id'),
-              ),
-              ElevatedButton(
-                onPressed: () {},
-                child: const Text('Add'),
-              ),
-            ],
-          ),
-        )
+          builder: (context, snapshot) {
+            if (!(snapshot.connectionState == ConnectionState.waiting)) {
+              return Container(
+                decoration: AppContainerStyle.border.copyWith(
+                  color: AppColors.lightGreen,
+                ),
+                child: Column(
+                  children: [
+                    Text(
+                      'Unit Has Vocabularies',
+                      style: AppTextStyle.bold35,
+                    ),
+                    TextField(
+                      controller: _unitId,
+                      decoration: const InputDecoration(hintText: 'Unit Id'),
+                    ),
+                    TextField(
+                      controller: _vocaId,
+                      decoration:
+                          const InputDecoration(hintText: 'Vocabulary Id'),
+                    ),
+                    ElevatedButton(
+                      onPressed: () async {
+                        await Dio().post(
+                          'https://backenddictionary-production.up.railway.app/unithasvocabulary',
+                          data: {
+                            "unitId": _unitId.text.toString().trim(),
+                            "vocabularyId": _vocaId.text.toString().trim(),
+                          },
+                        );
+                        setState(() {
+                          //_unitId.clear();
+                          _vocaId.clear();
+                        });
+                      },
+                      child: const Text('Add'),
+                    ),
+                  ],
+                ),
+              );
+            } else {
+              return const CircularProgressIndicator();
+            }
+          },
+        ),
       ],
     );
   }
@@ -573,9 +618,9 @@ class DatabaseMange extends StatelessWidget {
         children: const [
           //ManageVocabulary(),
           SizedBox(height: 20),
-          ManageTest(),
+          //ManageTest(),
           SizedBox(height: 20),
-          //ManageUnit(),
+          ManageUnit(),
         ],
       ),
     );

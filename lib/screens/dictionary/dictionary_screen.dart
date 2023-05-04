@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../providers/dictionary_provider.dart';
-import '../../themes/themes.dart';
+import '../../res/themes.dart';
 import '../widgets/app_text_fields.dart';
 
 class HeaderWidget extends StatelessWidget {

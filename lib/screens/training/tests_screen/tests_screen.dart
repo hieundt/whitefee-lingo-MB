@@ -1,14 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../../themes/themes.dart';
+import '../../../res/images.dart';
+import '../../../res/themes.dart';
 
 class TestsScreen extends StatelessWidget {
   const TestsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final tests = [
+    final testNames = [
       'Photos',
       'Ques - Res',
       'Conversations',
@@ -16,6 +17,16 @@ class TestsScreen extends StatelessWidget {
       'Sentences',
       'Complete Text',
       'Reading',
+    ];
+
+    final image = [
+      TestScreenImage.reading,
+      TestScreenImage.quesRes,
+      TestScreenImage.conversations,
+      TestScreenImage.talk,
+      TestScreenImage.reading,
+      TestScreenImage.text,
+      TestScreenImage.reading,
     ];
 
     return Scaffold(
@@ -52,7 +63,7 @@ class TestsScreen extends StatelessWidget {
           crossAxisSpacing: 20,
           mainAxisSpacing: 10,
         ),
-        itemCount: tests.length,
+        itemCount: testNames.length,
         itemBuilder: (context, index) {
           return GestureDetector(
             onTap: () {},
@@ -64,14 +75,14 @@ class TestsScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Image.network(
-                    'https://cdn-icons-png.flaticon.com/128/3068/3068553.png',
+                  Image.asset(
+                    image[index],
                     width: 100,
                     height: 60,
                   ),
                   const SizedBox(height: 10),
                   Text(
-                    tests[index],
+                    testNames[index],
                     style: AppTextStyle.medium15,
                   ),
                 ],

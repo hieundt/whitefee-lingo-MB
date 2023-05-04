@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../themes/themes.dart';
+import '../../res/themes.dart';
 
 class WordsGameScreen extends StatelessWidget {
   const WordsGameScreen({super.key});

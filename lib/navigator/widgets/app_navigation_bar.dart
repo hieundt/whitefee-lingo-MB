@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../../themes/themes.dart';
+import '../../res/themes.dart';
 
 class AppNavigationBarItem {
   final IconData icon;

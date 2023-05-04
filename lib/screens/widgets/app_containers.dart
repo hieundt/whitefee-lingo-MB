@@ -1,4 +1,4 @@
-import 'package:dictionary/themes/themes.dart';
+import 'package:dictionary/res/themes.dart';
 import 'package:flutter/material.dart';
 
 class AppHorizontalContainer extends StatelessWidget {

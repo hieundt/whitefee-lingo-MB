@@ -7,7 +7,7 @@ import '../screens/auth/user_screen.dart';
 import '../screens/dictionary/dictionary_screen.dart';
 import '../screens/game/words_game_screen.dart';
 import '../screens/training/training_screen.dart';
-import '../themes/themes.dart';
+import '../res/themes.dart';
 
 class NavigatorScreen extends StatefulWidget {
   const NavigatorScreen({super.key});

@@ -1,19 +1,27 @@
+import 'package:dictionary/res/images.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import '../../../themes/themes.dart';
+import '../../../res/themes.dart';
 
 class UnitsScreen extends StatelessWidget {
   const UnitsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final units = [
+    final unitNames = [
       'Education',
       'Travel',
-      'Buisness',
+      'Daily',
       'Technology',
       'Health',
+    ];
+
+    final image = [
+      UnitScreenImgae.education,
+      UnitScreenImgae.education,
+      UnitScreenImgae.travel,
+      UnitScreenImgae.tech,
+      UnitScreenImgae.health,
     ];
 
     return Scaffold(
@@ -50,7 +58,7 @@ class UnitsScreen extends StatelessWidget {
           crossAxisSpacing: 20,
           mainAxisSpacing: 10,
         ),
-        itemCount: units.length,
+        itemCount: unitNames.length,
         itemBuilder: (context, index) {
           return GestureDetector(
             onTap: () {},
@@ -62,14 +70,14 @@ class UnitsScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Image.network(
-                    'https://cdn-icons-png.flaticon.com/128/3068/3068553.png',
+                  Image.asset(
+                    image[index],
                     width: 100,
                     height: 60,
                   ),
                   const SizedBox(height: 10),
                   Text(
-                    units[index],
+                    unitNames[index],
                     style: AppTextStyle.medium15,
                   ),
                 ],
