@@ -1,4 +1,4 @@
-import 'package:dictionary/data/models/option_model/option_model.dart';
+import 'option_model.dart';
 
 class Question {
   String? id;

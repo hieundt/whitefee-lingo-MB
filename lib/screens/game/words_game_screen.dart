@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import '../../data/services/vocabulary_service.dart';
 import '../../res/themes.dart';
 
 class WordsGameScreen extends StatelessWidget {
@@ -9,8 +9,13 @@ class WordsGameScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: GestureDetector(
-        onTap: () {
-          print(' tapped');
+        onTap: () async {
+          final result =
+              await VocabularyService().getVocabularyByWord('sunset');
+          print(result.word);
+
+          final results = await VocabularyService().getAllVocabulary();
+          print(results[4].word);
         },
         child: Container(
           width: 65,

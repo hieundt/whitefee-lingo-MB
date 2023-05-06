@@ -1,44 +1,44 @@
 class Vocabulary {
-  final String id;
-  final String word;
-  final String hint;
-  final String phonetics;
-  final String pronounce;
-  final String image;
-  final String meaning;
-  final bool? isFavorite;
+  String? id;
+  String? type;
+  String? word;
+  String? hint;
+  String? phonetics;
+  String? pronouce;
+  String? image;
+  String? meaning;
 
-  Vocabulary({
-    required this.id,
-    required this.word,
-    required this.hint,
-    required this.phonetics,
-    required this.pronounce,
-    required this.image,
-    required this.meaning,
-    this.isFavorite,
-  });
+  Vocabulary(
+      {this.id,
+      this.type,
+      this.word,
+      this.hint,
+      this.phonetics,
+      this.pronouce,
+      this.image,
+      this.meaning});
 
-  Vocabulary.fromJson(Map<String, dynamic> json)
-      : id = json['id'],
-        word = json['word'],
-        hint = json['hint'],
-        phonetics = json['phonetics'],
-        pronounce = json['pronounce'],
-        image = json['image'],
-        meaning = json['meaning'],
-        isFavorite = json['isFavorite'];
+  Vocabulary.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    type = json['type'];
+    word = json['word'];
+    hint = json['hint'];
+    phonetics = json['phonetics'];
+    pronouce = json['pronouce'];
+    image = json['image'];
+    meaning = json['meaning'];
+  }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
+    data['type'] = type;
     data['word'] = word;
     data['hint'] = hint;
     data['phonetics'] = phonetics;
-    data['pronounce'] = pronounce;
+    data['pronouce'] = pronouce;
     data['image'] = image;
     data['meaning'] = meaning;
-    data['isFavorite'] = isFavorite;
     return data;
   }
 }

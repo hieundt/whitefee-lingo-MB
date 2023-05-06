@@ -1,4 +1,5 @@
-import 'package:dictionary/data/models/question_model/question_model.dart';
+
+import 'question_model.dart';
 
 class Test {
   String? id;
