@@ -1,11 +1,12 @@
+import 'package:dictionary/data/services/vocabulary_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../data/models/vocabulary_model/vocabulary_model.dart';
 
-class DictionarySearchBar extends SearchDelegate<String> {
-  final List<Vocabulary> vocabularies;
+class DictionarySearch extends SearchDelegate<String> {
+  final List<String> words;
 
-  DictionarySearchBar(this.vocabularies);
+  DictionarySearch(this.words);
 
   @override
   List<Widget>? buildActions(BuildContext context) {
@@ -27,8 +28,8 @@ class DictionarySearchBar extends SearchDelegate<String> {
 
   @override
   Widget buildResults(BuildContext context) {
-    final results = vocabularies.where((vocabulary) {
-      return vocabulary.word!.toLowerCase().contains(query.toLowerCase());
+    final results = words.where((vocabulary) {
+      return vocabulary.toLowerCase().contains(query.toLowerCase());
     });
 
     return ListView.builder(
@@ -36,7 +37,7 @@ class DictionarySearchBar extends SearchDelegate<String> {
       itemBuilder: (context, index) {
         return ListTile(
           title: Text(
-            results.elementAt(index) as String,
+            results.elementAt(index),
           ),
         );
       },
@@ -45,8 +46,8 @@ class DictionarySearchBar extends SearchDelegate<String> {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    final suggestions = vocabularies.where((vocabulary) {
-      return vocabulary.word!.toLowerCase().contains(query.toLowerCase());
+    final suggestions = words.where((vocabulary) {
+      return vocabulary.toLowerCase().contains(query.toLowerCase());
     });
 
     return ListView.builder(
@@ -54,7 +55,7 @@ class DictionarySearchBar extends SearchDelegate<String> {
       itemBuilder: (context, index) {
         return ListTile(
           title: Text(
-            suggestions.elementAt(index) as String,
+            suggestions.elementAt(index),
           ),
         );
       },
@@ -62,17 +63,30 @@ class DictionarySearchBar extends SearchDelegate<String> {
   }
 }
 
-class DictionarySearchBarWidget extends StatefulWidget {
-  const DictionarySearchBarWidget({super.key});
+class DictionarySearchBar extends StatefulWidget {
+  const DictionarySearchBar({super.key});
 
   @override
-  State<DictionarySearchBarWidget> createState() =>
-      _DictionarySearchBarWidgetState();
+  State<DictionarySearchBar> createState() => _DictionarySearchBarState();
 }
 
-class _DictionarySearchBarWidgetState extends State<DictionarySearchBarWidget> {
+class _DictionarySearchBarState extends State<DictionarySearchBar> {
+  //final vocabularies = VocabularyService().getAllVocabulary();
+
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return FutureBuilder(
+      future: VocabularyService().getAllVocabulary(),
+      builder: (context, snapshot) {
+        var vocabularies = snapshot.data!;
+        return ListView.builder(
+          itemBuilder: (context, index) {
+            return ListTile(
+                //leading:Text( vocabularies[index].word),
+                );
+          },
+        );
+      },
+    );
   }
 }
