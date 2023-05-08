@@ -1,3 +1,4 @@
+import 'package:dictionary/screens/dictionary/search_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -60,15 +61,15 @@ class _DictionaryScreenState extends State<DictionaryScreen> {
   @override
   Widget build(BuildContext context) {
     //var provider = Provider.of<DictionaryProvider>(context);
+    //void updateList(String value) {}
 
     return ListView(
       children: [
         const HeaderWidget(),
         const SizedBox(height: 20),
-        AppTextFormField(
-          hintText: 'Find interesting words',
-          prefixIcon: const Icon(CupertinoIcons.search),
-        ),
+        // DictionarySearchBar(
+        //   hintText: 'Find interesting words',
+        // ),
         const SizedBox(height: 10),
         Container(
           padding: const EdgeInsets.all(10),
