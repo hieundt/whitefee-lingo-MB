@@ -1,7 +1,8 @@
 import 'package:dictionary/data/models/vocabulary_model/vocabulary_model.dart';
-import 'package:dictionary/data/services/vocabulary_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../../../providers/dictionary_provider.dart';
 import '../../../res/themes.dart';
 
 class DictionarySearchBar extends StatefulWidget {
@@ -20,28 +21,32 @@ class DictionarySearchBar extends StatefulWidget {
 
 class _DictionarySearchBarState extends State<DictionarySearchBar> {
   TextEditingController searchController = TextEditingController();
-  List<Vocabulary> filteredList = [];
+  //List<Vocabulary> filteredList = [];
 
-  void filterSearchResults(String query) {
-    if (query.isNotEmpty) {
-      List<Vocabulary> tempList = [];
-      for (var item in widget.dataList) {
-        if (item.word!.toLowerCase().contains(query.toLowerCase())) {
-          tempList.add(item);
-        }
-      }
-      setState(() {
-        filteredList = tempList;
-      });
-    } else {
-      setState(() {
-        filteredList = [];
-      });
-    }
-  }
+  // void filterSearchResults(String query) {
+  //   if (query.isNotEmpty) {
+  //     List<Vocabulary> tempList = [];
+  //     for (var item in widget.dataList) {
+  //       if (item.word!.toLowerCase().contains(query.toLowerCase())) {
+  //         tempList.add(item);
+  //       }
+  //     }
+  //     setState(() {
+  //       filteredList = tempList;
+  //     });
+  //   } else {
+  //     setState(() {
+  //       filteredList = [];
+  //     });
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<DictionaryProvider>(context);
+    var filteredList = provider.filteredList;
+    var vocabularyList = provider.vocabularyList;
+    vocabularyList = widget.dataList;
     return Column(
       children: [
         Container(
@@ -50,7 +55,7 @@ class _DictionarySearchBarState extends State<DictionarySearchBar> {
             bottom: 10,
           ),
           child: TextFormField(
-            onChanged: filterSearchResults,
+            onChanged: (query) => provider.filterSearchResults(query),
             controller: searchController,
             keyboardType: TextInputType.text,
             autocorrect: false,
@@ -90,7 +95,14 @@ class _DictionarySearchBarState extends State<DictionarySearchBar> {
             itemCount: filteredList.length,
             itemBuilder: (context, index) {
               return ListTile(
-                title: Text(filteredList[index].word!),
+                title: Text(
+                  filteredList[index].word!,
+                  style: AppTextStyle.bold15,
+                ),
+                subtitle: Text(
+                  filteredList[index].type!,
+                  style: AppTextStyle.regular10,
+                ),
                 onTap: () {
                   widget.onItemSelected(filteredList[index]);
                 },

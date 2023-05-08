@@ -9,14 +9,14 @@ import '../screens/game/words_game_screen.dart';
 import '../screens/training/training_screen.dart';
 import '../res/themes.dart';
 
-class NavigatorScreen extends StatefulWidget {
-  const NavigatorScreen({super.key});
+class NavigationScreen extends StatefulWidget {
+  const NavigationScreen({super.key});
 
   @override
-  State<NavigatorScreen> createState() => _NavigatorScreenState();
+  State<NavigationScreen> createState() => _NavigationScreenState();
 }
 
-class _NavigatorScreenState extends State<NavigatorScreen> {
+class _NavigationScreenState extends State<NavigationScreen> {
   final pages = [
     const DictionaryScreen(),
     const TrainingScreen(),
@@ -28,7 +28,7 @@ class _NavigatorScreenState extends State<NavigatorScreen> {
   Widget build(BuildContext context) {
     var provider = Provider.of<AppNavigationBarProvider>(context);
     int pageIndex = provider.currentIndex;
-    print('pageindex $pageIndex');
+    //print('pageindex $pageIndex');
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(

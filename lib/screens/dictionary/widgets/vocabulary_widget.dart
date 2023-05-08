@@ -3,52 +3,6 @@ import 'package:flutter/material.dart';
 import '../../../data/models/vocabulary_model/vocabulary_model.dart';
 import '../../../data/services/vocabulary_service.dart';
 import '../../../res/themes.dart';
-import 'search_bar_widget.dart';
-
-class MockDict extends StatefulWidget {
-  const MockDict({super.key});
-
-  @override
-  State<MockDict> createState() => _MockDictState();
-}
-
-class _MockDictState extends State<MockDict> {
-  String word = 'sunset';
-  void handleItemSelected(Vocabulary selectedItem) {
-    setState(() {
-      word = selectedItem.word!;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      body: FutureBuilder<List<Vocabulary>>(
-        future: VocabularyService().getAllVocabulary(),
-        builder: (context, snapshot) {
-          var vocabularies = snapshot.data!;
-          if (snapshot.connectionState == ConnectionState.done) {
-            return Padding(
-              padding: const EdgeInsets.all(5),
-              child: ListView(
-                children: [
-                  DictionarySearchBar(
-                    dataList: vocabularies,
-                    onItemSelected: handleItemSelected,
-                  ),
-                  VocabularyWidget(displayVocabulary: word),
-                ],
-              ),
-            );
-          } else {
-            return const CircularProgressIndicator();
-          }
-        },
-      ),
-    );
-  }
-}
 
 class VocabularyWidget extends StatelessWidget {
   final String displayVocabulary;

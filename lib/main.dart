@@ -25,9 +25,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) => AppNavigationBarProvider(),
         ),
-        // ChangeNotifierProvider(
-        //   create: (context) => DictionaryProvider(),
-        // ),
+        ChangeNotifierProvider(
+          create: (context) => DictionaryProvider(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: const MockDict(),
+        home: const NavigationScreen(),
         routes: appRoutes,
       ),
     );

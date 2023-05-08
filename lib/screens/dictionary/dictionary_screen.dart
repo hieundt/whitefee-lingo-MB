@@ -1,10 +1,11 @@
 import 'package:dictionary/screens/dictionary/widgets/search_bar_widget.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../data/models/vocabulary_model/vocabulary_model.dart';
+import '../../data/services/vocabulary_service.dart';
 import '../../providers/dictionary_provider.dart';
 import '../../res/themes.dart';
-import '../auth/widgets/app_text_fields.dart';
+import 'widgets/vocabulary_widget.dart';
 
 class HeaderWidget extends StatelessWidget {
   const HeaderWidget({super.key});
@@ -58,19 +59,43 @@ class DictionaryScreen extends StatefulWidget {
 }
 
 class _DictionaryScreenState extends State<DictionaryScreen> {
+  String word = 'sunset';
+
+  void handleItemSelected(Vocabulary selectedItem) {
+    setState(() {
+      word = selectedItem.word!;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    //var provider = Provider.of<DictionaryProvider>(context);
-    //void updateList(String value) {}
-
+    //var vocabularies = Provider.of<DictionaryProvider>(context).vocabularyList;
     return ListView(
       children: [
         const HeaderWidget(),
-        const SizedBox(height: 20),
-        // DictionarySearchBar(
-        //   hintText: 'Find interesting words',
-        // ),
-        const SizedBox(height: 10),
+        FutureBuilder<List<Vocabulary>>(
+          future: VocabularyService().getAllVocabulary(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              var vocabularies = snapshot.data!;
+              return Padding(
+                padding: const EdgeInsets.all(5),
+                child: Column(
+                  children: [
+                    DictionarySearchBar(
+                      dataList: vocabularies,
+                      onItemSelected: handleItemSelected,
+                    ),
+                    const SizedBox(height: 20),
+                    VocabularyWidget(displayVocabulary: word),
+                  ],
+                ),
+              );
+            } else {
+              return const CircularProgressIndicator();
+            }
+          },
+        ),
       ],
     );
   }
