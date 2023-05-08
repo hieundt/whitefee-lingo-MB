@@ -1,3 +1,7 @@
+class DictionaryScreenImage {
+  static const blank = 'assets/blank_space.png';
+}
+
 class TrainingScreenImage {
   static const unit = 'assets/unit.png';
   static const test = 'assets/test.png';
