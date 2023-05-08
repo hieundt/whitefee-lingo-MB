@@ -1,10 +1,10 @@
-import 'package:dictionary/screens/dictionary/search_bar.dart';
+import 'package:dictionary/screens/dictionary/widgets/search_bar_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../providers/dictionary_provider.dart';
 import '../../res/themes.dart';
-import '../widgets/app_text_fields.dart';
+import '../auth/widgets/app_text_fields.dart';
 
 class HeaderWidget extends StatelessWidget {
   const HeaderWidget({super.key});
@@ -71,99 +71,6 @@ class _DictionaryScreenState extends State<DictionaryScreen> {
         //   hintText: 'Find interesting words',
         // ),
         const SizedBox(height: 10),
-        Container(
-          padding: const EdgeInsets.all(10),
-          decoration: AppContainerStyle.border.copyWith(
-            color: AppColors.white,
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Expanded(
-                    flex: 2,
-                    child: Column(
-                      children: [
-                        Text(
-                          'Word',
-                          style: AppTextStyle.medium25,
-                        ),
-                        Text(
-                          'type',
-                          style: AppTextStyle.regular15,
-                        ),
-                        Text(
-                          '/phonetics/',
-                          style: AppTextStyle.regular15,
-                        )
-                      ],
-                    ),
-                  ),
-                  const Expanded(
-                    flex: 2,
-                    child: Icon(
-                      CupertinoIcons.speaker_3,
-                      size: 40,
-                    ),
-                  ),
-                  Expanded(
-                    flex: 1,
-                    child: GestureDetector(
-                        onTap: () {
-                          // var markFavorite = provider.markFavorite;
-                          // markFavorite;
-                        },
-                        child: // provider.isFavorite
-                            // ?
-                            const Icon(
-                          CupertinoIcons.bookmark_fill,
-                          size: 50,
-                          color: AppColors.darkBrown,
-                        )
-                        // : const Icon(
-                        //     CupertinoIcons.bookmark,
-                        //     size: 50,
-                        //   ),
-                        ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 30),
-              const Divider(
-                thickness: 3,
-                indent: 20,
-                endIndent: 20,
-                color: AppColors.black,
-              ),
-              const SizedBox(height: 30),
-              Image.network(
-                'https://cdn-icons-png.flaticon.com/512/384/384998.png',
-                scale: 3,
-              ),
-              const SizedBox(height: 30),
-              Text(
-                'Meaning',
-                style: AppTextStyle.medium25,
-              ),
-              Text(
-                'This is the meaning of the word',
-                style: AppTextStyle.regular15,
-                overflow: TextOverflow.visible,
-              ),
-              const SizedBox(height: 30),
-              Text(
-                'Example',
-                style: AppTextStyle.medium25,
-              ),
-              Text(
-                'This is the hint/example of the word',
-                style: AppTextStyle.regular15,
-                overflow: TextOverflow.visible,
-              ),
-            ],
-          ),
-        )
       ],
     );
   }

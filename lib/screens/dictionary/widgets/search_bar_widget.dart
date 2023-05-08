@@ -1,34 +1,12 @@
 import 'package:dictionary/data/models/vocabulary_model/vocabulary_model.dart';
+import 'package:dictionary/data/services/vocabulary_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../../res/themes.dart';
-
-class MockDict extends StatelessWidget {
-  const MockDict({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      body: Padding(
-        padding: const EdgeInsets.all(5),
-        child: Column(
-          children: [
-            //DictionarySearchBar(),
-            Container(
-              decoration: AppContainerStyle.border,
-              child: Text('This is a mocking text'),
-            )
-          ],
-        ),
-      ),
-    );
-  }
-}
+import '../../../res/themes.dart';
 
 class DictionarySearchBar extends StatefulWidget {
   final List<Vocabulary> dataList;
-  final void Function(Object) onItemSelected;
+  final void Function(Vocabulary) onItemSelected;
 
   const DictionarySearchBar({
     super.key,
@@ -44,17 +22,11 @@ class _DictionarySearchBarState extends State<DictionarySearchBar> {
   TextEditingController searchController = TextEditingController();
   List<Vocabulary> filteredList = [];
 
-  @override
-  void initState() {
-    filteredList = widget.dataList;
-    super.initState();
-  }
-
   void filterSearchResults(String query) {
     if (query.isNotEmpty) {
       List<Vocabulary> tempList = [];
       for (var item in widget.dataList) {
-        if (item.toString().toLowerCase().contains(query.toLowerCase())) {
+        if (item.word!.toLowerCase().contains(query.toLowerCase())) {
           tempList.add(item);
         }
       }
@@ -63,7 +35,7 @@ class _DictionarySearchBarState extends State<DictionarySearchBar> {
       });
     } else {
       setState(() {
-        filteredList = widget.dataList;
+        filteredList = [];
       });
     }
   }
@@ -112,17 +84,19 @@ class _DictionarySearchBarState extends State<DictionarySearchBar> {
             ),
           ),
         ),
-        ListView.builder(
-          shrinkWrap: true,
-          itemCount: filteredList.length,
-          itemBuilder: (context, index) {
-            return ListTile(
-              title: Text(filteredList[index].toString()),
-              onTap: () {
-                widget.onItemSelected(filteredList[index]);
-              },
-            );
-          },
+        SizedBox(
+          child: ListView.builder(
+            shrinkWrap: true,
+            itemCount: filteredList.length,
+            itemBuilder: (context, index) {
+              return ListTile(
+                title: Text(filteredList[index].word!),
+                onTap: () {
+                  widget.onItemSelected(filteredList[index]);
+                },
+              );
+            },
+          ),
         ),
       ],
     );

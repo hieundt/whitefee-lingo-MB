@@ -2,7 +2,7 @@ import 'package:dictionary/res/images.dart';
 import 'package:dictionary/routes.dart';
 import 'package:flutter/material.dart';
 import '../../res/themes.dart';
-import '../widgets/app_containers.dart';
+import 'widgets/app_containers.dart';
 
 class GreetingWidget extends StatelessWidget {
   const GreetingWidget({super.key});

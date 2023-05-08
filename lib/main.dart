@@ -6,7 +6,8 @@ import 'navigator/navigation_sceen.dart';
 import 'providers/navigation_bar_provider.dart';
 import 'screens/database/database_manage.dart';
 import 'screens/dictionary/dictionary_screen.dart';
-import 'screens/dictionary/search_bar.dart';
+import 'screens/dictionary/widgets/search_bar_widget.dart';
+import 'screens/dictionary/widgets/vocabulary_widget.dart';
 
 void main() {
   runApp(
