@@ -4,7 +4,7 @@ class Vocabulary {
   String? word;
   String? hint;
   String? phonetics;
-  String? pronouce;
+  String? pronounce;
   String? image;
   String? meaning;
 
@@ -14,7 +14,7 @@ class Vocabulary {
       this.word,
       this.hint,
       this.phonetics,
-      this.pronouce,
+      this.pronounce,
       this.image,
       this.meaning});
 
@@ -24,7 +24,7 @@ class Vocabulary {
     word = json['word'];
     hint = json['hint'];
     phonetics = json['phonetics'];
-    pronouce = json['pronouce'];
+    pronounce = json['pronouce'];
     image = json['image'];
     meaning = json['meaning'];
   }
@@ -36,7 +36,7 @@ class Vocabulary {
     data['word'] = word;
     data['hint'] = hint;
     data['phonetics'] = phonetics;
-    data['pronouce'] = pronouce;
+    data['pronouce'] = pronounce;
     data['image'] = image;
     data['meaning'] = meaning;
     return data;

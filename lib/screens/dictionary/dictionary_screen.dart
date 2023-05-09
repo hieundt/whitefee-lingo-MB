@@ -1,3 +1,4 @@
+import 'package:dictionary/res/themes.dart';
 import 'package:dictionary/screens/dictionary/widgets/search_bar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -21,26 +22,36 @@ class _DictionaryScreenState extends State<DictionaryScreen> {
     return ListView(
       children: [
         const HeaderWidget(),
+        const SizedBox(height: 20),
         FutureBuilder<List<Vocabulary>>(
           future: VocabularyService().getAllVocabulary(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
               var vocabularies = snapshot.data!;
-              return Padding(
-                padding: const EdgeInsets.all(5),
-                child: Column(
-                  children: [
-                    DictionarySearchBar(
-                      dataList: vocabularies,
-                      onItemSelected: provider.handleItemSelected,
-                    ),
-                    const SizedBox(height: 20),
-                    VocabularyWidget(vocabulary: provider.selectedVocabulary),
-                  ],
-                ),
+              return Stack(
+                clipBehavior: Clip.none,
+                children: [
+                  Column(
+                    children: [
+                      const SizedBox(height: 100),
+                      VocabularyWidget(vocabulary: provider.selectedVocabulary),
+                    ],
+                  ),
+                  DictionarySearchBar(
+                    dataList: vocabularies,
+                    onItemSelected: provider.handleItemSelected,
+                  ),
+                ],
               );
             } else {
-              return const CircularProgressIndicator();
+              return const Center(
+                child: CircularProgressIndicator(
+                  valueColor:
+                      AlwaysStoppedAnimation<Color>(AppColors.darkGreen),
+                  strokeWidth: 4.0,
+                  backgroundColor: AppColors.gray,
+                ),
+              );
             }
           },
         ),
