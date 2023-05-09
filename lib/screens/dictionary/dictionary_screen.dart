@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import '../../data/models/vocabulary_model/vocabulary_model.dart';
 import '../../data/services/vocabulary_service.dart';
 import '../../providers/dictionary_provider.dart';
+import '../../utils.dart';
 import 'widgets/header_widget.dart';
 import 'widgets/vocabulary_widget.dart';
 
@@ -44,14 +45,7 @@ class _DictionaryScreenState extends State<DictionaryScreen> {
                 ],
               );
             } else {
-              return const Center(
-                child: CircularProgressIndicator(
-                  valueColor:
-                      AlwaysStoppedAnimation<Color>(AppColors.darkGreen),
-                  strokeWidth: 4.0,
-                  backgroundColor: AppColors.gray,
-                ),
-              );
+              return const AppLoadingIndicator();
             }
           },
         ),

@@ -1,27 +1,31 @@
-import 'package:dictionary/res/images.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '../../../res/images.dart';
 import '../../../res/themes.dart';
 
-class UnitsScreen extends StatelessWidget {
-  const UnitsScreen({super.key});
+class TestTopicsScreen extends StatelessWidget {
+  const TestTopicsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final unitNames = [
-      'Education',
-      'Travel',
-      'Daily',
-      'Technology',
-      'Health',
+    final testNames = [
+      'Photos',
+      'Ques - Res',
+      'Conversations',
+      'Short Talk',
+      'Sentences',
+      'Complete Text',
+      'Reading',
     ];
 
     final image = [
-      UnitScreenImgae.education,
-      UnitScreenImgae.education,
-      UnitScreenImgae.travel,
-      UnitScreenImgae.tech,
-      UnitScreenImgae.health,
+      TestScreenImage.reading,
+      TestScreenImage.quesRes,
+      TestScreenImage.conversations,
+      TestScreenImage.talk,
+      TestScreenImage.reading,
+      TestScreenImage.text,
+      TestScreenImage.reading,
     ];
 
     return Scaffold(
@@ -44,7 +48,7 @@ class UnitsScreen extends StatelessWidget {
           ),
         ),
         title: Text(
-          'Better than yesterday!',
+          'Secret Englist ingredient',
           style: AppTextStyle.bold15,
         ),
         elevation: 0,
@@ -58,7 +62,7 @@ class UnitsScreen extends StatelessWidget {
           crossAxisSpacing: 20,
           mainAxisSpacing: 10,
         ),
-        itemCount: unitNames.length,
+        itemCount: testNames.length,
         itemBuilder: (context, index) {
           return GestureDetector(
             onTap: () {},
@@ -77,7 +81,7 @@ class UnitsScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 10),
                   Text(
-                    unitNames[index],
+                    testNames[index],
                     style: AppTextStyle.medium15,
                   ),
                 ],
