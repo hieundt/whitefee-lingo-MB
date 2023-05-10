@@ -1,4 +1,5 @@
 import 'package:dictionary/res/images.dart';
+import 'package:dictionary/screens/dictionary/widgets/pronounce_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../../data/models/vocabulary_model/vocabulary_model.dart';
@@ -37,29 +38,30 @@ class VocabularyWidget extends StatelessWidget {
                     ),
                     Text(
                       vocabulary.phonetics ?? 'phonetics',
-                      style: AppTextStyle.regular15,
+                      style: AppTextStyle.phonetics,
                     )
                   ],
                 ),
               ),
-              const Expanded(
-                flex: 2,
-                child: Icon(
-                  CupertinoIcons.speaker_3,
-                  size: 40,
-                ),
-              ),
+              vocabulary.pronounce != null
+                  ? Expanded(
+                      flex: 2,
+                      child: PronounceWidget(url: vocabulary.pronounce ?? ''),
+                    )
+                  : const Icon(
+                      CupertinoIcons.speaker_3,
+                      size: 40,
+                    ),
               Expanded(
                 flex: 1,
                 child: GestureDetector(
-                    onTap: () {},
-                    child:
-                        // ?
-                        const Icon(
-                      CupertinoIcons.bookmark_fill,
-                      size: 50,
-                      color: AppColors.darkBrown,
-                    )),
+                  onTap: () {},
+                  child: const Icon(
+                    CupertinoIcons.bookmark_fill,
+                    size: 50,
+                    color: AppColors.darkBrown,
+                  ),
+                ),
               ),
             ],
           ),

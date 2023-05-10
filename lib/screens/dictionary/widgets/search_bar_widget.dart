@@ -7,6 +7,7 @@ import '../../../res/themes.dart';
 
 class DictionarySearchBar extends StatefulWidget {
   final List<Vocabulary> dataList;
+
   final void Function(Vocabulary) onItemSelected;
 
   const DictionarySearchBar({
@@ -43,83 +44,71 @@ class _DictionarySearchBarState extends State<DictionarySearchBar> {
 
   @override
   Widget build(BuildContext context) {
-    // var provider = Provider.of<DictionaryProvider>(context);
-    // var filteredList = provider.filteredList;
-    // var vocabularyList = provider.vocabularyList;
-    //vocabularyList = widget.dataList;
-    return Hero(
-      tag: 'dictionary',
-      child: Column(
-        children: [
-          Container(
-            margin: const EdgeInsets.only(
-              top: 10,
-              bottom: 10,
+    return Column(
+      children: [
+        TextFormField(
+          onChanged: filterSearchResults,
+          controller: searchController,
+          keyboardType: TextInputType.text,
+          autocorrect: false,
+          cursorColor: AppColors.black,
+          style: AppTextStyle.medium15,
+          decoration: InputDecoration(
+            prefixIcon: const Icon(CupertinoIcons.search),
+            filled: true,
+            fillColor: AppColors.white,
+            hintText: 'Find some interesting vocabulary',
+            hintStyle: AppTextStyle.regular15,
+            prefixIconColor: AppColors.black,
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(
+                30,
+              ),
+              borderSide: const BorderSide(
+                color: AppColors.black,
+                width: 2,
+              ),
             ),
-            child: TextFormField(
-              onChanged: filterSearchResults,
-              controller: searchController,
-              keyboardType: TextInputType.text,
-              autocorrect: false,
-              cursorColor: AppColors.black,
-              style: AppTextStyle.medium15,
-              decoration: InputDecoration(
-                prefixIcon: const Icon(CupertinoIcons.search),
-                filled: true,
-                fillColor: AppColors.white,
-                hintText: 'Find some interesting vocabulary',
-                hintStyle: AppTextStyle.regular15,
-                prefixIconColor: AppColors.black,
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(
-                    30,
-                  ),
-                  borderSide: const BorderSide(
-                    color: AppColors.black,
-                    width: 2,
-                  ),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(
-                    30,
-                  ),
-                  borderSide: const BorderSide(
-                    color: AppColors.black,
-                    width: 2,
-                  ),
-                ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(
+                30,
+              ),
+              borderSide: const BorderSide(
+                color: AppColors.black,
+                width: 2,
               ),
             ),
           ),
-          SizedBox(
-            child: ListView.builder(
-              shrinkWrap: true,
-              itemCount: filteredList.length,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text(
-                    filteredList[index].word!,
-                    style: AppTextStyle.bold15,
-                  ),
-                  subtitle: Text(
-                    filteredList[index].type!,
-                    style: AppTextStyle.regular10,
-                  ),
-                  onTap: () {
-                    widget.onItemSelected(filteredList[index]);
-                  },
-                );
-              },
+        ),
+        Card(
+          color: AppColors.white,
+          elevation: 5,
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(
+              bottom: Radius.circular(30),
             ),
           ),
-        ],
-      ),
+          child: ListView.builder(
+            shrinkWrap: true,
+            itemCount: filteredList.length,
+            itemBuilder: (context, index) {
+              return ListTile(
+                title: Text(
+                  filteredList[index].word!,
+                  style: AppTextStyle.bold15,
+                ),
+                subtitle: Text(
+                  filteredList[index].type!,
+                  style: AppTextStyle.regular10,
+                ),
+                onTap: () {
+                  widget.onItemSelected(filteredList[index]);
+                },
+              );
+            },
+          ),
+        ),
+      ],
     );
-  }
-
-  @override
-  void dispose() {
-    searchController.dispose();
-    super.dispose();
   }
 }

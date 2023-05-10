@@ -104,6 +104,12 @@ class AppTextStyle {
     color: AppColors.black,
     fontWeight: FontWeight.w900,
   );
+
+  static final phonetics = GoogleFonts.firaSans(
+    fontSize: 15,
+    color: AppColors.black,
+    fontWeight: FontWeight.w300,
+  );
 }
 
 class AppContainerStyle {
