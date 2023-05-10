@@ -1,5 +1,6 @@
+// ignore_for_file: avoid_print
+import 'package:dictionary/data/services/training_service.dart';
 import 'package:flutter/material.dart';
-import '../../data/services/vocabulary_service.dart';
 import '../../res/themes.dart';
 
 class WordsGameScreen extends StatelessWidget {
@@ -10,12 +11,9 @@ class WordsGameScreen extends StatelessWidget {
     return Center(
       child: GestureDetector(
         onTap: () async {
-          final result =
-              await VocabularyService().getVocabularyByWord('sunset');
-          print(result.word);
-
-          final results = await VocabularyService().getAllVocabulary();
-          print(results[4].word);
+          print('tapped');
+          var result = await TestService().getAllTest();
+          print(result[0].questions);
         },
         child: Container(
           width: 65,

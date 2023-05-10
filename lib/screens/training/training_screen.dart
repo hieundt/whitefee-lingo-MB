@@ -1,7 +1,9 @@
 import 'package:dictionary/res/images.dart';
 import 'package:dictionary/routes.dart';
 import 'package:flutter/material.dart';
+import '../../data/services/training_service.dart';
 import '../../res/themes.dart';
+import '../../utils.dart';
 import 'widgets/app_containers.dart';
 
 class GreetingWidget extends StatelessWidget {
@@ -75,7 +77,7 @@ class TrainingScreen extends StatelessWidget {
         const SizedBox(height: 10),
         GestureDetector(
           onTap: () {
-            Navigator.of(context).pushNamed(AppRoutes.unitsScreen);
+            Navigator.of(context).pushNamed(AppRoutes.unitTopicsScreen);
           },
           child: AppHorizontalContainer(
             contentName: 'Training',
@@ -92,25 +94,41 @@ class TrainingScreen extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 20),
-        GestureDetector(
-          onTap: () {
-            Navigator.of(context).pushNamed(AppRoutes.testsScreen);
-          },
-          child: AppHorizontalContainer(
-            contentName: 'Training',
-            title: 'Test',
-            description: 'Our test simulator will help you!',
-            image: Image.asset(
-              TrainingScreenImage.test,
-            ),
-            progressValue: '3',
-            progressTitle: 'Finished',
-            scoreValue: '254',
-            scoreTitle: 'Total point',
-            mainColor: AppColors.lightRed,
-            leadingColor: AppColors.red,
-          ),
-        ),
+        // FutureBuilder(
+        //   future: TestService().getAllTest(),
+        //   builder: (context, snapshot) {
+        //     if (snapshot.connectionState == ConnectionState.done) {
+        //       var tests = snapshot.data!;
+        //       return GestureDetector(
+        //         onTap: () {
+        //           Navigator.of(context).pushNamed(
+        //             AppRoutes.testTopicsScreen,
+        //             arguments: {
+        //               'photos': tests[0].id,
+        //               'sentences': tests[1].id,
+        //             },
+        //           );
+        //         },
+        //         child: AppHorizontalContainer(
+        //           contentName: 'Training',
+        //           title: 'Test',
+        //           description: 'Our test simulator will help you!',
+        //           image: Image.asset(
+        //             TrainingScreenImage.test,
+        //           ),
+        //           progressValue: '3',
+        //           progressTitle: 'Finished',
+        //           scoreValue: '254',
+        //           scoreTitle: 'Total point',
+        //           mainColor: AppColors.lightRed,
+        //           leadingColor: AppColors.red,
+        //         ),
+        //       );
+        //     } else {
+        //       return const AppLoadingIndicator();
+        //     }
+        //   },
+        // ),
       ],
     );
   }

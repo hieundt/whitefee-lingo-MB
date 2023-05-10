@@ -6,7 +6,7 @@ class Question {
   String? title;
   String? description;
   String? answers;
-  String? point;
+  int? point;
   List<Option>? options;
 
   Question({
@@ -27,10 +27,9 @@ class Question {
     answers = json['answers'];
     point = json['point'];
     if (json['options'] != null) {
-      options = <Option>[];
-      json['options'].forEach((v) {
-        options!.add(Option.fromJson(v));
-      });
+      (json['options'] as List<dynamic>)
+          .map((e) => e as Map<String, dynamic>)
+          .map((e) => options!.add(Option.fromJson(e)));
     }
   }
 
