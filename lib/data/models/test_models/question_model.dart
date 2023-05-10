@@ -1,22 +1,20 @@
-import 'option_model.dart';
-
 class Question {
   String? id;
   bool? type;
   String? title;
   String? description;
-  String? answers;
+  String? answer;
+  List<String>? options;
   int? point;
-  List<Option>? options;
 
   Question({
     this.id,
     this.type,
     this.title,
     this.description,
-    this.answers,
-    this.point,
+    this.answer,
     this.options,
+    this.point,
   });
 
   Question.fromJson(Map<String, dynamic> json) {
@@ -24,13 +22,9 @@ class Question {
     type = json['type'];
     title = json['title'];
     description = json['description'];
-    answers = json['answers'];
+    answer = json['answer'];
+    options = json['options'].cast<String>();
     point = json['point'];
-    if (json['options'] != null) {
-      (json['options'] as List<dynamic>)
-          .map((e) => e as Map<String, dynamic>)
-          .map((e) => options!.add(Option.fromJson(e)));
-    }
   }
 
   Map<String, dynamic> toJson() {
@@ -39,11 +33,9 @@ class Question {
     data['type'] = type;
     data['title'] = title;
     data['description'] = description;
-    data['answers'] = answers;
+    data['answer'] = answer;
+    data['options'] = options;
     data['point'] = point;
-    if (options != null) {
-      data['options'] = options!.map((v) => v.toJson()).toList();
-    }
     return data;
   }
 }

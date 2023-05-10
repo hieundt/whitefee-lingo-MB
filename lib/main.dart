@@ -1,4 +1,5 @@
 import 'package:dictionary/providers/dictionary_provider.dart';
+import 'package:dictionary/providers/test_provider.dart';
 import 'package:dictionary/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -24,6 +25,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (context) => DictionaryProvider(),
         ),
+        ChangeNotifierProvider(
+          create: (_) => TestProvider(),
+        )
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

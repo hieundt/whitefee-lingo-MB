@@ -94,41 +94,35 @@ class TrainingScreen extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 20),
-        // FutureBuilder(
-        //   future: TestService().getAllTest(),
-        //   builder: (context, snapshot) {
-        //     if (snapshot.connectionState == ConnectionState.done) {
-        //       var tests = snapshot.data!;
-        //       return GestureDetector(
-        //         onTap: () {
-        //           Navigator.of(context).pushNamed(
-        //             AppRoutes.testTopicsScreen,
-        //             arguments: {
-        //               'photos': tests[0].id,
-        //               'sentences': tests[1].id,
-        //             },
-        //           );
-        //         },
-        //         child: AppHorizontalContainer(
-        //           contentName: 'Training',
-        //           title: 'Test',
-        //           description: 'Our test simulator will help you!',
-        //           image: Image.asset(
-        //             TrainingScreenImage.test,
-        //           ),
-        //           progressValue: '3',
-        //           progressTitle: 'Finished',
-        //           scoreValue: '254',
-        //           scoreTitle: 'Total point',
-        //           mainColor: AppColors.lightRed,
-        //           leadingColor: AppColors.red,
-        //         ),
-        //       );
-        //     } else {
-        //       return const AppLoadingIndicator();
-        //     }
-        //   },
-        // ),
+        FutureBuilder(
+          future: TestService().getAllTest(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              //var tests = snapshot.data!;
+              return GestureDetector(
+                onTap: () {
+                  Navigator.of(context).pushNamed(AppRoutes.testTopicsScreen);
+                },
+                child: AppHorizontalContainer(
+                  contentName: 'Training',
+                  title: 'Test',
+                  description: 'Our test simulator will help you!',
+                  image: Image.asset(
+                    TrainingScreenImage.test,
+                  ),
+                  progressValue: '3',
+                  progressTitle: 'Finished',
+                  scoreValue: '254',
+                  scoreTitle: 'Total point',
+                  mainColor: AppColors.lightRed,
+                  leadingColor: AppColors.red,
+                ),
+              );
+            } else {
+              return const AppLoadingIndicator();
+            }
+          },
+        ),
       ],
     );
   }

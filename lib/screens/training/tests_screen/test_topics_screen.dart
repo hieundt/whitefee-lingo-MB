@@ -1,7 +1,10 @@
+import 'package:dictionary/data/services/training_service.dart';
+import 'package:dictionary/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../../res/images.dart';
 import '../../../res/themes.dart';
+import 'test_screen.dart';
 
 class TestTopicsScreen extends StatelessWidget {
   const TestTopicsScreen({super.key});
@@ -27,6 +30,13 @@ class TestTopicsScreen extends StatelessWidget {
       TestScreenImage.text,
       TestScreenImage.reading,
     ];
+
+    // final arguments =
+    //     ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>?;
+
+    // // Access the passed arguments
+    // final photos = arguments?['photos'];
+    // final productId = arguments?['sentences'];
 
     return Scaffold(
       appBar: AppBar(
@@ -55,39 +65,58 @@ class TestTopicsScreen extends StatelessWidget {
         backgroundColor: AppColors.transparent,
         centerTitle: true,
       ),
-      body: GridView.builder(
-        padding: const EdgeInsets.all(10),
-        gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-          maxCrossAxisExtent: 300,
-          crossAxisSpacing: 20,
-          mainAxisSpacing: 10,
-        ),
-        itemCount: testNames.length,
-        itemBuilder: (context, index) {
-          return GestureDetector(
-            onTap: () {},
-            child: Container(
-              decoration: AppContainerStyle.border.copyWith(
-                color: AppColors.white,
+      body: FutureBuilder(
+        future: TestService().getAllTest(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            var tests = snapshot.data!;
+            return GridView.builder(
+              padding: const EdgeInsets.all(10),
+              gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                maxCrossAxisExtent: 300,
+                crossAxisSpacing: 20,
+                mainAxisSpacing: 10,
               ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Image.asset(
-                    image[index],
-                    width: 100,
-                    height: 60,
+              itemCount: tests.length,
+              itemBuilder: (context, index) {
+                return GestureDetector(
+                  onTap: () {
+                    print(tests[index].name);
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (BuildContext context) => TestScreen(
+                          test: tests[index],
+                        ),
+                      ),
+                    );
+                  },
+                  child: Container(
+                    decoration: AppContainerStyle.border.copyWith(
+                      color: AppColors.white,
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Image.network(
+                          tests[index].image!,
+                          width: 100,
+                          height: 60,
+                        ),
+                        const SizedBox(height: 10),
+                        Text(
+                          tests[index].name!,
+                          style: AppTextStyle.medium15,
+                        ),
+                      ],
+                    ),
                   ),
-                  const SizedBox(height: 10),
-                  Text(
-                    testNames[index],
-                    style: AppTextStyle.medium15,
-                  ),
-                ],
-              ),
-            ),
-          );
+                );
+              },
+            );
+          } else {
+            return const AppLoadingIndicator();
+          }
         },
       ),
     );
