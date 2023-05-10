@@ -58,7 +58,7 @@ class TestTopicsScreen extends StatelessWidget {
           ),
         ),
         title: Text(
-          'Secret Englist ingredient',
+          'Secret English ingredient',
           style: AppTextStyle.bold15,
         ),
         elevation: 0,

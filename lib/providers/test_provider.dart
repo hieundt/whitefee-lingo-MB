@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../data/models/test_models/option_model.dart';
 
-class TestProvider with ChangeNotifier {
+class TestProvider extends ChangeNotifier {
   double _progress = 0;
   Option? _selected;
 

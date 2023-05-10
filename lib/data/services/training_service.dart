@@ -17,11 +17,11 @@ class TestService {
   Future<Test> getTestById(String id) async {
     var testApi = '$api/test/$id';
     final response = await Dio().get(testApi);
-    final result = Test.fromJson(response.data[0]);
+    final result = Test.fromJson(response.data);
     return result;
   }
 
-  Future<List<Question>> getAllQuestionById(String testId) async {
+  Future<List<Question>> getAllQuestionOfTest(String testId) async {
     var questionApi = '$api/question/$testId';
     final response = await Dio().get(questionApi);
     List<Question> result =
@@ -29,7 +29,7 @@ class TestService {
     return result;
   }
 
-  Future<List<Option>> getAllOptionById(String questionId) async {
+  Future<List<Option>> getAllOptionOfQuestion(String questionId) async {
     var optionApi = '$api/option/$questionId';
     final response = await Dio().get(optionApi);
     List<Option> result =

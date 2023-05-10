@@ -33,6 +33,12 @@ class AppTextStyle {
     fontWeight: FontWeight.w400,
   );
 
+  static final regular13 = GoogleFonts.robotoMono(
+    fontSize: 13,
+    color: AppColors.black,
+    fontWeight: FontWeight.w400,
+  );
+
   static final regular15 = GoogleFonts.robotoMono(
     fontSize: 15,
     color: AppColors.black,
@@ -49,6 +55,18 @@ class AppTextStyle {
     fontSize: 35,
     color: AppColors.black,
     fontWeight: FontWeight.w400,
+  );
+
+  static final medium10 = GoogleFonts.robotoMono(
+    fontSize: 10,
+    color: AppColors.black,
+    fontWeight: FontWeight.w700,
+  );
+
+  static final medium13 = GoogleFonts.robotoMono(
+    fontSize: 12,
+    color: AppColors.black,
+    fontWeight: FontWeight.w700,
   );
 
   static final medium15 = GoogleFonts.robotoMono(
@@ -79,6 +97,12 @@ class AppTextStyle {
     fontSize: 40,
     color: AppColors.black,
     fontWeight: FontWeight.w700,
+  );
+
+  static final bold12 = GoogleFonts.robotoMono(
+    fontSize: 12,
+    color: AppColors.black,
+    fontWeight: FontWeight.w900,
   );
 
   static final bold15 = GoogleFonts.robotoMono(
