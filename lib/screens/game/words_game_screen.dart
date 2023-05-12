@@ -1,5 +1,4 @@
-// ignore_for_file: avoid_print
-import 'package:dictionary/data/services/training_service.dart';
+import 'package:dictionary/data/services/user_service.dart';
 import 'package:flutter/material.dart';
 import '../../res/themes.dart';
 
@@ -12,9 +11,8 @@ class WordsGameScreen extends StatelessWidget {
       child: GestureDetector(
         onTap: () async {
           print('tapped');
-          var test =
-              await TestService().getTestById('6453610e7029627e8fd9dc91');
-          print(test.name);
+          var object = await UserService().getUserData();
+          print(object.email);
         },
         child: Container(
           width: 65,

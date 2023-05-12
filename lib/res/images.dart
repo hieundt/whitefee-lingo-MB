@@ -1,3 +1,7 @@
+class AppLogoImage {
+  static const logo = 'assets/logo.png';
+}
+
 class DictionaryScreenImage {
   static const blank = 'assets/blank_space.png';
 }

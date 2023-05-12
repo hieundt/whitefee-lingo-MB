@@ -12,15 +12,16 @@ class User {
   List<FavoriteUnit>? favoriteUnit;
   List<TestHistory>? testHistory;
 
-  User(
-      {this.id,
-      this.email,
-      this.password,
-      this.userName,
-      this.dateOfBirth,
-      this.favoriteVocabularies,
-      this.favoriteUnit,
-      this.testHistory});
+  User({
+    this.id,
+    this.email,
+    this.password,
+    this.userName,
+    this.dateOfBirth,
+    this.favoriteVocabularies,
+    this.favoriteUnit,
+    this.testHistory,
+  });
 
   User.fromJson(Map<String, dynamic> json) {
     id = json['id'];

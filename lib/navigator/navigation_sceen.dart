@@ -1,4 +1,5 @@
 import 'package:dictionary/navigator/widgets/app_navigation_bar.dart';
+import 'package:dictionary/res/images.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -28,19 +29,19 @@ class _NavigationScreenState extends State<NavigationScreen> {
   Widget build(BuildContext context) {
     var provider = Provider.of<AppNavigationBarProvider>(context);
     int pageIndex = provider.currentIndex;
-    //print('pageindex $pageIndex');
+
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
           title: Row(
             children: [
-              Image.network(
-                'https://cdn-icons-png.flaticon.com/512/987/987811.png',
+              Image.asset(
+                AppLogoImage.logo,
                 scale: 15,
               ),
               const SizedBox(width: 10),
               Text(
-                "Dict pal",
+                "Dictionary pal",
                 style: AppTextStyle.medium20.copyWith(
                   color: AppColors.darkGreen,
                 ),

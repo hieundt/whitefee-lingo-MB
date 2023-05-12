@@ -2,6 +2,7 @@ import 'package:dictionary/data/models/test_models/question_model.dart';
 import 'package:dio/dio.dart';
 import '../models/test_models/option_model.dart';
 import '../models/test_models/test_model.dart';
+import '../models/unit_models/unit_model.dart';
 
 class TestService {
   var api = 'https://backenddictionary-production.up.railway.app';
@@ -40,4 +41,11 @@ class TestService {
 
 class UnitService {
   var api = 'https://backenddictionary-production.up.railway.app/unit';
+
+  Future<Unit> getUnitByName(String name) async {
+    var unitApi = '$api/byname/$name';
+    final response = await Dio().get(unitApi);
+    final result = Unit.fromJson(response.data);
+    return result;
+  }
 }

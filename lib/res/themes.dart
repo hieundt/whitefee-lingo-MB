@@ -149,9 +149,9 @@ class AppContainerStyle {
 
 class AppButtonStyle {
   static final boder = ElevatedButton.styleFrom(
-    backgroundColor: AppColors.base,
+    backgroundColor: AppColors.darkGreen,
     side: const BorderSide(
-      width: 3,
+      width: 2,
       color: AppColors.black,
     ),
     shape: RoundedRectangleBorder(
