@@ -1,6 +1,7 @@
 import 'package:dictionary/data/models/test_models/question_model.dart';
 import 'package:dictionary/data/services/training_service.dart';
 import 'package:dictionary/providers/test_provider.dart';
+import 'package:dictionary/res/images.dart';
 import 'package:dictionary/screens/training/widgets/animated_progress_bar.dart';
 import 'package:dictionary/utils.dart';
 import 'package:flutter/cupertino.dart';
@@ -33,7 +34,7 @@ class TestScreen extends StatelessWidget {
             size: 40,
           ),
         ),
-        title: AppAnimatedProgressbar(value: testState.progress),
+        //title: AppAnimatedProgressbar(value: testState.progress),
         elevation: 0,
         backgroundColor: AppColors.transparent,
         centerTitle: true,
@@ -41,7 +42,7 @@ class TestScreen extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(10),
         child: Container(
-          padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.all(10),
           decoration: AppContainerStyle.border.copyWith(
             color: AppColors.white,
           ),
@@ -50,16 +51,30 @@ class TestScreen extends StatelessWidget {
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
                 var questions = snapshot.data!;
-                //var ques = questions[0];
                 return PageView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
+                  //physics: const NeverScrollableScrollPhysics(),
                   scrollDirection: Axis.horizontal,
                   controller: testState.controller,
-                  onPageChanged: (int index) =>
-                      testState.progress = (index / (test.questions!.length)),
-                  itemBuilder: (context, index) {
-                    return QuestionWidget(question: questions[index]);
+                  onPageChanged: (value) {
+                    testState.activePage = value;
                   },
+                  itemCount: questions.length,
+                  itemBuilder: (context, index) {
+                    return QuestionWidget(
+                      question: questions[index % questions.length],
+                    );
+                  },
+                  // onPageChanged: (int index) =>
+                  //     testState.progress = (index / (test.questions!.length)),
+                  // itemBuilder: (BuildContext context, int index) {
+                  //   if (index == 0) {
+                  //     return TestTutorialScreen(test: test);
+                  //   } else if (index == test.questions!.length + 1) {
+                  //     return TestCongratsView(test: test);
+                  //   } else {
+                  //     return QuestionWidget(question: questions[index - 1]);
+                  //   }
+                  // },
                 );
               } else {
                 return const AppLoadingIndicator();
@@ -89,11 +104,14 @@ class QuestionWidget extends StatelessWidget {
                 'Choose the correct answer',
                 style: AppTextStyle.bold15,
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 10),
               QuestionAudioWidget(url: question.title!),
-              Image.network(
-                question.description!,
-                height: 250,
+              const SizedBox(height: 10),
+              Expanded(
+                flex: 2,
+                child: Image.network(
+                  question.description!,
+                ),
               ),
               const SizedBox(height: 10),
               FutureBuilder(
@@ -101,15 +119,18 @@ class QuestionWidget extends StatelessWidget {
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.done) {
                     var options = snapshot.data!;
-                    return Column(
-                      children: options.map((e) {
-                        return Column(
-                          children: [
-                            OptionWidget(option: e),
-                            const SizedBox(height: 15),
-                          ],
-                        );
-                      }).toList(),
+                    return Expanded(
+                      flex: 3,
+                      child: Column(
+                        children: options.map((e) {
+                          return Column(
+                            children: [
+                              OptionWidget(option: e),
+                              const SizedBox(height: 15),
+                            ],
+                          );
+                        }).toList(),
+                      ),
                     );
                   } else {
                     return const AppLoadingIndicator();
@@ -175,9 +196,11 @@ class OptionWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var optionState = Provider.of<TestProvider>(context);
+
     return GestureDetector(
       onTap: () {
         optionState.selected = option;
+        _buildBottomSheet(context, option, optionState);
       },
       child: Container(
         padding: const EdgeInsets.all(7),
@@ -210,9 +233,129 @@ class OptionWidget extends StatelessWidget {
       ),
     );
   }
+
+  _buildBottomSheet(
+    BuildContext context,
+    Option opt,
+    TestProvider provider,
+  ) {
+    bool correct = opt.correct ?? false;
+    showModalBottomSheet<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return SizedBox(
+          height: 200,
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(correct ? 'Good Job!' : 'Wrong'),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor:
+                        correct ? AppColors.darkGreen : AppColors.red,
+                  ),
+                  child: Text(
+                    correct ? 'Keep going!' : 'Practice makes perfect',
+                    style: const TextStyle(
+                      color: AppColors.white,
+                      letterSpacing: 1.5,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  onPressed: () {
+                    provider.nextPage();
+                    Navigator.pop(context);
+                  },
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
 }
 
+class TestTutorialScreen extends StatelessWidget {
+  final Test test;
+  const TestTutorialScreen({
+    super.key,
+    required this.test,
+  });
 
+  @override
+  Widget build(BuildContext context) {
+    var state = Provider.of<TestProvider>(context);
+
+    return Container(
+      padding: const EdgeInsets.all(20),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            'You re about to take the ${test.name} test',
+            style: AppTextStyle.medium20,
+          ),
+          Expanded(
+            child: Image(
+              image: NetworkImage(test.image!),
+            ),
+          ),
+          const Divider(),
+          FloatingActionButton.extended(
+            onPressed: state.nextPage,
+            icon: const Icon(Icons.poll),
+            label: Text(
+              'Start',
+              style: AppTextStyle.medium40,
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class TestCongratsView extends StatelessWidget {
+  final Test test;
+  const TestCongratsView({
+    super.key,
+    required this.test,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            'Congrats! You completed the ${test.name} test',
+            textAlign: TextAlign.center,
+          ),
+          const Divider(),
+          Image.asset(
+            AppLogoImage.logo,
+            fit: BoxFit.cover,
+            scale: 2,
+          ),
+          const Divider(),
+          ElevatedButton.icon(
+            style: AppButtonStyle.boder,
+            icon: const Icon(CupertinoIcons.checkmark_circle),
+            label: const Text(' Mark Complete!'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          )
+        ],
+      ),
+    );
+  }
+}
 
 
 
@@ -301,80 +444,9 @@ class OptionWidget extends StatelessWidget {
 //   }
 // }
 
-// class TestTutorialScreen extends StatelessWidget {
-//   final Test test;
-//   const TestTutorialScreen({
-//     super.key,
-//     required this.test,
-//   });
 
-//   @override
-//   Widget build(BuildContext context) {
-//     var state = Provider.of<TestProvider>(context);
 
-//     return Container(
-//       padding: const EdgeInsets.all(20),
-//       child: Column(
-//         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//         children: [
-//           // Expanded(
-//           //   child: Image(
-//           //     image: NetworkImage(test.tutorial),
-//           //   ),
-//           // ),
-//           const Divider(),
-//           FloatingActionButton.extended(
-//             onPressed: state.nextPage,
-//             icon: const Icon(Icons.poll),
-//             label: Text(
-//               'Start',
-//               style: AppTextStyle.medium40,
-//             ),
-//           )
-//         ],
-//       ),
-//     );
-//   }
-// }
 
-// class TestCongratsView extends StatelessWidget {
-//   final Test test;
-//   const TestCongratsView({
-//     super.key,
-//     required this.test,
-//   });
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Padding(
-//       padding: const EdgeInsets.all(8),
-//       child: Column(
-//         mainAxisAlignment: MainAxisAlignment.center,
-//         children: [
-//           Text(
-//             'Congrats! You completed the ${test.name} test',
-//             textAlign: TextAlign.center,
-//           ),
-//           const Divider(),
-//           // Image.asset(
-//           //   AppLogo.myEnglishPalLogo,
-//           //   fit: BoxFit.cover,
-//           //   scale: 2,
-//           // ),
-//           const Divider(),
-//           ElevatedButton.icon(
-//             style: AppButtonStyle.boder,
-//             icon: const Icon(CupertinoIcons.checkmark_circle),
-//             label: const Text(' Mark Complete!'),
-//             onPressed: () {
-//               Navigator.of(context).pop();
-//             },
-//           )
-//         ],
-//       ),
-//     );
-//   }
-// }
 
 // class QuestionScreen extends StatefulWidget {
 //   final Question question;
@@ -518,3 +590,6 @@ class OptionWidget extends StatelessWidget {
 //     );
 //   }
 // }
+
+
+

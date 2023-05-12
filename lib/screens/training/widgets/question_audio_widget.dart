@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import '../../../res/themes.dart';
@@ -19,25 +21,28 @@ class _QuestionAudioWidgetState extends State<QuestionAudioWidget> {
   bool isPlaying = false;
   Duration duration = Duration.zero;
   Duration position = Duration.zero;
+  StreamSubscription<PlayerState>? playerStateSubscription;
+  StreamSubscription<Duration>? durationSubscription;
+  StreamSubscription<Duration>? positionSubscription;
 
   @override
   void initState() {
     super.initState();
-
     setAudio();
-    audioPlayer.onPlayerStateChanged.listen((state) {
+
+    playerStateSubscription = audioPlayer.onPlayerStateChanged.listen((state) {
       setState(() {
         isPlaying = state == PlayerState.playing;
       });
     });
 
-    audioPlayer.onDurationChanged.listen((newDuration) {
+    durationSubscription = audioPlayer.onDurationChanged.listen((newDuration) {
       setState(() {
         duration = newDuration;
       });
     });
 
-    audioPlayer.onPositionChanged.listen((newPosition) {
+    positionSubscription = audioPlayer.onPositionChanged.listen((newPosition) {
       setState(() {
         position = newPosition;
       });
@@ -59,7 +64,7 @@ class _QuestionAudioWidgetState extends State<QuestionAudioWidget> {
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.center,
-      height: 70,
+      //height: 70,
       decoration: AppContainerStyle.border.copyWith(
         color: AppColors.white,
       ),
@@ -127,7 +132,54 @@ class _QuestionAudioWidgetState extends State<QuestionAudioWidget> {
 
   @override
   void dispose() {
+    playerStateSubscription?.cancel();
+    durationSubscription?.cancel();
+    positionSubscription?.cancel();
     audioPlayer.dispose();
     super.dispose();
   }
 }
+
+
+
+
+// class _QuestionAudioWidgetState extends State<QuestionAudioWidget> {
+//   final audioPlayer = AudioPlayer();
+//   bool isPlaying = false;
+//   Duration duration = Duration.zero;
+//   Duration position = Duration.zero;
+
+//   @override
+//   void initState() {
+//     super.initState();
+
+//     setAudio();
+//     audioPlayer.onPlayerStateChanged.listen((state) {
+//       setState(() {
+//         isPlaying = state == PlayerState.playing;
+//       });
+//     });
+
+//     audioPlayer.onDurationChanged.listen((newDuration) {
+//       setState(() {
+//         duration = newDuration;
+//       });
+//     });
+
+//     audioPlayer.onPositionChanged.listen((newPosition) {
+//       setState(() {
+//         position = newPosition;
+//       });
+//     });
+//   }
+
+
+
+ 
+
+//   @override
+//   void dispose() {
+//     audioPlayer.dispose();
+//     super.dispose();
+//   }
+// }

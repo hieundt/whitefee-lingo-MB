@@ -4,7 +4,7 @@ class Option {
   bool? correct;
 
   Option({
-    required this.id,
+    this.id,
     this.value,
     this.correct,
   });
