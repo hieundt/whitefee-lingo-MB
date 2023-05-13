@@ -15,3 +15,38 @@ class AppLoadingIndicator extends StatelessWidget {
     );
   }
 }
+
+Future<void> errorDialog(
+  BuildContext context,
+  String error,
+) {
+  return showDialog<void>(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: const Text('Something went wrong'),
+        content: Text(error),
+        actions: <Widget>[
+          TextButton(
+            style: TextButton.styleFrom(
+              textStyle: Theme.of(context).textTheme.labelLarge,
+            ),
+            child: const Text('Got it!'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+          // TextButton(
+          //   style: TextButton.styleFrom(
+          //     textStyle: Theme.of(context).textTheme.labelLarge,
+          //   ),
+          //   child: const Text('Enable'),
+          //   onPressed: () {
+          //     Navigator.of(context).pop();
+          //   },
+          // ),
+        ],
+      );
+    },
+  );
+}

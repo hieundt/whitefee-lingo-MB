@@ -1,4 +1,5 @@
 import 'package:dictionary/data/models/test_models/question_model.dart';
+import 'package:dictionary/data/models/unit_models/unit_has_vocabulary_model.dart';
 import 'package:dio/dio.dart';
 import '../models/test_models/option_model.dart';
 import '../models/test_models/test_model.dart';
@@ -40,12 +41,23 @@ class TestService {
 }
 
 class UnitService {
-  var api = 'https://backenddictionary-production.up.railway.app/unit';
-
   Future<Unit> getUnitByName(String name) async {
+    var api = 'https://backenddictionary-production.up.railway.app/unit';
     var unitApi = '$api/byname/$name';
     final response = await Dio().get(unitApi);
     final result = Unit.fromJson(response.data);
+    return result;
+  }
+
+  Future<List<UnitHasVocabulary>> getVocabularyOfUnit(String unitId) async {
+    var api =
+        'https://backenddictionary-production.up.railway.app/unithasvocabulary';
+
+    var unitVocaApi = '$api/$unitId';
+    final response = await Dio().get(unitVocaApi);
+    List<UnitHasVocabulary> result = (response.data as List)
+        .map((e) => UnitHasVocabulary.fromJson(e))
+        .toList();
     return result;
   }
 }
