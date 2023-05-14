@@ -12,31 +12,20 @@ class TestTopicsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final testNames = [
-      'Photos',
       'Ques - Res',
       'Conversations',
       'Short Talk',
-      'Sentences',
       'Complete Text',
       'Reading',
     ];
 
     final image = [
-      TestScreenImage.reading,
       TestScreenImage.quesRes,
       TestScreenImage.conversations,
       TestScreenImage.talk,
-      TestScreenImage.reading,
       TestScreenImage.text,
       TestScreenImage.reading,
     ];
-
-    // final arguments =
-    //     ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>?;
-
-    // // Access the passed arguments
-    // final photos = arguments?['photos'];
-    // final productId = arguments?['sentences'];
 
     return Scaffold(
       appBar: AppBar(
@@ -70,48 +59,98 @@ class TestTopicsScreen extends StatelessWidget {
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             var tests = snapshot.data!;
-            return GridView.builder(
-              padding: const EdgeInsets.all(10),
-              gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                maxCrossAxisExtent: 300,
-                crossAxisSpacing: 20,
-                mainAxisSpacing: 10,
-              ),
-              itemCount: tests.length,
-              itemBuilder: (context, index) {
-                return GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (BuildContext context) => TestScreen(
-                          test: tests[index],
+            return ListView(
+              children: [
+                //Real data
+                GridView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  padding: const EdgeInsets.all(10),
+                  gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                    maxCrossAxisExtent: 300,
+                    crossAxisSpacing: 20,
+                    mainAxisSpacing: 10,
+                  ),
+                  itemCount: tests.length,
+                  itemBuilder: (context, index) {
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (BuildContext context) => TestScreen(
+                              test: tests[index],
+                            ),
+                          ),
+                        );
+                      },
+                      child: Container(
+                        decoration: AppContainerStyle.border.copyWith(
+                          color: AppColors.white,
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Image.network(
+                              tests[index].image!,
+                              width: 100,
+                              height: 60,
+                            ),
+                            const SizedBox(height: 10),
+                            Text(
+                              tests[index].name!,
+                              style: AppTextStyle.medium15,
+                            ),
+                          ],
                         ),
                       ),
                     );
                   },
-                  child: Container(
-                    decoration: AppContainerStyle.border.copyWith(
-                      color: AppColors.white,
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Image.network(
-                          tests[index].image!,
-                          width: 100,
-                          height: 60,
-                        ),
-                        const SizedBox(height: 10),
-                        Text(
-                          tests[index].name!,
-                          style: AppTextStyle.medium15,
-                        ),
-                      ],
-                    ),
+                ),
+                //Only Ui
+                GridView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  padding: const EdgeInsets.all(10),
+                  gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                    maxCrossAxisExtent: 300,
+                    crossAxisSpacing: 20,
+                    mainAxisSpacing: 10,
                   ),
-                );
-              },
+                  itemCount: testNames.length,
+                  itemBuilder: (context, index) {
+                    return GestureDetector(
+                      onTap: () async {
+                        appMessageDialog(
+                          context,
+                          'This content will be developed in the future, stay tuned! ',
+                        );
+                      },
+                      child: Container(
+                        decoration: AppContainerStyle.border.copyWith(
+                          color: AppColors.white,
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Image.asset(
+                              image[index],
+                              width: 100,
+                              height: 60,
+                            ),
+                            const SizedBox(height: 10),
+                            Text(
+                              testNames[index],
+                              style: AppTextStyle.medium15,
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ],
             );
           } else {
             return const AppLoadingIndicator();

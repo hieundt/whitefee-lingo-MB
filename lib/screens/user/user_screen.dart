@@ -2,85 +2,8 @@ import 'package:dictionary/res/themes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class InformationWidget extends StatelessWidget {
-  final Icon? leading;
-  final String? title;
-  final String? subtitle;
-  final Widget? trailing;
-
-  const InformationWidget({
-    super.key,
-    this.leading,
-    this.title,
-    this.subtitle,
-    this.trailing,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      enabled: false,
-      leading: leading,
-      title: Text(
-        title ?? '',
-        style: AppTextStyle.regular15.copyWith(
-          color: AppColors.darkGray,
-        ),
-      ),
-      subtitle: Text(
-        subtitle ?? '',
-        style: AppTextStyle.medium15,
-      ),
-      trailing: trailing,
-      minLeadingWidth: 0,
-    );
-  }
-}
-
-class FavoriteWidget extends StatelessWidget {
-  final Icon? leading;
-  final String? title;
-  final String? subtitle;
-  final Widget? trailing;
-  final void Function()? onTap;
-  const FavoriteWidget({
-    super.key,
-    this.leading,
-    this.title,
-    this.subtitle,
-    this.trailing,
-    this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      color: AppColors.lightRed,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15),
-      ),
-      child: InkWell(
-        borderRadius: BorderRadius.circular(15),
-        onTap: onTap,
-        splashColor: AppColors.gray,
-        child: ListTile(
-          dense: true,
-          leading: leading,
-          title: Text(
-            title ?? '',
-            style: AppTextStyle.medium15,
-          ),
-          subtitle: Text(
-            subtitle ?? '',
-            style: AppTextStyle.regular15,
-          ),
-          trailing: trailing,
-          minLeadingWidth: 0,
-        ),
-      ),
-    );
-  }
-}
+import '../../routes.dart';
+import 'widgets/user_information_widget.dart';
 
 class UserScreen extends StatelessWidget {
   const UserScreen({super.key});
@@ -152,7 +75,11 @@ class UserScreen extends StatelessWidget {
                   color: AppColors.darkBrown,
                 ),
                 title: 'Favorite vocabularies',
-                onTap: () {},
+                onTap: () {
+                  Navigator.of(context).pushNamed(
+                    AppRoutes.favoriteVocabulary,
+                  );
+                },
               ),
               const SizedBox(height: 10),
               FavoriteWidget(
@@ -161,7 +88,11 @@ class UserScreen extends StatelessWidget {
                   color: AppColors.darkBrown,
                 ),
                 title: 'Favorite units',
-                onTap: () {},
+                onTap: () {
+                  Navigator.of(context).pushNamed(
+                    AppRoutes.favoriteUnit,
+                  );
+                },
               ),
               const SizedBox(height: 10),
               FavoriteWidget(
@@ -170,7 +101,11 @@ class UserScreen extends StatelessWidget {
                   color: AppColors.darkBrown,
                 ),
                 title: 'Test history',
-                onTap: () {},
+                onTap: () {
+                  Navigator.of(context).pushNamed(
+                    AppRoutes.testHistory,
+                  );
+                },
               ),
               const SizedBox(height: 20),
               const Divider(

@@ -1,56 +1,56 @@
 import 'package:dictionary/res/themes.dart';
 import 'package:flutter/material.dart';
 
-class AppHorizontalContainer extends StatelessWidget {
+class TrainingTopicWidget extends StatelessWidget {
   final String leadingTitle;
   final String title;
   final String description;
   final Widget image;
-  final String progressValue;
-  final String progressTitle;
-  final String? scoreValue;
-  final String? scoreTitle;
+  // final String progressValue;
+  // final String progressTitle;
+  // final String? scoreValue;
+  // final String? scoreTitle;
   final Color? mainColor;
   final Color? leadingColor;
   final Color? leadingTitleColor;
 
-  factory AppHorizontalContainer({
+  factory TrainingTopicWidget({
     required String contentName,
     required String title,
     required String description,
     required Widget image,
-    required String progressValue,
-    required String progressTitle,
-    String? scoreValue,
-    String? scoreTitle,
+    // required String progressValue,
+    // required String progressTitle,
+    // String? scoreValue,
+    // String? scoreTitle,
     Color? mainColor = AppColors.base,
     Color? leadingColor = AppColors.base,
     Color? leadingTitleColor = AppColors.black,
   }) {
-    return AppHorizontalContainer._internal(
+    return TrainingTopicWidget._internal(
       leadingTitle: contentName,
       title: title,
       description: description,
       image: image,
-      progressValue: progressValue,
-      progressTitle: progressTitle,
-      scoreValue: scoreValue,
-      scoreTitle: scoreTitle,
+      // progressValue: progressValue,
+      // progressTitle: progressTitle,
+      // scoreValue: scoreValue,
+      // scoreTitle: scoreTitle,
       mainColor: mainColor,
       leadingColor: leadingColor,
       leadingTitleColor: leadingTitleColor,
     );
   }
 
-  const AppHorizontalContainer._internal({
+  const TrainingTopicWidget._internal({
     required this.leadingTitle,
     required this.title,
     required this.description,
     required this.image,
-    required this.progressValue,
-    required this.progressTitle,
-    this.scoreValue,
-    this.scoreTitle,
+    // required this.progressValue,
+    // required this.progressTitle,
+    // this.scoreValue,
+    // this.scoreTitle,
     this.mainColor,
     this.leadingColor,
     this.leadingTitleColor,
@@ -63,7 +63,7 @@ class AppHorizontalContainer extends StatelessWidget {
       child: Column(
         children: [
           Expanded(
-            flex: 2,
+            flex: 4,
             child: Container(
               decoration: BoxDecoration(
                 color: mainColor,
@@ -146,41 +146,41 @@ class AppHorizontalContainer extends StatelessWidget {
                   bottomRight: Radius.circular(30),
                 ),
               ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Expanded(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          progressValue,
-                          style: AppTextStyle.bold25,
-                        ),
-                        Text(
-                          progressTitle,
-                          style: AppTextStyle.regular15,
-                        ),
-                      ],
-                    ),
-                  ),
-                  Expanded(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          scoreValue ?? '',
-                          style: AppTextStyle.bold25,
-                        ),
-                        Text(
-                          scoreTitle ?? '',
-                          style: AppTextStyle.regular15,
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
+              // child: Row(
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   children: [
+              //     Expanded(
+              //       child: Column(
+              //         mainAxisAlignment: MainAxisAlignment.center,
+              //         children: [
+              //           Text(
+              //             progressValue,
+              //             style: AppTextStyle.bold25,
+              //           ),
+              //           Text(
+              //             progressTitle,
+              //             style: AppTextStyle.regular15,
+              //           ),
+              //         ],
+              //       ),
+              //     ),
+              //     Expanded(
+              //       child: Column(
+              //         mainAxisAlignment: MainAxisAlignment.center,
+              //         children: [
+              //           Text(
+              //             scoreValue ?? '',
+              //             style: AppTextStyle.bold25,
+              //           ),
+              //           Text(
+              //             scoreTitle ?? '',
+              //             style: AppTextStyle.regular15,
+              //           ),
+              //         ],
+              //       ),
+              //     ),
+              //   ],
+              // ),
             ),
           ),
         ],

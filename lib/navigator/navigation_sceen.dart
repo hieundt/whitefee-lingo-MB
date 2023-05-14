@@ -1,10 +1,11 @@
+import 'package:dictionary/navigator/widgets/app_bar_widget.dart';
 import 'package:dictionary/navigator/widgets/app_navigation_bar.dart';
 import 'package:dictionary/res/images.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/navigation_bar_provider.dart';
-import '../screens/auth/user_screen.dart';
+import '../screens/user/user_screen.dart';
 import '../screens/dictionary/dictionary_screen.dart';
 import '../screens/game/words_game_screen.dart';
 import '../screens/training/training_screen.dart';
@@ -32,25 +33,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
 
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          title: Row(
-            children: [
-              Image.asset(
-                AppLogoImage.logo,
-                scale: 15,
-              ),
-              const SizedBox(width: 10),
-              Text(
-                "Dictionary pal",
-                style: AppTextStyle.medium20.copyWith(
-                  color: AppColors.darkGreen,
-                ),
-              ),
-            ],
-          ),
-          elevation: 0,
-          backgroundColor: AppColors.transparent,
-        ),
+        appBar: const AppBarWidget(),
         body: Padding(
           padding: const EdgeInsets.all(10),
           child: pages.elementAt(pageIndex),

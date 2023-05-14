@@ -1,10 +1,8 @@
 import 'package:dictionary/res/images.dart';
 import 'package:dictionary/routes.dart';
 import 'package:flutter/material.dart';
-import '../../data/services/training_service.dart';
 import '../../res/themes.dart';
-import '../../utils.dart';
-import 'widgets/app_containers.dart';
+import 'widgets/training_topic_widget.dart';
 
 class GreetingWidget extends StatelessWidget {
   const GreetingWidget({super.key});
@@ -77,52 +75,36 @@ class TrainingScreen extends StatelessWidget {
         const SizedBox(height: 10),
         GestureDetector(
           onTap: () {
-            Navigator.of(context).pushNamed(AppRoutes.unitTopicsScreen);
+            Navigator.of(context).pushNamed(AppRoutes.unitTopics);
           },
-          child: AppHorizontalContainer(
+          child: TrainingTopicWidget(
             contentName: 'Training',
             title: 'Unit',
             description: 'Learn new vocabulary pronunciation',
             image: Image.asset(
               TrainingScreenImage.unit,
             ),
-            progressValue: '10',
-            progressTitle: 'Finished',
             mainColor: AppColors.lightGreen,
             leadingColor: AppColors.darkGreen,
             leadingTitleColor: AppColors.white,
           ),
         ),
         const SizedBox(height: 20),
-        FutureBuilder(
-          future: TestService().getAllTest(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.done) {
-              //var tests = snapshot.data!;
-              return GestureDetector(
-                onTap: () {
-                  Navigator.of(context).pushNamed(AppRoutes.testTopicsScreen);
-                },
-                child: AppHorizontalContainer(
-                  contentName: 'Training',
-                  title: 'Test',
-                  description: 'Our test simulator will help you!',
-                  image: Image.asset(
-                    TrainingScreenImage.test,
-                  ),
-                  progressValue: '3',
-                  progressTitle: 'Finished',
-                  scoreValue: '254',
-                  scoreTitle: 'Total point',
-                  mainColor: AppColors.lightRed,
-                  leadingColor: AppColors.red,
-                ),
-              );
-            } else {
-              return const AppLoadingIndicator();
-            }
+        GestureDetector(
+          onTap: () {
+            Navigator.of(context).pushNamed(AppRoutes.testTopics);
           },
-        ),
+          child: TrainingTopicWidget(
+            contentName: 'Training',
+            title: 'Test',
+            description: 'Our test simulator will help you!',
+            image: Image.asset(
+              TrainingScreenImage.test,
+            ),
+            mainColor: AppColors.lightRed,
+            leadingColor: AppColors.red,
+          ),
+        )
       ],
     );
   }

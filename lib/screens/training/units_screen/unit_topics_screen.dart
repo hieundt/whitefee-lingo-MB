@@ -1,4 +1,6 @@
+import 'package:dictionary/data/services/training_service.dart';
 import 'package:dictionary/res/images.dart';
+import 'package:dictionary/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../../res/themes.dart';
@@ -11,13 +13,11 @@ class UnitTopicsScreen extends StatelessWidget {
     final unitNames = [
       'Education',
       'Travel',
-      'Daily',
       'Technology',
       'Health',
     ];
 
     final image = [
-      UnitScreenImgae.education,
       UnitScreenImgae.education,
       UnitScreenImgae.travel,
       UnitScreenImgae.tech,
@@ -51,39 +51,171 @@ class UnitTopicsScreen extends StatelessWidget {
         backgroundColor: AppColors.transparent,
         centerTitle: true,
       ),
-      body: GridView.builder(
-        padding: const EdgeInsets.all(10),
-        gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-          maxCrossAxisExtent: 300,
-          crossAxisSpacing: 20,
-          mainAxisSpacing: 10,
-        ),
-        itemCount: unitNames.length,
-        itemBuilder: (context, index) {
-          return GestureDetector(
-            onTap: () {},
-            child: Container(
-              decoration: AppContainerStyle.border.copyWith(
-                color: AppColors.white,
+      body: FutureBuilder(
+        future: UnitService().getUnitByName('Daily'),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            var unit = snapshot.data!;
+            return GridView(
+              padding: const EdgeInsets.all(10),
+              gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                maxCrossAxisExtent: 300,
+                crossAxisSpacing: 20,
+                mainAxisSpacing: 10,
               ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Image.asset(
-                    image[index],
+              children: [
+                //Real data
+                GestureDetector(
+                  onTap: () async {},
+                  child: Container(
+                    decoration: AppContainerStyle.border.copyWith(
+                      color: AppColors.white,
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Image.network(
+                          fit: BoxFit.cover,
+                          unit.image!,
+                          width: 100,
+                          height: 60,
+                        ),
+                        const SizedBox(height: 10),
+                        Text(
+                          unit.name!,
+                          style: AppTextStyle.medium15,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                //Only Ui
+                GestureDetector(
+                  onTap: () async {
+                    appMessageDialog(
+                      context,
+                      'This content will be developed in the future, stay tuned! ',
+                    );
+                  },
+                  child: Container(
                     width: 100,
-                    height: 60,
+                    decoration: AppContainerStyle.border.copyWith(
+                      color: AppColors.white,
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          image[0],
+                          width: 100,
+                          height: 60,
+                        ),
+                        const SizedBox(height: 10),
+                        Text(
+                          unitNames[0],
+                          style: AppTextStyle.medium15,
+                        ),
+                      ],
+                    ),
                   ),
-                  const SizedBox(height: 10),
-                  Text(
-                    unitNames[index],
-                    style: AppTextStyle.medium15,
+                ),
+                GestureDetector(
+                  onTap: () async {
+                    appMessageDialog(
+                      context,
+                      'This content will be developed in the future, stay tuned! ',
+                    );
+                  },
+                  child: Container(
+                    width: 100,
+                    decoration: AppContainerStyle.border.copyWith(
+                      color: AppColors.white,
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          image[1],
+                          width: 100,
+                          height: 60,
+                        ),
+                        const SizedBox(height: 10),
+                        Text(
+                          unitNames[1],
+                          style: AppTextStyle.medium15,
+                        ),
+                      ],
+                    ),
                   ),
-                ],
-              ),
-            ),
-          );
+                ),
+                GestureDetector(
+                  onTap: () async {
+                    appMessageDialog(
+                      context,
+                      'This content will be developed in the future, stay tuned! ',
+                    );
+                  },
+                  child: Container(
+                    width: 100,
+                    decoration: AppContainerStyle.border.copyWith(
+                      color: AppColors.white,
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          image[2],
+                          width: 100,
+                          height: 60,
+                        ),
+                        const SizedBox(height: 10),
+                        Text(
+                          unitNames[2],
+                          style: AppTextStyle.medium15,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () async {
+                    appMessageDialog(
+                      context,
+                      'This content will be developed in the future, stay tuned! ',
+                    );
+                  },
+                  child: Container(
+                    width: 100,
+                    decoration: AppContainerStyle.border.copyWith(
+                      color: AppColors.white,
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          image[3],
+                          width: 100,
+                          height: 60,
+                        ),
+                        const SizedBox(height: 10),
+                        Text(
+                          unitNames[3],
+                          style: AppTextStyle.medium15,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            );
+          } else {
+            return const AppLoadingIndicator();
+          }
         },
       ),
     );

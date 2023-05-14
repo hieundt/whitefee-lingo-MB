@@ -1,11 +1,9 @@
 import 'package:dictionary/data/models/test_models/question_model.dart';
 import 'package:dictionary/data/services/training_service.dart';
-import 'package:dictionary/providers/test_provider.dart';
 import 'package:dictionary/res/images.dart';
 import 'package:dictionary/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import '../../../data/models/test_models/option_model.dart';
 import '../../../data/models/test_models/test_model.dart';
 import '../../../res/themes.dart';
@@ -22,63 +20,50 @@ class TestScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = PageController();
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-          icon: const Icon(
-            CupertinoIcons.arrow_left_circle_fill,
-            color: AppColors.red,
-            size: 40,
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(10),
+          child: FutureBuilder(
+            future: TestService().getAllQuestionOfTest(test.id!),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                var questions = snapshot.data!;
+                return PageView(
+                  physics: const NeverScrollableScrollPhysics(),
+                  controller: controller,
+                  children: [
+                    TestStartScreen(
+                      test: test,
+                      controller: controller,
+                    ),
+                    QuestionWidget(
+                      question: questions[0],
+                      controller: controller,
+                    ),
+                    QuestionWidget(
+                      question: questions[1],
+                      controller: controller,
+                    ),
+                    QuestionWidget(
+                      question: questions[2],
+                      controller: controller,
+                    ),
+                    QuestionWidget(
+                      question: questions[3],
+                      controller: controller,
+                    ),
+                    QuestionWidget(
+                      question: questions[4],
+                      controller: controller,
+                    ),
+                    TestCongratsScreen(test: test),
+                  ],
+                );
+              } else {
+                return const AppLoadingIndicator();
+              }
+            },
           ),
-        ),
-        elevation: 0,
-        backgroundColor: AppColors.transparent,
-        centerTitle: true,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(10),
-        child: FutureBuilder(
-          future: TestService().getAllQuestionOfTest(test.id!),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.done) {
-              var questions = snapshot.data!;
-              return PageView(
-                //physics: const NeverScrollableScrollPhysics(),
-                controller: controller,
-                children: [
-                  TestStartScreen(
-                    test: test,
-                    controller: controller,
-                  ),
-                  QuestionWidget(
-                    question: questions[0],
-                    controller: controller,
-                  ),
-                  QuestionWidget(
-                    question: questions[1],
-                    controller: controller,
-                  ),
-                  QuestionWidget(
-                    question: questions[2],
-                    controller: controller,
-                  ),
-                  QuestionWidget(
-                    question: questions[3],
-                    controller: controller,
-                  ),
-                  QuestionWidget(
-                    question: questions[4],
-                    controller: controller,
-                  ),
-                  TestCongratsScreen(test: test),
-                ],
-              );
-            } else {
-              return const AppLoadingIndicator();
-            }
-          },
         ),
       ),
     );
@@ -105,19 +90,38 @@ class QuestionWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: question.type!
             ? [
-                Text(
-                  'Choose the correct answer',
-                  style: AppTextStyle.bold15,
+                Row(
+                  children: [
+                    Expanded(
+                      flex: 1,
+                      child: IconButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        icon: const Icon(
+                          CupertinoIcons.xmark_circle,
+                          color: AppColors.red,
+                          size: 40,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 4,
+                      child: Text(
+                        'Choose the correct answer',
+                        style: AppTextStyle.bold15,
+                      ),
+                    ),
+                  ],
                 ),
                 const SizedBox(height: 10),
                 QuestionAudioWidget(url: question.title!),
                 const SizedBox(height: 10),
                 Expanded(
                   flex: 2,
-                  child: Image(image: NetworkImage(question.description!)),
-                  // child: Image.network(
-                  //   question.description!,
-                  // ),
+                  child: Image(
+                    image: NetworkImage(question.description!),
+                  ),
                 ),
                 const SizedBox(height: 10),
                 FutureBuilder(
@@ -126,7 +130,7 @@ class QuestionWidget extends StatelessWidget {
                     if (snapshot.connectionState == ConnectionState.done) {
                       var options = snapshot.data!;
                       return Expanded(
-                        flex: 3,
+                        flex: 2,
                         child: Column(
                           children: options.map((e) {
                             return Column(
@@ -149,25 +153,47 @@ class QuestionWidget extends StatelessWidget {
                 ),
               ]
             : [
-                Text(
-                  'Choose the correct answer',
-                  style: AppTextStyle.bold15,
+                Row(
+                  children: [
+                    Expanded(
+                      flex: 1,
+                      child: IconButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        icon: const Icon(
+                          CupertinoIcons.xmark_circle,
+                          color: AppColors.red,
+                          size: 40,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 4,
+                      child: Text(
+                        'Choose the correct answer',
+                        style: AppTextStyle.bold15,
+                      ),
+                    ),
+                  ],
                 ),
                 const SizedBox(height: 20),
-                Container(
-                  height: 200,
-                  padding: const EdgeInsets.all(5),
-                  alignment: Alignment.center,
-                  decoration: AppContainerStyle.border.copyWith(
-                    color: AppColors.darkGreen,
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  child: Text(
-                    question.title!,
-                    style: AppTextStyle.bold12.copyWith(
-                      color: AppColors.white,
+                Expanded(
+                  flex: 1,
+                  child: Container(
+                    padding: const EdgeInsets.all(5),
+                    alignment: Alignment.center,
+                    decoration: AppContainerStyle.border.copyWith(
+                      color: AppColors.darkGreen,
+                      borderRadius: BorderRadius.circular(15),
                     ),
-                    overflow: TextOverflow.clip,
+                    child: Text(
+                      question.title!,
+                      style: AppTextStyle.bold15.copyWith(
+                        color: AppColors.white,
+                      ),
+                      overflow: TextOverflow.clip,
+                    ),
                   ),
                 ),
                 const SizedBox(height: 20),
@@ -176,19 +202,22 @@ class QuestionWidget extends StatelessWidget {
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.done) {
                       var options = snapshot.data!;
-                      return Column(
-                        children: options.map((e) {
-                          return Column(
-                            children: [
-                              const SizedBox(height: 20),
-                              OptionWidget(
-                                option: e,
-                                answer: question.answer!,
-                                controller: controller,
-                              )
-                            ],
-                          );
-                        }).toList(),
+                      return Expanded(
+                        flex: 1,
+                        child: Column(
+                          children: options.map((e) {
+                            return Column(
+                              children: [
+                                const SizedBox(height: 20),
+                                OptionWidget(
+                                  option: e,
+                                  answer: question.answer!,
+                                  controller: controller,
+                                )
+                              ],
+                            );
+                          }).toList(),
+                        ),
                       );
                     } else {
                       return const AppLoadingIndicator();
@@ -240,6 +269,8 @@ class _OptionWidgetState extends State<OptionWidget> {
             controller: widget.controller,
           );
           //Neu goi provider trong option, sau khi select se bi reset lai trang dau
+          //Ly do vi phai querry 2 lan de lay dc option
+          //Giai phap hien tai la dung setState o nhung vi tri goi toi option
           setState(() {
             widget.option.correct == true
                 ? color = AppColors.green
@@ -328,7 +359,7 @@ class TestStartScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            'You re about to take the ${test.name} test',
+            "You're about to take the ${test.name} test",
             style: AppTextStyle.bold25,
           ),
           const SizedBox(height: 10),

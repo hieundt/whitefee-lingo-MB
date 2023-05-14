@@ -16,16 +16,22 @@ class AppLoadingIndicator extends StatelessWidget {
   }
 }
 
-Future<void> errorDialog(
+Future<void> appMessageDialog(
   BuildContext context,
-  String error,
+  String message,
 ) {
   return showDialog<void>(
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
-        title: const Text('Something went wrong'),
-        content: Text(error),
+        title: Text(
+          'Comming soon',
+          style: AppTextStyle.bold15,
+        ),
+        content: Text(
+          message,
+          style: AppTextStyle.regular13,
+        ),
         actions: <Widget>[
           TextButton(
             style: TextButton.styleFrom(
@@ -36,16 +42,10 @@ Future<void> errorDialog(
               Navigator.of(context).pop();
             },
           ),
-          // TextButton(
-          //   style: TextButton.styleFrom(
-          //     textStyle: Theme.of(context).textTheme.labelLarge,
-          //   ),
-          //   child: const Text('Enable'),
-          //   onPressed: () {
-          //     Navigator.of(context).pop();
-          //   },
-          // ),
         ],
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30),
+        ),
       );
     },
   );
