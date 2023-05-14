@@ -2,7 +2,6 @@ import 'package:dictionary/data/models/test_models/question_model.dart';
 import 'package:dictionary/data/services/training_service.dart';
 import 'package:dictionary/providers/test_provider.dart';
 import 'package:dictionary/res/images.dart';
-import 'package:dictionary/screens/training/widgets/animated_progress_bar.dart';
 import 'package:dictionary/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +20,7 @@ class TestScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var testState = Provider.of<TestProvider>(context);
+    final controller = PageController();
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -34,7 +33,6 @@ class TestScreen extends StatelessWidget {
             size: 40,
           ),
         ),
-        title: AppAnimatedProgressbar(value: testState.progress),
         elevation: 0,
         backgroundColor: AppColors.transparent,
         centerTitle: true,
@@ -46,29 +44,42 @@ class TestScreen extends StatelessWidget {
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
               var questions = snapshot.data!;
-              return PageView.builder(
+              return PageView(
                 //physics: const NeverScrollableScrollPhysics(),
-                scrollDirection: Axis.horizontal,
-                controller: testState.controller,
-                onPageChanged: (int index) {
-                  testState.progress = (index / (questions.length + 1));
-                },
-                itemBuilder: (context, index) {
-                  if (index == 0) {
-                    return TestTutorialScreen(test: test);
-                  } else if (index == questions.length + 1) {
-                    return TestCongratsScreen(test: test);
-                  } else {
-                    return QuestionWidget(question: questions[index - 1]);
-                  }
-                },
+                controller: controller,
+                children: [
+                  TestStartScreen(
+                    test: test,
+                    controller: controller,
+                  ),
+                  QuestionWidget(
+                    question: questions[0],
+                    controller: controller,
+                  ),
+                  QuestionWidget(
+                    question: questions[1],
+                    controller: controller,
+                  ),
+                  QuestionWidget(
+                    question: questions[2],
+                    controller: controller,
+                  ),
+                  QuestionWidget(
+                    question: questions[3],
+                    controller: controller,
+                  ),
+                  QuestionWidget(
+                    question: questions[4],
+                    controller: controller,
+                  ),
+                  TestCongratsScreen(test: test),
+                ],
               );
             } else {
               return const AppLoadingIndicator();
             }
           },
         ),
-        //),
       ),
     );
   }
@@ -76,9 +87,11 @@ class TestScreen extends StatelessWidget {
 
 class QuestionWidget extends StatelessWidget {
   final Question question;
+  final PageController controller;
   const QuestionWidget({
     super.key,
     required this.question,
+    required this.controller,
   });
 
   @override
@@ -101,37 +114,39 @@ class QuestionWidget extends StatelessWidget {
                 const SizedBox(height: 10),
                 Expanded(
                   flex: 2,
-                  child: Image.network(
-                    question.description!,
-                  ),
+                  child: Image(image: NetworkImage(question.description!)),
+                  // child: Image.network(
+                  //   question.description!,
+                  // ),
                 ),
                 const SizedBox(height: 10),
-                // FutureBuilder(
-                //   future: TestService().getAllOptionOfQuestion(question.id!),
-                //   builder: (context, snapshot) {
-                //     if (snapshot.connectionState == ConnectionState.done) {
-                //       var options = snapshot.data!;
-                //       return Expanded(
-                //         flex: 3,
-                //         child: Column(
-                //           children: options.map((e) {
-                //             return Column(
-                //               children: [
-                //                 OptionWidget(
-                //                   option: e,
-                //                   answer: question.answer!,
-                //                 ),
-                //                 const SizedBox(height: 15),
-                //               ],
-                //             );
-                //           }).toList(),
-                //         ),
-                //       );
-                //     } else {
-                //       return const AppLoadingIndicator();
-                //     }
-                //   },
-                // ),
+                FutureBuilder(
+                  future: TestService().getAllOptionOfQuestion(question.id!),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      var options = snapshot.data!;
+                      return Expanded(
+                        flex: 3,
+                        child: Column(
+                          children: options.map((e) {
+                            return Column(
+                              children: [
+                                OptionWidget(
+                                  option: e,
+                                  answer: question.answer!,
+                                  controller: controller,
+                                ),
+                                const SizedBox(height: 15),
+                              ],
+                            );
+                          }).toList(),
+                        ),
+                      );
+                    } else {
+                      return const AppLoadingIndicator();
+                    }
+                  },
+                ),
               ]
             : [
                 Text(
@@ -169,6 +184,7 @@ class QuestionWidget extends StatelessWidget {
                               OptionWidget(
                                 option: e,
                                 answer: question.answer!,
+                                controller: controller,
                               )
                             ],
                           );
@@ -185,21 +201,27 @@ class QuestionWidget extends StatelessWidget {
   }
 }
 
-class OptionWidget extends StatelessWidget {
+class OptionWidget extends StatefulWidget {
   final Option option;
   final String answer;
+  final PageController controller;
   const OptionWidget({
     super.key,
     required this.option,
     required this.answer,
+    required this.controller,
   });
 
   @override
-  Widget build(BuildContext context) {
-    var optionState = Provider.of<TestProvider>(context);
+  State<OptionWidget> createState() => _OptionWidgetState();
+}
 
+class _OptionWidgetState extends State<OptionWidget> {
+  Color? color = AppColors.lightGray;
+  @override
+  Widget build(BuildContext context) {
     return Material(
-      color: AppColors.lightGray,
+      color: color,
       shape: RoundedRectangleBorder(
         side: const BorderSide(
           width: 2,
@@ -208,21 +230,26 @@ class OptionWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(15),
       ),
       child: InkWell(
+        focusColor: AppColors.black,
         borderRadius: BorderRadius.circular(15),
         onTap: () {
-          optionState.selected = option;
           _buildBottomSheet(
             context: context,
-            opt: option,
-            answer: answer,
-            provider: optionState,
+            opt: widget.option,
+            answer: widget.answer,
+            controller: widget.controller,
           );
+          //Neu goi provider trong option, sau khi select se bi reset lai trang dau
+          setState(() {
+            widget.option.correct == true
+                ? color = AppColors.green
+                : color = AppColors.red;
+          });
         },
-        splashColor: AppColors.gray,
         child: ListTile(
           dense: true,
           leading: Text(
-            option.value!,
+            widget.option.value!,
             style: AppTextStyle.medium15,
           ),
           minLeadingWidth: 0,
@@ -235,7 +262,7 @@ class OptionWidget extends StatelessWidget {
     required BuildContext context,
     required Option opt,
     required String answer,
-    required TestProvider provider,
+    required PageController controller,
   }) {
     bool correct = opt.correct ?? false;
     showModalBottomSheet<void>(
@@ -248,22 +275,30 @@ class OptionWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(correct ? 'Good Job!' : answer),
+                Text(
+                  correct
+                      ? 'Good Job! Keep going'
+                      : 'Wrong! Try again next time',
+                  style: AppTextStyle.medium15,
+                ),
+                const SizedBox(height: 30),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor:
                         correct ? AppColors.darkGreen : AppColors.red,
                   ),
                   child: Text(
-                    correct ? 'Keep going!' : 'Practice makes perfect',
-                    style: const TextStyle(
+                    'Next question',
+                    style: AppTextStyle.bold15.copyWith(
                       color: AppColors.white,
-                      letterSpacing: 1.5,
-                      fontWeight: FontWeight.bold,
                     ),
                   ),
-                  onPressed: () {
-                    provider.nextPage();
+                  onPressed: () async {
+                    await controller.nextPage(
+                      duration: const Duration(microseconds: 300),
+                      curve: Curves.linear,
+                    );
+                    if (!mounted) return;
                     Navigator.pop(context);
                   },
                 ),
@@ -276,17 +311,17 @@ class OptionWidget extends StatelessWidget {
   }
 }
 
-class TestTutorialScreen extends StatelessWidget {
+class TestStartScreen extends StatelessWidget {
   final Test test;
-  const TestTutorialScreen({
+  final PageController controller;
+  const TestStartScreen({
     super.key,
     required this.test,
+    required this.controller,
   });
 
   @override
   Widget build(BuildContext context) {
-    var state = Provider.of<TestProvider>(context);
-
     return Container(
       padding: const EdgeInsets.all(20),
       child: Column(
@@ -294,8 +329,28 @@ class TestTutorialScreen extends StatelessWidget {
         children: [
           Text(
             'You re about to take the ${test.name} test',
-            style: AppTextStyle.medium20,
+            style: AppTextStyle.bold25,
           ),
+          const SizedBox(height: 10),
+          RichText(
+            text: TextSpan(
+              text: 'Each question can ',
+              style: AppTextStyle.regular13,
+              children: <TextSpan>[
+                TextSpan(
+                  text: 'only be answered once',
+                  style: AppTextStyle.bold12.copyWith(
+                    color: AppColors.darkRed,
+                  ),
+                ),
+                TextSpan(
+                  text: '!',
+                  style: AppTextStyle.regular15,
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 10),
           Expanded(
             child: Image(
               image: NetworkImage(test.image!),
@@ -303,7 +358,12 @@ class TestTutorialScreen extends StatelessWidget {
           ),
           const Divider(),
           FloatingActionButton.extended(
-            onPressed: state.nextPage,
+            onPressed: () async {
+              await controller.nextPage(
+                duration: const Duration(microseconds: 300),
+                curve: Curves.linear,
+              );
+            },
             icon: const Icon(Icons.poll),
             label: Text(
               'Start',
@@ -332,9 +392,15 @@ class TestCongratsScreen extends StatelessWidget {
         children: [
           Text(
             'Congrats! You completed the ${test.name} test',
+            style: AppTextStyle.bold25,
             textAlign: TextAlign.center,
           ),
-          const Divider(),
+          const SizedBox(height: 10),
+          const Divider(
+            thickness: 3,
+            color: AppColors.black,
+          ),
+          const SizedBox(height: 30),
           Image.asset(
             AppLogoImage.logo,
             fit: BoxFit.cover,

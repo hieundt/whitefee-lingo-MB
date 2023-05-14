@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import '../data/models/test_models/option_model.dart';
 
 class TestProvider extends ChangeNotifier {
-  double _progress = 0;
+  int _activePage = 0;
   Option? _selected;
 
   final PageController controller = PageController();
 
-  double get progress => _progress;
+  int get progress => _activePage;
   Option? get selected => _selected;
 
-  set progress(double newValue) {
-    _progress = newValue;
+  set activePage(int newValue) {
+    _activePage = newValue;
     notifyListeners();
   }
 

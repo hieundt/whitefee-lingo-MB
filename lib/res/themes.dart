@@ -22,6 +22,7 @@ class AppColors {
 
   static const lightRed = Color(0xFFFFEBEE);
   static const red = Color(0xFFE57373);
+  static const darkRed = Color(0xFFB71C1C);
 
   static const yellow = Color(0xFFFFEB3B);
 }

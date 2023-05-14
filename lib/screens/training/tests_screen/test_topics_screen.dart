@@ -81,7 +81,6 @@ class TestTopicsScreen extends StatelessWidget {
               itemBuilder: (context, index) {
                 return GestureDetector(
                   onTap: () {
-                    print(tests[index].name);
                     Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (BuildContext context) => TestScreen(
