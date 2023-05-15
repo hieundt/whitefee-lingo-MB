@@ -23,14 +23,35 @@ class _PronounceWidgetState extends State<PronounceWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return IconButton(
-      onPressed: () {
-        playAudio(widget.url);
-      },
-      icon: const Icon(
-        CupertinoIcons.speaker_3_fill,
-        size: 40,
-        color: AppColors.darkGreen,
+    return SizedBox.fromSize(
+      size: const Size(85, 85),
+      child: ClipOval(
+        child: Material(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(30),
+          ),
+          color: AppColors.transparent,
+          child: InkWell(
+            borderRadius: BorderRadius.circular(30),
+            onTap: () {
+              playAudio(widget.url);
+            },
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(
+                  CupertinoIcons.speaker_3_fill,
+                  size: 40,
+                  color: AppColors.darkGreen,
+                ),
+                Text(
+                  "Phonetics",
+                  style: AppTextStyle.bold12,
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }

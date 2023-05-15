@@ -1,5 +1,7 @@
 import 'package:dictionary/data/models/test_models/question_model.dart';
 import 'package:dictionary/data/models/unit_models/unit_has_vocabulary_model.dart';
+import 'package:dictionary/data/models/vocabulary_model/vocabulary_model.dart';
+import 'package:dictionary/data/services/vocabulary_service.dart';
 import 'package:dio/dio.dart';
 import '../models/test_models/option_model.dart';
 import '../models/test_models/test_model.dart';
@@ -49,15 +51,23 @@ class UnitService {
     return result;
   }
 
-  Future<List<UnitHasVocabulary>> getVocabularyOfUnit(String unitId) async {
+  Future<List<Vocabulary>> getVocabularyOfUnit(String unitId) async {
     var api =
         'https://backenddictionary-production.up.railway.app/unithasvocabulary';
 
-    var unitVocaApi = '$api/$unitId';
+    var unitVocaApi = '$api/byid/$unitId';
     final response = await Dio().get(unitVocaApi);
-    List<UnitHasVocabulary> result = (response.data as List)
+    List<UnitHasVocabulary> unitHasVocabulary = (response.data as List)
         .map((e) => UnitHasVocabulary.fromJson(e))
         .toList();
-    return result;
+
+    List<Vocabulary> vocabularyOfUnit = [];
+    for (var item in unitHasVocabulary) {
+      var vocabulary =
+          await VocabularyService().getVocabularyById(item.vocabularyId!);
+      vocabularyOfUnit.add(vocabulary);
+    }
+
+    return vocabularyOfUnit;
   }
 }

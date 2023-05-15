@@ -70,7 +70,8 @@ class UnitTopicsScreen extends StatelessWidget {
                   onTap: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (BuildContext context) => const UnitScreen(),
+                        builder: (BuildContext context) =>
+                            UnitStartScreen(unit: unit),
                       ),
                     );
                   },

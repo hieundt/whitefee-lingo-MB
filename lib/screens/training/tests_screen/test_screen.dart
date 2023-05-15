@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import '../../../data/models/test_models/option_model.dart';
 import '../../../data/models/test_models/test_model.dart';
 import '../../../res/themes.dart';
-import '../widgets/question_audio_widget.dart';
+import '../widgets/test_question_audio_widget.dart';
 
 class TestScreen extends StatelessWidget {
   final Test test;

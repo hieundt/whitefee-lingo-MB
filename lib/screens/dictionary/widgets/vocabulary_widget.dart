@@ -45,7 +45,7 @@ class VocabularyWidget extends StatelessWidget {
               ),
               vocabulary.pronounce != null
                   ? Expanded(
-                      flex: 2,
+                      flex: 1,
                       child: PronounceWidget(url: vocabulary.pronounce ?? ''),
                     )
                   : const Icon(

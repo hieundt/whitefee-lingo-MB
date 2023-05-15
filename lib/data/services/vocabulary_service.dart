@@ -10,6 +10,12 @@ class VocabularyService {
     return result;
   }
 
+  Future<Vocabulary> getVocabularyById(String id) async {
+    final response = await Dio().get('$api/byid/$id');
+    final result = Vocabulary.fromJson(response.data);
+    return result;
+  }
+
   Future<List<Vocabulary>> getAllVocabulary() async {
     final response = await Dio().get(api);
     List<Vocabulary> result =

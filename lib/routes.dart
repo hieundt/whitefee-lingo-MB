@@ -10,7 +10,6 @@ class AppRoutes {
 
   static const favoriteUnit = '/favoriteUnit';
   static const favoriteVocabulary = '/favoriteVocabulary';
-
   static const testHistory = '/testHistory';
 }
 
