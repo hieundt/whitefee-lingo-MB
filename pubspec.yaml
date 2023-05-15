@@ -44,6 +44,8 @@ dependencies:
   intl: ^0.17.0
   
   audioplayers: ^4.0.1
+  flip_card: ^0.7.0
+  appinio_swiper: ^2.0.0
 
 
 

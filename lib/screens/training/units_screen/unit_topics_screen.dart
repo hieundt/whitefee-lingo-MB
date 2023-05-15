@@ -1,5 +1,6 @@
 import 'package:dictionary/data/services/training_service.dart';
 import 'package:dictionary/res/images.dart';
+import 'package:dictionary/screens/training/units_screen/unit_screen.dart';
 import 'package:dictionary/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -66,7 +67,13 @@ class UnitTopicsScreen extends StatelessWidget {
               children: [
                 //Real data
                 GestureDetector(
-                  onTap: () async {},
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (BuildContext context) => const UnitScreen(),
+                      ),
+                    );
+                  },
                   child: Container(
                     decoration: AppContainerStyle.border.copyWith(
                       color: AppColors.white,
