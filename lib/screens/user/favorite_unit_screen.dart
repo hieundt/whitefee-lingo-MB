@@ -26,7 +26,7 @@ class FavoriteUnitScreen extends StatelessWidget {
             var favorite = snapshot.data!;
             return ListView.separated(
               padding: const EdgeInsets.all(10),
-              itemCount: 1,
+              itemCount: 10,
               separatorBuilder: (context, index) {
                 return const SizedBox(height: 20);
               },

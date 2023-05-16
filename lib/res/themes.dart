@@ -9,13 +9,13 @@ class AppColors {
   static const black = Color(0xFF000000);
   static const white = Color(0xFFFFFFFF);
 
-  static const dark = Color(0xFF1B1212);
+  static const dark = Color(0xFF36454F);
 
   static const lightGray = Color(0xFFF2F2F2);
   static const gray = Color(0XFFB7BAC4);
   static const darkGray = Color(0xFF686868);
 
-  static const lightGreen = Color.fromRGBO(200, 230, 201, 1);
+  static const lightGreen = Color(0xFFC8E6C9);
   static const green = Color(0xFF69F0AE);
   static const darkGreen = Color(0xFF136A62);
 
@@ -27,6 +27,8 @@ class AppColors {
   static const darkRed = Color(0xFFB71C1C);
 
   static const yellow = Color(0xFFFFEB3B);
+
+  static final lock = const Color(0xFF000000).withOpacity(0.7);
 }
 
 class AppTextStyle {

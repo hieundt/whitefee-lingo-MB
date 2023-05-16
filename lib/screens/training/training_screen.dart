@@ -1,5 +1,6 @@
 import 'package:dictionary/res/images.dart';
 import 'package:dictionary/routes.dart';
+import 'package:dictionary/screens/user/widgets/lock_content_widget.dart';
 import 'package:flutter/material.dart';
 import '../../res/themes.dart';
 import 'widgets/training_topic_widget.dart';
@@ -90,19 +91,23 @@ class TrainingScreen extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 20),
-        GestureDetector(
-          onTap: () {
-            Navigator.of(context).pushNamed(AppRoutes.testTopics);
-          },
-          child: TrainingTopicWidget(
-            contentName: 'Training',
-            title: 'Test',
-            description: 'Our test simulator will help you!',
-            image: Image.asset(
-              TrainingScreenImage.test,
+        LockContentWidget(
+          width: 500,
+          height: 300,
+          lockContent: GestureDetector(
+            onTap: () {
+              Navigator.of(context).pushNamed(AppRoutes.testTopics);
+            },
+            child: TrainingTopicWidget(
+              contentName: 'Training',
+              title: 'Test',
+              description: 'Our test simulator will help you!',
+              image: Image.asset(
+                TrainingScreenImage.test,
+              ),
+              mainColor: AppColors.lightRed,
+              leadingColor: AppColors.red,
             ),
-            mainColor: AppColors.lightRed,
-            leadingColor: AppColors.red,
           ),
         )
       ],
