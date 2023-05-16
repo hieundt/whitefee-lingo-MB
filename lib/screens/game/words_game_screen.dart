@@ -1,7 +1,9 @@
 import 'package:dictionary/data/models/vocabulary_model/vocabulary_model.dart';
 import 'package:dictionary/data/services/training_service.dart';
+import 'package:dictionary/data/services/user_service.dart';
 import 'package:dictionary/data/services/vocabulary_service.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import '../../res/themes.dart';
 
 class WordsGameScreen extends StatelessWidget {
@@ -13,10 +15,12 @@ class WordsGameScreen extends StatelessWidget {
       child: GestureDetector(
         onTap: () async {
           print('tapped');
-
-          var vocabularyOfUnit = await UnitService()
-              .getVocabularyOfUnit('6453772d7029627e8fd9dcac');
-          print(vocabularyOfUnit);
+          var user = await UserService().getAllUserData();
+          print(
+            DateFormat("dd/MM/yyyy").format(
+              DateTime.parse(user[3].dateOfBirth!),
+            ),
+          );
         },
         child: Container(
           width: 65,

@@ -7,7 +7,7 @@ class User {
   String? email;
   String? password;
   String? userName;
-  DateTime? dateOfBirth;
+  String? dateOfBirth;
   List<FavoriteVocabulary>? favoriteVocabularies;
   List<FavoriteUnit>? favoriteUnit;
   List<TestHistory>? testHistory;

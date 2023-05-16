@@ -1,3 +1,5 @@
+import 'package:dictionary/screens/auth/login_screen.dart';
+import 'package:dictionary/screens/auth/signup_screen.dart';
 import 'package:dictionary/screens/user/favorite_unit_screen.dart';
 import 'package:dictionary/screens/user/favorite_vocabulary_screen.dart';
 import 'package:dictionary/screens/user/test_history.dart';
@@ -11,6 +13,9 @@ class AppRoutes {
   static const favoriteUnit = '/favoriteUnit';
   static const favoriteVocabulary = '/favoriteVocabulary';
   static const testHistory = '/testHistory';
+
+  static const signup = '/signup';
+  static const login = '/login';
 }
 
 var appRoutes = {
@@ -19,4 +24,6 @@ var appRoutes = {
   AppRoutes.favoriteUnit: (context) => const FavoriteUnitScreen(),
   AppRoutes.favoriteVocabulary: (context) => const FavoriteVocabularyScreen(),
   AppRoutes.testHistory: (context) => const TestHistoryScreen(),
+  AppRoutes.signup: (context) => const SignUpScreen(),
+  AppRoutes.login: (context) => const LoginScreen(),
 };

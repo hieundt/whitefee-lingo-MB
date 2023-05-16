@@ -122,8 +122,10 @@ class TestTopicsScreen extends StatelessWidget {
                     return GestureDetector(
                       onTap: () async {
                         appMessageDialog(
-                          context,
-                          'This content will be developed in the future, stay tuned! ',
+                          context: context,
+                          title: 'Comming soon',
+                          message:
+                              'This content will be developed in the future, stay tuned! ',
                         );
                       },
                       child: Container(

@@ -6,9 +6,11 @@ var api = 'https://backenddictionary-production.up.railway.app';
 class UserService {
   var userApi = '$api/user';
 
-  Future<User> getUserData() async {
+  Future<List<User>> getAllUserData() async {
     final response = await Dio().get(userApi);
-    final result = User.fromJson(response.data[0]);
+    List<User> result =
+        (response.data as List).map((e) => User.fromJson(e)).toList();
+
     return result;
   }
 
@@ -16,10 +18,10 @@ class UserService {
     required String email,
     required String password,
     required String userName,
-    required DateTime dateOfBirth,
+    required String dateOfBirth,
   }) async {
     await Dio().post(
-      'https://backenddictionary-production.up.railway.app/vocabulary',
+      userApi,
       data: {
         "email": email,
         "password": password,

@@ -121,11 +121,13 @@ class UserScreen extends StatelessWidget {
                 icon: const Icon(
                   CupertinoIcons.square_arrow_right,
                   size: 50,
-                  color: AppColors.black,
+                  color: AppColors.white,
                 ),
                 label: Text(
                   'Log out',
-                  style: AppTextStyle.bold15,
+                  style: AppTextStyle.bold15.copyWith(
+                    color: AppColors.white,
+                  ),
                 ),
               ),
             ],

@@ -1,7 +1,6 @@
-import 'package:dictionary/providers/auth_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+
 import '../../../res/themes.dart';
 
 enum AppTextFieldType {
@@ -40,9 +39,9 @@ class AppTextField extends StatelessWidget {
             (value!.isEmpty ||
                 !RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
                     .hasMatch(value))) {
-          return 'enter_valid_email';
+          return 'enter valid email';
         } else if (validator == AppTextFieldType.name && value!.isEmpty) {
-          return 'enter_valid_name';
+          return 'enter valid name';
         }
         return null;
       },
@@ -75,7 +74,7 @@ class AppTextField extends StatelessWidget {
   }
 }
 
-class AppPasswordField extends StatelessWidget {
+class AppPasswordField extends StatefulWidget {
   final TextEditingController controller;
   final String hint;
   final TextEditingController? confirmController;
@@ -89,22 +88,32 @@ class AppPasswordField extends StatelessWidget {
   });
 
   @override
+  State<AppPasswordField> createState() => _AppPasswordFieldState();
+}
+
+class _AppPasswordFieldState extends State<AppPasswordField> {
+  bool _hidePassword = true;
+
+  void showPassword() {
+    _hidePassword = !_hidePassword;
+  }
+
+  @override
   Widget build(BuildContext context) {
-    var provider = Provider.of<AuthProvider>(context);
     return TextFormField(
-      controller: controller,
-      obscureText: provider.hidePassword,
+      controller: widget.controller,
+      obscureText: _hidePassword,
       style: AppTextStyle.regular15,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       validator: (value) {
-        if (confirmController != null &&
-                confirmController!.text.toString() !=
-                    controller.text.toString() ||
-            confirmController != null && value!.isEmpty) {
+        if (widget.confirmController != null &&
+                widget.confirmController!.text.toString() !=
+                    widget.controller.text.toString() ||
+            widget.confirmController != null && value!.isEmpty) {
           return 'enter valid confirm password';
         }
 
-        if (value!.isEmpty && confirmController == null) {
+        if (value!.isEmpty && widget.confirmController == null) {
           return 'enter valid password';
         }
         return null;
@@ -113,17 +122,17 @@ class AppPasswordField extends StatelessWidget {
         hintStyle: AppTextStyle.medium13.copyWith(
           color: AppColors.darkGray,
         ),
-        hintText: hint,
-        errorText: error,
+        hintText: widget.hint,
+        errorText: widget.error,
         suffixIcon: IconButton(
           onPressed: () {
-            provider.showPassword();
+            setState(() {
+              showPassword();
+            });
           },
           splashColor: Colors.transparent,
           icon: Icon(
-            provider.hidePassword
-                ? CupertinoIcons.eye
-                : CupertinoIcons.eye_slash,
+            _hidePassword ? CupertinoIcons.eye : CupertinoIcons.eye_slash,
             size: 20,
             color: AppColors.darkGray,
           ),

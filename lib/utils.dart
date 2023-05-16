@@ -16,20 +16,21 @@ class AppLoadingIndicator extends StatelessWidget {
   }
 }
 
-Future<void> appMessageDialog(
-  BuildContext context,
-  String message,
-) {
+Future<void> appMessageDialog({
+  required BuildContext context,
+  required String? title,
+  required String? message,
+}) {
   return showDialog<void>(
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
         title: Text(
-          'Comming soon',
+          title ?? '',
           style: AppTextStyle.bold15,
         ),
         content: Text(
-          message,
+          message ?? '',
           style: AppTextStyle.regular13,
         ),
         actions: <Widget>[
