@@ -19,8 +19,8 @@ class LockContentWidget extends StatelessWidget {
       onTap: () {
         appMessageDialog(
           context: context,
-          title: 'Conte',
-          message: 'Login to access this content',
+          title: 'Login required',
+          message: 'Please login to access this content',
         );
       },
       child: Stack(
