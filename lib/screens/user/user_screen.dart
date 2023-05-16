@@ -117,17 +117,19 @@ class UserScreen extends StatelessWidget {
               const SizedBox(height: 10),
               ElevatedButton.icon(
                 onPressed: () {},
-                style: AppButtonStyle.boder,
+                style: AppButtonStyle.boder.copyWith(
+                  backgroundColor: const MaterialStatePropertyAll(
+                    AppColors.white,
+                  ),
+                ),
                 icon: const Icon(
                   CupertinoIcons.square_arrow_right,
                   size: 50,
-                  color: AppColors.white,
+                  color: AppColors.black,
                 ),
                 label: Text(
                   'Log out',
-                  style: AppTextStyle.bold15.copyWith(
-                    color: AppColors.white,
-                  ),
+                  style: AppTextStyle.bold15,
                 ),
               ),
             ],

@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import '../../../res/themes.dart';
 
 enum AppTextFieldType {
@@ -132,7 +131,7 @@ class _AppPasswordFieldState extends State<AppPasswordField> {
           },
           splashColor: Colors.transparent,
           icon: Icon(
-            _hidePassword ? CupertinoIcons.eye : CupertinoIcons.eye_slash,
+            _hidePassword ? CupertinoIcons.eye_slash : CupertinoIcons.eye,
             size: 20,
             color: AppColors.darkGray,
           ),

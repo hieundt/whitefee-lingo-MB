@@ -14,6 +14,20 @@ class UserService {
     return result;
   }
 
+  Future<User?> loginWithEmailPassword({
+    required String email,
+    required String password,
+  }) async {
+    //Chua lam
+    final response = await Dio().get('userApi/$email');
+    final user = User.fromJson(response.data);
+    if (user.password == password) {
+      return user; // Return the user object if login is successful
+    } else {
+      return null; // Return null if password does not match
+    }
+  }
+
   Future<void> createAccount({
     required String email,
     required String password,
