@@ -1,24 +1,23 @@
-import 'package:dictionary/navigator/widgets/app_bar_widget.dart';
-import 'package:dictionary/navigator/widgets/app_navigation_bar.dart';
+import 'package:dictionary/screens/home/widgets/app_bar_widget.dart';
+import 'package:dictionary/screens/home/widgets/app_navigation_bar.dart';
 import 'package:dictionary/res/images.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../providers/navigation_bar_provider.dart';
-import '../screens/user/user_screen.dart';
-import '../screens/dictionary/dictionary_screen.dart';
-import '../screens/game/words_game_screen.dart';
-import '../screens/training/training_screen.dart';
-import '../res/themes.dart';
+import '../../providers/navigation_bar_provider.dart';
+import '../user/user_screen.dart';
+import '../dictionary/dictionary_screen.dart';
+import '../game/words_game_screen.dart';
+import '../training/training_screen.dart';
 
-class NavigationScreen extends StatefulWidget {
-  const NavigationScreen({super.key});
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
 
   @override
-  State<NavigationScreen> createState() => _NavigationScreenState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _NavigationScreenState extends State<NavigationScreen> {
+class _HomeScreenState extends State<HomeScreen> {
   final pages = [
     const DictionaryScreen(),
     const TrainingScreen(),

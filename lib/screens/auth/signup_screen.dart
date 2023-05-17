@@ -175,6 +175,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   userName: _userName.text.toString().trim(),
                                   dateOfBirth: birthday.toIso8601String(),
                                 );
+                                if (!mounted) return;
+                                appMessageDialog(
+                                  context: context,
+                                  title: 'Welcome! new user',
+                                  message: 'Your account has been created',
+                                ).then((_) {
+                                  Navigator.of(context).pushReplacementNamed(
+                                    AppRoutes.login,
+                                  );
+                                });
 
                                 setState(() {
                                   _email.clear();

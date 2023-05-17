@@ -14,18 +14,24 @@ class UserService {
     return result;
   }
 
+  Future<User> getUserById(String userId) async {
+    final response = await Dio().get('$userApi/$userId');
+    User result = User.fromJson(response.data);
+    return result;
+  }
+
   Future<User?> loginWithEmailPassword({
     required String email,
     required String password,
   }) async {
-    //Chua lam
-    final response = await Dio().get('userApi/$email');
-    final user = User.fromJson(response.data);
-    if (user.password == password) {
-      return user; // Return the user object if login is successful
-    } else {
-      return null; // Return null if password does not match
-    }
+    final response = await Dio().get('$userApi/login/$email/$password');
+    User? result = User?.fromJson(response.data);
+    return result;
+
+    //final userList = await getAllUserData();
+
+    // final userMap = {for (var user in userList) user.email: user};
+    // final currentUser = userMap[email];
   }
 
   Future<void> createAccount({

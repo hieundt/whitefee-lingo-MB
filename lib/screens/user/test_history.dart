@@ -1,4 +1,4 @@
-import 'package:dictionary/navigator/widgets/app_bar_widget.dart';
+import 'package:dictionary/screens/home/widgets/app_bar_widget.dart';
 import 'package:dictionary/res/themes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

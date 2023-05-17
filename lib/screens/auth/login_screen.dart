@@ -1,3 +1,4 @@
+import 'package:dictionary/providers/auth_provider.dart';
 import 'package:dictionary/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:dictionary/data/services/user_service.dart';
@@ -5,6 +6,7 @@ import 'package:dictionary/res/images.dart';
 import 'package:dictionary/res/themes.dart';
 import 'package:dictionary/screens/auth/widgets/app_text_fields.dart';
 import 'package:dictionary/utils.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -31,6 +33,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var userProvider = Provider.of<AuthProvider>(context);
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -71,85 +74,105 @@ class _LoginScreenState extends State<LoginScreen> {
                     horizontal: 10,
                     vertical: 10,
                   ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      SizedBox.fromSize(
-                        size: const Size(100, 100),
-                        child: Image.asset(
-                          AppLogoImage.logo,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SizedBox.fromSize(
+                          size: const Size(100, 100),
+                          child: Image.asset(
+                            AppLogoImage.logo,
+                          ),
                         ),
-                      ),
-                      const SizedBox(height: 20),
-                      AppTextField(
-                        controller: _email,
-                        hint: 'Enter email',
-                        validator: AppTextFieldType.email,
-                      ),
-                      const SizedBox(height: 10),
-                      AppPasswordField(
-                        hint: 'Enter password',
-                        controller: _password,
-                      ),
-                      const SizedBox(height: 20),
-                      SizedBox.fromSize(
-                        size: const Size(210, 70),
-                        child: ElevatedButton(
-                          onPressed: () async {
-                            if (_formKey.currentState!.validate()) {
-                              //Login logic
-
-                              setState(() {
-                                _email.clear();
-                                _password.clear();
-                              });
-                            } else {
-                              appMessageDialog(
-                                context: context,
-                                title: 'Error',
-                                message: 'Please correct the information',
-                              );
-                            }
+                        const SizedBox(height: 20),
+                        AppTextField(
+                          controller: _email,
+                          hint: 'Enter email',
+                          validator: AppTextFieldType.email,
+                        ),
+                        const SizedBox(height: 10),
+                        AppPasswordField(
+                          hint: 'Enter password',
+                          controller: _password,
+                        ),
+                        const SizedBox(height: 20),
+                        SizedBox.fromSize(
+                          size: const Size(210, 70),
+                          child: ElevatedButton(
+                            onPressed: () async {
+                              if (_formKey.currentState!.validate()) {
+                                final currentUser =
+                                    await UserService().loginWithEmailPassword(
+                                  email: _email.text.toString(),
+                                  password: _password.text.toString(),
+                                );
+                                if (currentUser != null) {
+                                  userProvider.currentUser = currentUser;
+                                  if (!mounted) return;
+                                  Navigator.of(context).pushReplacementNamed(
+                                    AppRoutes.home,
+                                  );
+                                  setState(() {
+                                    _email.clear();
+                                    _password.clear();
+                                  });
+                                } else {
+                                  if (!mounted) return;
+                                  appMessageDialog(
+                                    context: context,
+                                    title: 'User not found!',
+                                    message:
+                                        'Your information might be uncorrect',
+                                  );
+                                }
+                              } else {
+                                appMessageDialog(
+                                  context: context,
+                                  title: 'Error',
+                                  message: 'Please correct the information',
+                                );
+                              }
+                            },
+                            style: AppButtonStyle.boder.copyWith(
+                              backgroundColor: const MaterialStatePropertyAll(
+                                AppColors.darkGreen,
+                              ),
+                            ),
+                            child: Text(
+                              'Login',
+                              style: AppTextStyle.medium20.copyWith(
+                                color: AppColors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 30),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).pushReplacementNamed(
+                              AppRoutes.signup,
+                            );
                           },
-                          style: AppButtonStyle.boder.copyWith(
-                            backgroundColor: const MaterialStatePropertyAll(
-                              AppColors.darkGreen,
-                            ),
-                          ),
-                          child: Text(
-                            'Login',
-                            style: AppTextStyle.medium20.copyWith(
-                              color: AppColors.white,
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 30),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).pushReplacementNamed(
-                            AppRoutes.signup,
-                          );
-                        },
-                        child: RichText(
-                          text: TextSpan(
-                            children: [
-                              TextSpan(
-                                text: 'Don\'t have an acount? ',
-                                style: AppTextStyle.regular13,
-                              ),
-                              TextSpan(
-                                text: 'Create here',
-                                style: AppTextStyle.bold15.copyWith(
-                                  color: AppColors.darkGreen,
+                          child: RichText(
+                            text: TextSpan(
+                              children: [
+                                TextSpan(
+                                  text: 'Don\'t have an acount? ',
+                                  style: AppTextStyle.regular13,
                                 ),
-                              ),
-                            ],
+                                TextSpan(
+                                  text: 'Create here',
+                                  style: AppTextStyle.bold15.copyWith(
+                                    color: AppColors.darkGreen,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               );

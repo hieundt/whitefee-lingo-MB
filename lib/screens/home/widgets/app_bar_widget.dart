@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../res/images.dart';
-import '../../res/themes.dart';
+import '../../../res/images.dart';
+import '../../../res/themes.dart';
 
 class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   final String screenTitle;

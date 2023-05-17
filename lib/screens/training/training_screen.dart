@@ -91,25 +91,21 @@ class TrainingScreen extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 20),
-        LockContentWidget(
-          width: 500,
-          height: 300,
-          lockContent: GestureDetector(
-            onTap: () {
-              Navigator.of(context).pushNamed(AppRoutes.testTopics);
-            },
-            child: TrainingTopicWidget(
-              contentName: 'Training',
-              title: 'Test',
-              description: 'Our test simulator will help you!',
-              image: Image.asset(
-                TrainingScreenImage.test,
-              ),
-              mainColor: AppColors.lightRed,
-              leadingColor: AppColors.red,
+        GestureDetector(
+          onTap: () {
+            Navigator.of(context).pushNamed(AppRoutes.testTopics);
+          },
+          child: TrainingTopicWidget(
+            contentName: 'Training',
+            title: 'Test',
+            description: 'Our test simulator will help you!',
+            image: Image.asset(
+              TrainingScreenImage.test,
             ),
+            mainColor: AppColors.lightRed,
+            leadingColor: AppColors.red,
           ),
-        )
+        ),
       ],
     );
   }

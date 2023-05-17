@@ -5,7 +5,7 @@ import 'package:dictionary/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../../data/models/unit_models/unit_model.dart';
-import '../../../navigator/widgets/app_bar_widget.dart';
+import '../../home/widgets/app_bar_widget.dart';
 import '../../../res/images.dart';
 import '../widgets/unit_action_button.dart';
 import '../widgets/unit_items.dart';

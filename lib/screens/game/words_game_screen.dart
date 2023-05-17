@@ -4,6 +4,8 @@ import 'package:dictionary/data/services/user_service.dart';
 import 'package:dictionary/data/services/vocabulary_service.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+import '../../providers/auth_provider.dart';
 import '../../res/themes.dart';
 
 class WordsGameScreen extends StatelessWidget {
@@ -11,16 +13,12 @@ class WordsGameScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var userProvider = Provider.of<AuthProvider>(context).currentUser;
     return Center(
       child: GestureDetector(
         onTap: () async {
           print('tapped');
-          var user = await UserService().getAllUserData();
-          print(
-            DateFormat("dd/MM/yyyy").format(
-              DateTime.parse(user[3].dateOfBirth!),
-            ),
-          );
+          print(userProvider!.id);
         },
         child: Container(
           width: 65,
@@ -34,6 +32,20 @@ class WordsGameScreen extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class Fake extends StatelessWidget {
+  final Widget child;
+  const Fake({super.key, required this.child});
+
+  @override
+  Widget build(BuildContext context) {
+    var userProvider = Provider.of<AuthProvider>(context).currentUser;
+    return Container(
+      color: userProvider?.id == null ? null : AppColors.dark,
+      child: child,
     );
   }
 }
