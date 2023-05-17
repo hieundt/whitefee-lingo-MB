@@ -6,8 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-
-import '../../providers/auth_provider.dart';
+import '../../providers/user_provider.dart';
 import '../../routes.dart';
 import 'widgets/user_information_widget.dart';
 
@@ -16,9 +15,9 @@ class UserScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var userProvider = Provider.of<AuthProvider>(context).currentUser;
+    var authProvider = Provider.of<UserProvider>(context).currentUser;
     return FutureBuilder(
-      future: UserService().getUserById(userProvider!.id!),
+      future: UserService().getUserById(authProvider!.id!),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           var currentUser = snapshot.data!;
@@ -160,7 +159,7 @@ class UserScreen extends StatelessWidget {
                                   ),
                                   child: const Text('Yes'),
                                   onPressed: () {
-                                    userProvider = null;
+                                    authProvider = null;
                                     Navigator.of(context).pushReplacementNamed(
                                       AppRoutes.login,
                                     );

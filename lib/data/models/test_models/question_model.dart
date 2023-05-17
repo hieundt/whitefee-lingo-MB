@@ -1,7 +1,3 @@
-import 'package:dictionary/data/services/training_service.dart';
-
-import 'option_model.dart';
-
 class Question {
   String? id;
   bool? type;

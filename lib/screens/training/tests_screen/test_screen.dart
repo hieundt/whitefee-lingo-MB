@@ -1,9 +1,12 @@
 import 'package:dictionary/data/models/test_models/question_model.dart';
 import 'package:dictionary/data/services/training_service.dart';
+import 'package:dictionary/data/services/user_service.dart';
+import 'package:dictionary/providers/user_provider.dart';
 import 'package:dictionary/res/images.dart';
 import 'package:dictionary/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../../data/models/test_models/option_model.dart';
 import '../../../data/models/test_models/test_model.dart';
 import '../../../res/themes.dart';
@@ -56,7 +59,9 @@ class TestScreen extends StatelessWidget {
                       question: questions[4],
                       controller: controller,
                     ),
-                    TestCongratsScreen(test: test),
+                    TestCongratsScreen(
+                      test: test,
+                    ),
                   ],
                 );
               } else {
@@ -139,6 +144,7 @@ class QuestionWidget extends StatelessWidget {
                                   option: e,
                                   answer: question.answer!,
                                   controller: controller,
+                                  point: question.point!,
                                 ),
                                 const SizedBox(height: 15),
                               ],
@@ -213,6 +219,7 @@ class QuestionWidget extends StatelessWidget {
                                   option: e,
                                   answer: question.answer!,
                                   controller: controller,
+                                  point: question.point!,
                                 )
                               ],
                             );
@@ -233,12 +240,14 @@ class QuestionWidget extends StatelessWidget {
 class OptionWidget extends StatefulWidget {
   final Option option;
   final String answer;
+  final int point;
   final PageController controller;
   const OptionWidget({
     super.key,
     required this.option,
     required this.answer,
     required this.controller,
+    required this.point,
   });
 
   @override
@@ -249,6 +258,7 @@ class _OptionWidgetState extends State<OptionWidget> {
   Color? color = AppColors.lightGray;
   @override
   Widget build(BuildContext context) {
+    var userProvider = Provider.of<UserProvider>(context);
     return Material(
       color: color,
       shape: RoundedRectangleBorder(
@@ -276,6 +286,9 @@ class _OptionWidgetState extends State<OptionWidget> {
                 ? color = AppColors.green
                 : color = AppColors.red;
           });
+          if (widget.option.correct == true) {
+            userProvider.addPoint(widget.point);
+          }
         },
         child: ListTile(
           dense: true,
@@ -407,7 +420,7 @@ class TestStartScreen extends StatelessWidget {
   }
 }
 
-class TestCongratsScreen extends StatelessWidget {
+class TestCongratsScreen extends StatefulWidget {
   final Test test;
   const TestCongratsScreen({
     super.key,
@@ -415,39 +428,63 @@ class TestCongratsScreen extends StatelessWidget {
   });
 
   @override
+  State<TestCongratsScreen> createState() => _TestCongratsScreenState();
+}
+
+class _TestCongratsScreenState extends State<TestCongratsScreen> {
+  @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            'Congrats! You completed the ${test.name} test',
-            style: AppTextStyle.bold25,
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 10),
-          const Divider(
-            thickness: 3,
-            color: AppColors.black,
-          ),
-          const SizedBox(height: 30),
-          Image.asset(
-            AppLogoImage.logo,
-            fit: BoxFit.cover,
-            scale: 2,
-          ),
-          const Divider(),
-          ElevatedButton.icon(
-            style: AppButtonStyle.boder,
-            icon: const Icon(CupertinoIcons.checkmark_circle),
-            label: const Text(' Mark Complete!'),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-          )
-        ],
-      ),
+    var userProvider = Provider.of<UserProvider>(context);
+    return FutureBuilder(
+      future: UserHistoryService()
+          .getTestHistoryOfUser(userProvider.currentUser!.id!),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.done) {
+          return Padding(
+            padding: const EdgeInsets.all(8),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Congrats! You completed the ${widget.test.name} test',
+                  style: AppTextStyle.bold25,
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 10),
+                const Divider(
+                  thickness: 3,
+                  color: AppColors.black,
+                ),
+                const SizedBox(height: 30),
+                Image.asset(
+                  AppLogoImage.logo,
+                  fit: BoxFit.cover,
+                  scale: 2,
+                ),
+                const Divider(),
+                ElevatedButton.icon(
+                  style: AppButtonStyle.boder,
+                  icon: const Icon(CupertinoIcons.checkmark_circle),
+                  label: const Text(' Mark Complete!'),
+                  onPressed: () async {
+                    await UserHistoryService().createTestHistory(
+                      userId: userProvider.currentUser!.id,
+                      testId: widget.test.id,
+                      totalPoint: userProvider.totalPoint,
+                      testDate: DateTime.now().toIso8601String(),
+                    );
+                    userProvider.resetPoint();
+                    if (!mounted) return;
+                    Navigator.of(context).pop();
+                  },
+                )
+              ],
+            ),
+          );
+        } else {
+          return const AppLoadingIndicator();
+        }
+      },
     );
   }
 }

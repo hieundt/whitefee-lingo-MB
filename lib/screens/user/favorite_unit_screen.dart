@@ -34,22 +34,25 @@ class FavoriteUnitScreen extends StatelessWidget {
                 return Container(
                   decoration: AppContainerStyle.border.copyWith(
                     color: AppColors.white,
+                    borderRadius: BorderRadius.circular(15),
                   ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Image.network(
-                        favorite.image!,
-                        width: 100,
-                        height: 60,
-                      ),
-                      const SizedBox(height: 10),
-                      Text(
-                        favorite.name!,
-                        style: AppTextStyle.medium15,
-                      ),
-                    ],
+                  child: Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Image.network(
+                          favorite.image!,
+                          width: 100,
+                          height: 100,
+                        ),
+                        const SizedBox(width: 30),
+                        Text(
+                          favorite.name!,
+                          style: AppTextStyle.medium40,
+                        ),
+                      ],
+                    ),
                   ),
                 );
               },

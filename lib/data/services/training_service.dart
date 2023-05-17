@@ -18,6 +18,7 @@ class TestService {
     return result;
   }
 
+  // Not use yet
   Future<Test> getTestById(String id) async {
     var testApi = '$api/test/$id';
     final response = await Dio().get(testApi);

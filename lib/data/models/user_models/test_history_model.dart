@@ -3,7 +3,7 @@ class TestHistory {
   String? userId;
   String? testId;
   int? totalPoint;
-  DateTime? testDate;
+  String? testDate;
 
   TestHistory({
     this.id,

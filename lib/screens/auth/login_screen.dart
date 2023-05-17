@@ -1,4 +1,4 @@
-import 'package:dictionary/providers/auth_provider.dart';
+import 'package:dictionary/providers/user_provider.dart';
 import 'package:dictionary/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:dictionary/data/services/user_service.dart';
@@ -33,7 +33,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var userProvider = Provider.of<AuthProvider>(context);
+    var userProvider = Provider.of<UserProvider>(context);
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(

@@ -1,10 +1,8 @@
-import 'package:dictionary/providers/auth_provider.dart';
+import 'package:dictionary/providers/user_provider.dart';
 import 'package:dictionary/providers/dictionary_provider.dart';
 import 'package:dictionary/providers/test_provider.dart';
 import 'package:dictionary/routes.dart';
 import 'package:dictionary/screens/auth/login_screen.dart';
-import 'package:dictionary/screens/auth/signup_screen.dart';
-import 'package:dictionary/screens/game/words_game_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'screens/home/home_sceen.dart';
@@ -33,7 +31,7 @@ class MyApp extends StatelessWidget {
           create: (_) => TestProvider(),
         ),
         ChangeNotifierProvider(
-          create: (_) => AuthProvider(),
+          create: (_) => UserProvider(),
         ),
       ],
       child: MaterialApp(

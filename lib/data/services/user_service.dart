@@ -1,3 +1,4 @@
+import 'package:dictionary/data/models/user_models/test_history_model.dart';
 import 'package:dio/dio.dart';
 import '../models/user_models/user_model.dart';
 
@@ -65,6 +66,35 @@ class UserService {
         "password": password,
         "userName": userName,
         "dateOfBirth": dateOfBirth,
+      },
+    );
+  }
+}
+
+class UserHistoryService {
+  var historyApi = '$api/testhistory';
+
+  Future<List<TestHistory>> getTestHistoryOfUser(String userId) async {
+    var historyOfUserApi = '$historyApi/$userId';
+    final response = await Dio().get(historyOfUserApi);
+    List<TestHistory> history =
+        (response.data as List).map((e) => TestHistory.fromJson(e)).toList();
+    return history;
+  }
+
+  Future<void> createTestHistory({
+    required String? userId,
+    required String? testId,
+    required int? totalPoint,
+    required String? testDate,
+  }) async {
+    await Dio().post(
+      historyApi,
+      data: {
+        "userId": userId,
+        "testId": testId,
+        "totalPoint": totalPoint,
+        "testDate": testDate,
       },
     );
   }
