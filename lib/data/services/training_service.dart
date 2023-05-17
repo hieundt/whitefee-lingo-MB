@@ -51,7 +51,7 @@ class UnitService {
     return result;
   }
 
-  Future<List<Vocabulary>> getVocabularyOfUnit(String unitId) async {
+  Future<List<Vocabulary?>> getVocabularyOfUnit(String unitId) async {
     var api =
         'https://backenddictionary-production.up.railway.app/unithasvocabulary';
 
@@ -61,13 +61,29 @@ class UnitService {
         .map((e) => UnitHasVocabulary.fromJson(e))
         .toList();
 
-    List<Vocabulary> vocabularyOfUnit = [];
-    for (var item in unitHasVocabulary) {
-      var vocabulary =
-          await VocabularyService().getVocabularyById(item.vocabularyId!);
-      vocabularyOfUnit.add(vocabulary);
-    }
+    final allAocabulary = await VocabularyService().getAllVocabulary();
+    List<Vocabulary?> vocabularyOfUnit = Map<String, Vocabulary?>.fromIterable(
+      allAocabulary,
+      key: (element) => element.id,
+      value: (element) {
+        for (var item in unitHasVocabulary) {
+          if (element.id == item.vocabularyId) {
+            return element;
+          }
+        }
+        return null;
+      },
+    ).values.toList();
 
     return vocabularyOfUnit;
+
+    //Another way of doing this shit is to use 2 for loop querying the value
+
+    // List<Vocabulary> vocabularyOfUnit = [];
+    // for (var item in unitHasVocabulary) {
+    //   var vocabulary =
+    //       await VocabularyService().getVocabularyById(item.vocabularyId!);
+    //   vocabularyOfUnit.add(vocabulary);
+    // }
   }
 }

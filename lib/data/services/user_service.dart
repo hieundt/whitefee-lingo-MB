@@ -28,10 +28,28 @@ class UserService {
     User? result = User?.fromJson(response.data);
     return result;
 
-    //final userList = await getAllUserData();
+    //? Another way of doing this shit
+    //? This Map.fromIterable take 3 parameter:
+    //? the Iterable<dynamic>, key and value, which are two function
+    //? You can do whatever to return the key and value
 
-    // final userMap = {for (var user in userList) user.email: user};
-    // final currentUser = userMap[email];
+    // final userList = await getAllUserData();
+    // final userMap = Map.fromIterable(
+    // userList,
+    //   key: (user) => user.email,
+    //   value: (user) => user,
+    // );
+
+    //? Or using the shortcut
+    // final userMap = {for (var user in userList) user.email : user};
+    // Which return the same shit
+
+    //? We pass the key, which is email from user an get the value
+    // final user = userMap[email];
+    // if (user != null && user.password == password) {
+    //   return user;
+    // }
+    // return null;
   }
 
   Future<void> createAccount({

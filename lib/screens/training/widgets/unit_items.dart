@@ -129,8 +129,9 @@ class UnitSwipeableStack extends StatelessWidget {
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (BuildContext context) =>
-                  const UnitCongratsScreen(unitName: 'Daily'),
+              builder: (BuildContext context) => const UnitCongratsScreen(
+                unitName: 'Daily',
+              ),
             ),
           );
         },

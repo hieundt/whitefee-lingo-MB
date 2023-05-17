@@ -18,7 +18,10 @@ class WordsGameScreen extends StatelessWidget {
       child: GestureDetector(
         onTap: () async {
           print('tapped');
-          print(userProvider!.id);
+          var voca = await UnitService()
+              .getVocabularyOfUnit('6453772d7029627e8fd9dcac');
+
+          print(voca[1]!.word);
         },
         child: Container(
           width: 65,

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../../res/images.dart';
 import '../../../res/themes.dart';
 

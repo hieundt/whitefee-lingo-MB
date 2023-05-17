@@ -40,7 +40,7 @@ class _UnitScreenState extends State<UnitScreen> {
                     child: UnitSwipeableStack(
                       items: vocabularies
                           .map((vocabulary) =>
-                              UnitFlipCard(vocabulary: vocabulary))
+                              UnitFlipCard(vocabulary: vocabulary!))
                           .toList(),
                       controller: controller,
                     ),
@@ -101,9 +101,16 @@ class UnitStartScreen extends StatelessWidget {
         child: Container(
           padding: const EdgeInsets.all(10),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Align(
+                alignment: Alignment.topCenter,
+                child: Text(
+                  'Tutorial',
+                  style: AppTextStyle.bold40,
+                ),
+              ),
+              const SizedBox(height: 10),
               RichText(
                 text: TextSpan(
                   children: [
@@ -112,7 +119,7 @@ class UnitStartScreen extends StatelessWidget {
                       style: AppTextStyle.medium15,
                     ),
                     TextSpan(
-                      text: 'left or right ',
+                      text: 'left/right ',
                       style: AppTextStyle.bold15.copyWith(
                         color: AppColors.darkRed,
                       ),
@@ -145,27 +152,27 @@ class UnitStartScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              const SizedBox(height: 10),
-              RichText(
-                text: TextSpan(
-                  children: [
-                    TextSpan(
-                      text: 'Tap on the ',
-                      style: AppTextStyle.medium15,
-                    ),
-                    TextSpan(
-                      text: 'bookmark ',
-                      style: AppTextStyle.bold15.copyWith(
-                        color: AppColors.darkRed,
-                      ),
-                    ),
-                    TextSpan(
-                      text: 'to add to favorite list',
-                      style: AppTextStyle.medium15,
-                    ),
-                  ],
-                ),
-              ),
+              // const SizedBox(height: 10),
+              // RichText(
+              //   text: TextSpan(
+              //     children: [
+              //       TextSpan(
+              //         text: 'Tap on the ',
+              //         style: AppTextStyle.medium15,
+              //       ),
+              //       TextSpan(
+              //         text: 'bookmark ',
+              //         style: AppTextStyle.bold15.copyWith(
+              //           color: AppColors.darkRed,
+              //         ),
+              //       ),
+              //       TextSpan(
+              //         text: 'to add to favorite list',
+              //         style: AppTextStyle.medium15,
+              //       ),
+              //     ],
+              //   ),
+              // ),
               const SizedBox(height: 30),
               Expanded(
                 child: Image(
@@ -175,19 +182,23 @@ class UnitStartScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 30),
-              FloatingActionButton.extended(
-                onPressed: () {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (BuildContext context) => UnitScreen(unit: unit),
-                    ),
-                  );
-                },
-                icon: const Icon(Icons.poll),
-                label: Text(
-                  'Start',
-                  style: AppTextStyle.medium40,
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: FloatingActionButton.extended(
+                  onPressed: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (BuildContext context) =>
+                            UnitScreen(unit: unit),
+                      ),
+                    );
+                  },
+                  icon: const Icon(Icons.poll),
+                  label: Text(
+                    'Start',
+                    style: AppTextStyle.medium40,
+                  ),
                 ),
               ),
             ],
