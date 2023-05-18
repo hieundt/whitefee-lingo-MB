@@ -171,6 +171,21 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
                         ),
+                        const SizedBox(height: 20),
+                        TextButton(
+                          onPressed: () {
+                            if (!mounted) return;
+                            Navigator.of(context).pushReplacementNamed(
+                              AppRoutes.home,
+                            );
+                          },
+                          child: Text(
+                            'Skip for now',
+                            style: AppTextStyle.medium20.copyWith(
+                              color: AppColors.gray,
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ),

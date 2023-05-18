@@ -1,6 +1,7 @@
 import 'package:dictionary/data/services/user_service.dart';
 import 'package:dictionary/providers/user_provider.dart';
 import 'package:dictionary/res/images.dart';
+import 'package:dictionary/screens/dictionary/widgets/favorite_marker.dart';
 import 'package:dictionary/screens/dictionary/widgets/pronounce_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -56,23 +57,13 @@ class VocabularyWidget extends StatelessWidget {
                       CupertinoIcons.speaker_3,
                       size: 40,
                     ),
-              Expanded(
-                flex: 1,
-                child: GestureDetector(
-                  onTap: () async {
-                    await UserFavoriteCollectionService()
-                        .markFavoriteVocabulary(
-                      userId: userProvider!.id!,
-                      vocabularyId: vocabulary.id!,
-                    );
-                  },
-                  child: const Icon(
-                    CupertinoIcons.bookmark_fill,
-                    size: 50,
-                    color: AppColors.darkBrown,
-                  ),
-                ),
-              ),
+              // Expanded(
+              //   flex: 1,
+              //   child: FavoriteMarker(
+              //     userId: userProvider!.id!,
+              //     vocabularyId: vocabulary.id!,
+              //   ),
+              // ),
             ],
           ),
           const SizedBox(height: 30),

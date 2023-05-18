@@ -112,7 +112,36 @@ class UserFavoriteCollectionService {
     return result;
   }
 
+  Future<bool> isFavoriteVocabulary({
+    required String userId,
+    required String vocabularyId,
+  }) async {
+    final favoriteList = await getFavoriteVocabulary(userId);
+    final favoriteMap = {
+      for (var element in favoriteList) element.vocabularyId: element
+    };
+
+    final isFavorite = favoriteMap[vocabularyId];
+    if (isFavorite != null && isFavorite.vocabularyId == vocabularyId) {
+      return true;
+    }
+    return false;
+  }
+
   Future<void> markFavoriteVocabulary({
+    required String userId,
+    required String vocabularyId,
+  }) async {
+    await Dio().post(
+      favoritevocabularyApi,
+      data: {
+        "userId": userId,
+        "vocabularyId": vocabularyId,
+      },
+    );
+  }
+
+  Future<void> removeFavoriteVocabulary({
     required String userId,
     required String vocabularyId,
   }) async {
