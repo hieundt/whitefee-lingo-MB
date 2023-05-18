@@ -1,20 +1,20 @@
-import 'package:dictionary/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'providers/dictionary_provider.dart';
 import 'providers/navigation_bar_provider.dart';
 import 'providers/test_provider.dart';
 import 'providers/user_provider.dart';
+import 'routes.dart';
 import 'screens/auth/login_screen.dart';
 
 void main() {
   runApp(
-    const MyApp(),
+    const DictionaryPal(),
   );
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class DictionaryPal extends StatelessWidget {
+  const DictionaryPal({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
           create: (_) => AppNavigationBarProvider(),
         ),
         ChangeNotifierProvider(
-          create: (context) => DictionaryProvider(),
+          create: (_) => DictionaryProvider(),
         ),
         ChangeNotifierProvider(
           create: (_) => TestProvider(),
@@ -39,10 +39,8 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: const LoginScreen(),
-        // initialRoute: Provider.of<AuthProvider>(context).currentUser == null
-        //     ? AppRoutes.login
-        //     : AppRoutes.home,
+        //home: const LoginScreen(),
+        initialRoute: AppRoutes.initial,
         routes: appRoutes,
       ),
     );

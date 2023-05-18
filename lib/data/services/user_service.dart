@@ -16,9 +16,9 @@ class UserService {
     return result;
   }
 
-  Future<User> getUserById(String userId) async {
+  Future<User?> getUserById(String? userId) async {
     final response = await Dio().get('$userApi/$userId');
-    User result = User.fromJson(response.data);
+    User? result = User.fromJson(response.data);
     return result;
   }
 

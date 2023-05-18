@@ -1,3 +1,5 @@
+import 'package:dictionary/initial_state.dart';
+
 import 'screens/auth/login_screen.dart';
 import 'screens/auth/signup_screen.dart';
 import 'screens/home/home_sceen.dart';
@@ -8,6 +10,8 @@ import 'screens/user/favorite_vocabulary_screen.dart';
 import 'screens/user/test_history.dart';
 
 class AppRoutes {
+  static const initial = '/';
+
   static const home = '/home';
 
   static const unitTopics = '/unitTopics';
@@ -22,6 +26,7 @@ class AppRoutes {
 }
 
 var appRoutes = {
+  AppRoutes.initial: (context) => const InitialState(),
   AppRoutes.home: (context) => const HomeScreen(),
   AppRoutes.unitTopics: (context) => const UnitTopicsScreen(),
   AppRoutes.testTopics: (context) => const TestTopicsScreen(),
