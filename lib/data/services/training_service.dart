@@ -1,11 +1,11 @@
-import 'package:dictionary/data/models/test_models/question_model.dart';
-import 'package:dictionary/data/models/unit_models/unit_has_vocabulary_model.dart';
-import 'package:dictionary/data/models/vocabulary_model/vocabulary_model.dart';
-import 'package:dictionary/data/services/vocabulary_service.dart';
 import 'package:dio/dio.dart';
 import '../models/test_models/option_model.dart';
+import '../models/test_models/question_model.dart';
 import '../models/test_models/test_model.dart';
+import '../models/unit_models/unit_has_vocabulary_model.dart';
 import '../models/unit_models/unit_model.dart';
+import '../models/vocabulary_model/vocabulary_model.dart';
+import 'vocabulary_service.dart';
 
 class TestService {
   var api = 'https://backenddictionary-production.up.railway.app';

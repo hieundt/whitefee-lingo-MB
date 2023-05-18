@@ -1,10 +1,10 @@
-import 'package:dictionary/data/services/training_service.dart';
-import 'package:dictionary/res/images.dart';
-import 'package:dictionary/screens/training/units_screen/unit_screen.dart';
-import 'package:dictionary/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '../../../data/services/training_service.dart';
+import '../../../res/images.dart';
 import '../../../res/themes.dart';
+import '../../../utils.dart';
+import 'unit_screen.dart';
 
 class UnitTopicsScreen extends StatelessWidget {
   const UnitTopicsScreen({super.key});

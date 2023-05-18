@@ -1,13 +1,12 @@
-import 'package:dictionary/data/services/user_service.dart';
-import 'package:dictionary/res/themes.dart';
-import 'package:dictionary/screens/user/widgets/lock_content_widget.dart';
-import 'package:dictionary/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import '../../data/services/user_service.dart';
 import '../../providers/user_provider.dart';
+import '../../res/themes.dart';
 import '../../routes.dart';
+import '../../utils.dart';
 import 'widgets/user_information_widget.dart';
 
 class UserScreen extends StatelessWidget {

@@ -1,11 +1,11 @@
-import 'package:dictionary/screens/auth/login_screen.dart';
-import 'package:dictionary/screens/auth/signup_screen.dart';
-import 'package:dictionary/screens/home/home_sceen.dart';
-import 'package:dictionary/screens/user/favorite_unit_screen.dart';
-import 'package:dictionary/screens/user/favorite_vocabulary_screen.dart';
-import 'package:dictionary/screens/user/test_history.dart';
+import 'screens/auth/login_screen.dart';
+import 'screens/auth/signup_screen.dart';
+import 'screens/home/home_sceen.dart';
 import 'screens/training/tests_screen/test_topics_screen.dart';
 import 'screens/training/units_screen/unit_topics_screen.dart';
+import 'screens/user/favorite_unit_screen.dart';
+import 'screens/user/favorite_vocabulary_screen.dart';
+import 'screens/user/test_history.dart';
 
 class AppRoutes {
   static const home = '/home';

@@ -1,4 +1,4 @@
-import 'package:dictionary/data/models/vocabulary_model/vocabulary_model.dart';
+import '../vocabulary_model/vocabulary_model.dart';
 
 class Unit {
   String? id;

@@ -1,12 +1,12 @@
-import 'package:dictionary/providers/user_provider.dart';
-import 'package:dictionary/routes.dart';
 import 'package:flutter/material.dart';
-import 'package:dictionary/data/services/user_service.dart';
-import 'package:dictionary/res/images.dart';
-import 'package:dictionary/res/themes.dart';
-import 'package:dictionary/screens/auth/widgets/app_text_fields.dart';
-import 'package:dictionary/utils.dart';
 import 'package:provider/provider.dart';
+import '../../data/services/user_service.dart';
+import '../../providers/user_provider.dart';
+import '../../res/images.dart';
+import '../../res/themes.dart';
+import '../../routes.dart';
+import '../../utils.dart';
+import 'widgets/app_text_fields.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});

@@ -1,7 +1,7 @@
 import 'package:appinio_swiper/appinio_swiper.dart';
-import 'package:dictionary/data/models/vocabulary_model/vocabulary_model.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
+import '../../../data/models/vocabulary_model/vocabulary_model.dart';
 import '../../../res/themes.dart';
 import '../../dictionary/widgets/pronounce_widget.dart';
 import '../units_screen/unit_screen.dart';
@@ -123,7 +123,6 @@ class UnitSwipeableStack extends StatelessWidget {
         swipeOptions: AppinioSwipeOptions.allDirections,
         unlimitedUnswipe: true,
         controller: controller,
-        //unswipe: _unswipe,
         onSwipe: (index, direction) {},
         onEnd: () {
           Navigator.pushReplacement(

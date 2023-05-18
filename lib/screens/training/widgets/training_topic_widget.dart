@@ -1,5 +1,5 @@
-import 'package:dictionary/res/themes.dart';
 import 'package:flutter/material.dart';
+import '../../../res/themes.dart';
 
 class TrainingTopicWidget extends StatelessWidget {
   final String leadingTitle;

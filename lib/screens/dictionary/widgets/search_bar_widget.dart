@@ -1,8 +1,6 @@
-import 'package:dictionary/data/models/vocabulary_model/vocabulary_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import '../../../providers/dictionary_provider.dart';
+import '../../../data/models/vocabulary_model/vocabulary_model.dart';
 import '../../../res/themes.dart';
 
 class DictionarySearchBar extends StatefulWidget {

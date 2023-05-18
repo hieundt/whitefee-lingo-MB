@@ -1,12 +1,12 @@
-import 'package:appinio_swiper/controllers.dart';
-import 'package:dictionary/data/services/training_service.dart';
-import 'package:dictionary/res/themes.dart';
-import 'package:dictionary/utils.dart';
+import 'package:appinio_swiper/appinio_swiper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../../data/models/unit_models/unit_model.dart';
-import '../../home/widgets/app_bar_widget.dart';
+import '../../../data/services/training_service.dart';
 import '../../../res/images.dart';
+import '../../../res/themes.dart';
+import '../../../utils.dart';
+import '../../home/widgets/app_bar_widget.dart';
 import '../widgets/unit_action_button.dart';
 import '../widgets/unit_items.dart';
 

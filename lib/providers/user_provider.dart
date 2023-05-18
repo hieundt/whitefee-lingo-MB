@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import '../data/models/user_models/user_model.dart';
 
 class UserProvider extends ChangeNotifier {

@@ -1,14 +1,12 @@
-import 'package:dictionary/data/services/user_service.dart';
-
-import 'package:dictionary/res/images.dart';
-import 'package:dictionary/res/themes.dart';
-import 'package:dictionary/screens/auth/widgets/app_text_fields.dart';
-import 'package:dictionary/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import '../../data/services/user_service.dart';
+import '../../res/themes.dart';
 import '../../routes.dart';
+import '../../utils.dart';
+import 'widgets/app_text_fields.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});

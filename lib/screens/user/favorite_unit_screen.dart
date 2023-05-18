@@ -1,9 +1,9 @@
-import 'package:dictionary/data/services/training_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../home/widgets/app_bar_widget.dart';
+import '../../data/services/training_service.dart';
 import '../../res/themes.dart';
 import '../../utils.dart';
+import '../home/widgets/app_bar_widget.dart';
 
 class FavoriteUnitScreen extends StatelessWidget {
   const FavoriteUnitScreen({super.key});

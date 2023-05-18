@@ -1,15 +1,15 @@
-import 'package:dictionary/data/models/test_models/question_model.dart';
-import 'package:dictionary/data/services/training_service.dart';
-import 'package:dictionary/data/services/user_service.dart';
-import 'package:dictionary/providers/user_provider.dart';
-import 'package:dictionary/res/images.dart';
-import 'package:dictionary/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../data/models/test_models/option_model.dart';
+import '../../../data/models/test_models/question_model.dart';
 import '../../../data/models/test_models/test_model.dart';
+import '../../../data/services/training_service.dart';
+import '../../../data/services/user_service.dart';
+import '../../../providers/user_provider.dart';
+import '../../../res/images.dart';
 import '../../../res/themes.dart';
+import '../../../utils.dart';
 import '../widgets/test_question_audio_widget.dart';
 
 class TestScreen extends StatelessWidget {

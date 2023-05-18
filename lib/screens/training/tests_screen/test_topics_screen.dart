@@ -1,9 +1,9 @@
-import 'package:dictionary/data/services/training_service.dart';
-import 'package:dictionary/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '../../../data/services/training_service.dart';
 import '../../../res/images.dart';
 import '../../../res/themes.dart';
+import '../../../utils.dart';
 import 'test_screen.dart';
 
 class TestTopicsScreen extends StatelessWidget {

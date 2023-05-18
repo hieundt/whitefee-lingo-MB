@@ -1,14 +1,13 @@
-import 'package:dictionary/screens/home/widgets/app_bar_widget.dart';
-import 'package:dictionary/screens/home/widgets/app_navigation_bar.dart';
-import 'package:dictionary/res/images.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../providers/navigation_bar_provider.dart';
-import '../user/user_screen.dart';
 import '../dictionary/dictionary_screen.dart';
 import '../game/words_game_screen.dart';
 import '../training/training_screen.dart';
+import '../user/user_screen.dart';
+import 'widgets/app_bar_widget.dart';
+import 'widgets/app_navigation_bar.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

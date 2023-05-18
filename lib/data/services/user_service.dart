@@ -1,5 +1,6 @@
 import 'package:dictionary/data/models/user_models/test_history_model.dart';
 import 'package:dio/dio.dart';
+import '../models/user_models/favorite_vocabulary_model.dart';
 import '../models/user_models/user_model.dart';
 
 var api = 'https://backenddictionary-production.up.railway.app';
@@ -95,6 +96,31 @@ class UserHistoryService {
         "testId": testId,
         "totalPoint": totalPoint,
         "testDate": testDate,
+      },
+    );
+  }
+}
+
+class UserFavoriteCollectionService {
+  var favoritevocabularyApi = '$api/favoritevocabulary';
+
+  Future<List<FavoriteVocabulary>> getFavoriteVocabulary(String userId) async {
+    final response = await Dio().get('$favoritevocabularyApi/$userId');
+    List<FavoriteVocabulary> result = (response.data as List)
+        .map((e) => FavoriteVocabulary.fromJson(e))
+        .toList();
+    return result;
+  }
+
+  Future<void> markFavoriteVocabulary({
+    required String userId,
+    required String vocabularyId,
+  }) async {
+    await Dio().post(
+      favoritevocabularyApi,
+      data: {
+        "userId": userId,
+        "vocabularyId": vocabularyId,
       },
     );
   }

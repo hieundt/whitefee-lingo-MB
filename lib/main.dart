@@ -1,12 +1,11 @@
-import 'package:dictionary/providers/user_provider.dart';
-import 'package:dictionary/providers/dictionary_provider.dart';
-import 'package:dictionary/providers/test_provider.dart';
 import 'package:dictionary/routes.dart';
-import 'package:dictionary/screens/auth/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'screens/home/home_sceen.dart';
+import 'providers/dictionary_provider.dart';
 import 'providers/navigation_bar_provider.dart';
+import 'providers/test_provider.dart';
+import 'providers/user_provider.dart';
+import 'screens/auth/login_screen.dart';
 
 void main() {
   runApp(

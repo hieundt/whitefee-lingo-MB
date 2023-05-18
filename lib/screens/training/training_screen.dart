@@ -1,8 +1,7 @@
-import 'package:dictionary/res/images.dart';
-import 'package:dictionary/routes.dart';
-import 'package:dictionary/screens/user/widgets/lock_content_widget.dart';
 import 'package:flutter/material.dart';
+import '../../res/images.dart';
 import '../../res/themes.dart';
+import '../../routes.dart';
 import 'widgets/training_topic_widget.dart';
 
 class GreetingWidget extends StatelessWidget {

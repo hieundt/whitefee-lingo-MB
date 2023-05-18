@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../../res/themes.dart';
 
 class InformationWidget extends StatelessWidget {
