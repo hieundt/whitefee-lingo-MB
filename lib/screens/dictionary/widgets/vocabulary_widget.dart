@@ -18,7 +18,7 @@ class VocabularyWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var userProvider = Provider.of<UserProvider>(context).currentUser;
+    var userProvider = Provider.of<UserProvider>(context).currentUserId;
     return Container(
       padding: const EdgeInsets.all(10),
       decoration: AppContainerStyle.border.copyWith(
@@ -48,22 +48,29 @@ class VocabularyWidget extends StatelessWidget {
                   ],
                 ),
               ),
-              vocabulary.pronounce != null
-                  ? Expanded(
-                      flex: 1,
-                      child: PronounceWidget(url: vocabulary.pronounce ?? ''),
-                    )
-                  : const Icon(
-                      CupertinoIcons.speaker_3,
-                      size: 40,
-                    ),
-              // Expanded(
-              //   flex: 1,
-              //   child: FavoriteMarker(
-              //     userId: userProvider!.id!,
-              //     vocabularyId: vocabulary.id!,
-              //   ),
-              // ),
+              //! Bug
+              // vocabulary.pronounce != null
+              //     ? Expanded(
+              //         flex: 1,
+              //         child: PronounceWidget(url: vocabulary.pronounce ?? ''),
+              //       )
+              //     : const Icon(
+              //         CupertinoIcons.speaker_3,
+              //         size: 40,
+              //       ),
+              //! Bug user, bug vocabulary id when not search
+              Expanded(
+                flex: 1,
+                child: vocabulary.id == null
+                    ? const Icon(
+                        CupertinoIcons.bookmark,
+                        size: 50,
+                      )
+                    : FavoriteMarker(
+                        userId: userProvider!,
+                        vocabularyId: vocabulary.id!,
+                      ),
+              ),
             ],
           ),
           const SizedBox(height: 30),

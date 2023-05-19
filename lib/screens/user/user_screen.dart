@@ -14,9 +14,10 @@ class UserScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var authProvider = Provider.of<UserProvider>(context).currentUser;
+    var userProvider = Provider.of<UserProvider>(context).currentUserId;
+    //final currentUserId =  ;
     return FutureBuilder(
-      future: UserService().getUserById(authProvider!.id!),
+      future: UserService().getUserById(userProvider!),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           var currentUser = snapshot.data!;
@@ -158,7 +159,7 @@ class UserScreen extends StatelessWidget {
                                   ),
                                   child: const Text('Yes'),
                                   onPressed: () {
-                                    authProvider = null;
+                                    UserService().removeUserId();
                                     Navigator.of(context).pushReplacementNamed(
                                       AppRoutes.login,
                                     );

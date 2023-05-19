@@ -1,7 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../../../data/services/user_service.dart';
 import '../../../providers/user_provider.dart';
 import '../../../res/themes.dart';
@@ -22,11 +20,11 @@ class FavoriteMarker extends StatefulWidget {
 class _FavoriteMarkerState extends State<FavoriteMarker> {
   @override
   Widget build(BuildContext context) {
-    var userProvider = Provider.of<UserProvider>(context).currentUser;
+    var userProvider = Provider.of<UserProvider>(context).currentUserId;
     var marker = CupertinoIcons.bookmark;
     return FutureBuilder(
       future: UserFavoriteCollectionService().isFavoriteVocabulary(
-        userId: userProvider!.id!,
+        userId: userProvider!,
         vocabularyId: widget.vocabularyId,
       ),
       builder: (context, snapshot) {
@@ -40,7 +38,7 @@ class _FavoriteMarkerState extends State<FavoriteMarker> {
                   marker = CupertinoIcons.bookmark_fill;
                 });
                 await UserFavoriteCollectionService().markFavoriteVocabulary(
-                  userId: userProvider.id!,
+                  userId: userProvider,
                   vocabularyId: widget.vocabularyId,
                 );
               } else {

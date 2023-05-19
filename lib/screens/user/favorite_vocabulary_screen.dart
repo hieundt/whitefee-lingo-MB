@@ -14,7 +14,7 @@ class FavoriteVocabularyScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var userProvider = Provider.of<UserProvider>(context).currentUser;
+    var userProvider = Provider.of<UserProvider>(context).currentUserId;
     return Scaffold(
       appBar: const AppBarWidget(
         screenTitle: 'Favorite vocabularies',
@@ -26,7 +26,7 @@ class FavoriteVocabularyScreen extends StatelessWidget {
       ),
       body: FutureBuilder(
         future: UserFavoriteCollectionService()
-            .getFavoriteVocabulary(userProvider!.id!),
+            .getFavoriteVocabulary(userProvider!),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             var favorite = snapshot.data!;
@@ -94,12 +94,13 @@ class FavoriteVocabularyWidget extends StatelessWidget {
                         ],
                       ),
                     ),
-                    Expanded(
-                      flex: 1,
-                      child: PronounceWidget(
-                        url: vocabulary.pronounce!,
-                      ),
-                    ),
+                    //! Bug
+                    // Expanded(
+                    //   flex: 1,
+                    //   child: PronounceWidget(
+                    //     url: vocabulary.pronounce!,
+                    //   ),
+                    // ),
                   ],
                 ),
                 const SizedBox(height: 30),
@@ -152,7 +153,7 @@ class FavoriteVocabularyWidget extends StatelessWidget {
             ),
           );
         } else {
-          return const AppLoadingIndicator();
+          return const SizedBox.shrink();
         }
       },
     );

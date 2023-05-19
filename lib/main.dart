@@ -1,24 +1,21 @@
+import 'package:dictionary/data/services/user_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'providers/dictionary_provider.dart';
 import 'providers/navigation_bar_provider.dart';
 import 'providers/test_provider.dart';
 import 'providers/user_provider.dart';
 import 'routes.dart';
-import 'screens/auth/login_screen.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  String? currentUserId = await UserService().getSavedUserId();
+  print(currentUserId);
+
   runApp(
-    const DictionaryPal(),
-  );
-}
-
-class DictionaryPal extends StatelessWidget {
-  const DictionaryPal({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MultiProvider(
+    MultiProvider(
       providers: [
         ChangeNotifierProvider(
           create: (_) => AppNavigationBarProvider(),
@@ -40,9 +37,18 @@ class DictionaryPal extends StatelessWidget {
           primarySwatch: Colors.blue,
         ),
         //home: const LoginScreen(),
-        initialRoute: AppRoutes.initial,
+        initialRoute: currentUserId == null ? AppRoutes.login : AppRoutes.home,
         routes: appRoutes,
       ),
-    );
-  }
+    ),
+  );
 }
+
+// class DictionaryPal extends StatelessWidget {
+//   const DictionaryPal({super.key});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return
+//   }
+// }

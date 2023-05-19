@@ -108,7 +108,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                   password: _password.text.toString(),
                                 );
                                 if (currentUser != null) {
-                                  userProvider.currentUser = currentUser;
+                                  //userProvider.currentUser = currentUser.id;
+                                  await UserService()
+                                      .saveUserId(currentUser.id!);
                                   if (!mounted) return;
                                   Navigator.of(context).pushReplacementNamed(
                                     AppRoutes.home,

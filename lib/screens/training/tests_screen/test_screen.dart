@@ -1,3 +1,4 @@
+import 'package:dictionary/providers/test_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -12,6 +13,9 @@ import '../../../res/themes.dart';
 import '../../../utils.dart';
 import '../widgets/test_question_audio_widget.dart';
 
+// In this situation can't use page controller of the provider
+// Becasue when we interact with Option widget,
+// the controller will reset page index to 0
 class TestScreen extends StatelessWidget {
   final Test test;
   const TestScreen({
@@ -258,7 +262,7 @@ class _OptionWidgetState extends State<OptionWidget> {
   Color? color = AppColors.lightGray;
   @override
   Widget build(BuildContext context) {
-    var userProvider = Provider.of<UserProvider>(context);
+    var testProvider = Provider.of<TestProvider>(context);
     return Material(
       color: color,
       shape: RoundedRectangleBorder(
@@ -272,22 +276,21 @@ class _OptionWidgetState extends State<OptionWidget> {
         focusColor: AppColors.black,
         borderRadius: BorderRadius.circular(15),
         onTap: () {
+          testProvider.selected = widget.option;
           _buildBottomSheet(
             context: context,
             opt: widget.option,
             answer: widget.answer,
             controller: widget.controller,
           );
-          //Neu goi provider trong option, sau khi select se bi reset lai trang dau
-          //Ly do vi phai querry 2 lan de lay dc option
-          //Giai phap hien tai la dung setState o nhung vi tri goi toi option
-          setState(() {
-            widget.option.correct == true
-                ? color = AppColors.green
-                : color = AppColors.red;
-          });
+          testProvider.selected == widget.option
+              ? (testProvider.selected!.correct == true
+                  ? color = AppColors.green
+                  : color = AppColors.red)
+              : color = AppColors.lightGray;
+
           if (widget.option.correct == true) {
-            userProvider.addPoint(widget.point);
+            testProvider.addPoint(widget.point);
           }
         },
         child: ListTile(
@@ -310,6 +313,8 @@ class _OptionWidgetState extends State<OptionWidget> {
   }) {
     bool correct = opt.correct ?? false;
     showModalBottomSheet<void>(
+      isDismissible: false,
+      enableDrag: false,
       context: context,
       builder: (BuildContext context) {
         return SizedBox(
@@ -337,12 +342,12 @@ class _OptionWidgetState extends State<OptionWidget> {
                       color: AppColors.white,
                     ),
                   ),
-                  onPressed: () async {
-                    await controller.nextPage(
+                  onPressed: () {
+                    controller.nextPage(
                       duration: const Duration(microseconds: 300),
                       curve: Curves.linear,
                     );
-                    if (!mounted) return;
+                    //if (!mounted) return;
                     Navigator.pop(context);
                   },
                 ),
@@ -402,8 +407,8 @@ class TestStartScreen extends StatelessWidget {
           ),
           const Divider(),
           FloatingActionButton.extended(
-            onPressed: () async {
-              await controller.nextPage(
+            onPressed: () {
+              controller.nextPage(
                 duration: const Duration(microseconds: 300),
                 curve: Curves.linear,
               );
@@ -435,9 +440,11 @@ class _TestCongratsScreenState extends State<TestCongratsScreen> {
   @override
   Widget build(BuildContext context) {
     var userProvider = Provider.of<UserProvider>(context);
+    var testProvider = Provider.of<TestProvider>(context);
+
     return FutureBuilder(
       future: UserHistoryService()
-          .getTestHistoryOfUser(userProvider.currentUser!.id!),
+          .getTestHistoryOfUser(userProvider.currentUserId!),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           return Padding(
@@ -468,12 +475,12 @@ class _TestCongratsScreenState extends State<TestCongratsScreen> {
                   label: const Text(' Mark Complete!'),
                   onPressed: () async {
                     await UserHistoryService().createTestHistory(
-                      userId: userProvider.currentUser!.id,
+                      userId: userProvider.currentUserId,
                       testId: widget.test.id,
-                      totalPoint: userProvider.totalPoint,
+                      totalPoint: testProvider.totalPoint,
                       testDate: DateTime.now().toIso8601String(),
                     );
-                    userProvider.resetPoint();
+                    testProvider.resetPoint();
                     if (!mounted) return;
                     Navigator.of(context).pop();
                   },

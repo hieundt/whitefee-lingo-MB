@@ -1,27 +1,12 @@
 import 'package:flutter/material.dart';
-import '../data/models/user_models/user_model.dart';
 
 class UserProvider extends ChangeNotifier {
-  User? _currentUser;
-  User? get currentUser => _currentUser;
-  set currentUser(User? user) {
-    _currentUser = user;
-    notifyListeners();
-  }
+  late String? _currentUserId;
 
-  int? _totalPoint = 0;
-  int? get totalPoint => _totalPoint;
-  void addPoint(int point) {
-    _totalPoint = _totalPoint! + point;
-    notifyListeners();
-  }
+  String? get currentUserId => _currentUserId;
 
-  void resetPoint() {
-    _totalPoint = 0;
-  }
-
-  void logout() {
-    _currentUser = null;
+  set currentUserId(String? id) {
+    _currentUserId = id;
     notifyListeners();
   }
 }

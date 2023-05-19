@@ -1,5 +1,6 @@
 import 'package:dictionary/data/models/user_models/test_history_model.dart';
 import 'package:dio/dio.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../models/user_models/favorite_vocabulary_model.dart';
 import '../models/user_models/user_model.dart';
 
@@ -69,6 +70,23 @@ class UserService {
         "dateOfBirth": dateOfBirth,
       },
     );
+  }
+
+  //These 3 shit store, remove and get userId from disk
+  Future<void> saveUserId(String id) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('userId', id);
+  }
+
+  Future<void> removeUserId() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.remove('userId');
+  }
+
+  Future<String?> getSavedUserId() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? id = prefs.getString('userId');
+    return id;
   }
 }
 
