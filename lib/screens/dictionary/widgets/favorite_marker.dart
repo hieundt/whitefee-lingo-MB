@@ -1,25 +1,22 @@
 import 'package:flutter/cupertino.dart';
-import 'package:provider/provider.dart';
 import '../../../data/services/user_service.dart';
-import '../../../providers/user_provider.dart';
 import '../../../res/themes.dart';
 
-class FavoriteMarker extends StatefulWidget {
+class VocabularyFavoriteMarker extends StatefulWidget {
   final String userId;
   final String vocabularyId;
-  const FavoriteMarker({
+  const VocabularyFavoriteMarker({
     super.key,
     required this.userId,
     required this.vocabularyId,
   });
 
   @override
-  State<FavoriteMarker> createState() => _FavoriteMarkerState();
+  State<VocabularyFavoriteMarker> createState() =>
+      _VocabularyFavoriteMarkerState();
 }
 
-class _FavoriteMarkerState extends State<FavoriteMarker> {
-  //Mocking
-  //var checkerMock = false;
+class _VocabularyFavoriteMarkerState extends State<VocabularyFavoriteMarker> {
   late IconData marker;
 
   @override
@@ -30,7 +27,6 @@ class _FavoriteMarkerState extends State<FavoriteMarker> {
 
   @override
   Widget build(BuildContext context) {
-    //var marker = CupertinoIcons.bookmark;
     return FutureBuilder(
       future: UserFavoriteCollectionService().isFavoriteVocabulary(
         userId: UserService.currentUserId!,
@@ -41,18 +37,7 @@ class _FavoriteMarkerState extends State<FavoriteMarker> {
           var checker = snapshot.data!;
           return GestureDetector(
             onTap: () async {
-              // print(checkerMock);
-              // if (checkerMock == false) {
-              //   setState(() {
-              //     checkerMock = true;
-              //     marker = CupertinoIcons.bookmark_solid;
-              //   });
-              // } else {
-              //   setState(() {
-              //     checkerMock = false;
-              //     marker = CupertinoIcons.bookmark;
-              //   });
-              // }
+              print('tapped');
               print(checker);
               if (checker == false) {
                 setState(() {
@@ -66,6 +51,10 @@ class _FavoriteMarkerState extends State<FavoriteMarker> {
                 setState(() {
                   marker = CupertinoIcons.bookmark;
                 });
+                await UserFavoriteCollectionService().removeFavoriteVocabulary(
+                  userId: UserService.currentUserId!,
+                  vocabularyId: widget.vocabularyId,
+                );
               }
               print(checker);
             },

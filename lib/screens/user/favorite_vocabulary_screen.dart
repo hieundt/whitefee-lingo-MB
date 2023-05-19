@@ -1,9 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import '../../data/services/user_service.dart';
 import '../../data/services/vocabulary_service.dart';
-import '../../providers/user_provider.dart';
 import '../../res/themes.dart';
 import '../../utils.dart';
 import '../dictionary/widgets/pronounce_widget.dart';
@@ -14,7 +12,6 @@ class FavoriteVocabularyScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //var userProvider = Provider.of<UserProvider>(context).currentUserId;
     return Scaffold(
       appBar: const AppBarWidget(
         screenTitle: 'Favorite vocabularies',
@@ -94,13 +91,12 @@ class FavoriteVocabularyWidget extends StatelessWidget {
                         ],
                       ),
                     ),
-                    //! Bug
-                    // Expanded(
-                    //   flex: 1,
-                    //   child: PronounceWidget(
-                    //     url: vocabulary.pronounce!,
-                    //   ),
-                    // ),
+                    Expanded(
+                      flex: 1,
+                      child: PronounceWidget(
+                        url: vocabulary.pronounce!,
+                      ),
+                    ),
                   ],
                 ),
                 const SizedBox(height: 30),

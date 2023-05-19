@@ -1,3 +1,4 @@
+import 'package:dictionary/screens/user/widgets/lock_content_widget.dart';
 import 'package:flutter/material.dart';
 import '../../res/images.dart';
 import '../../res/themes.dart';
@@ -72,37 +73,44 @@ class TrainingScreen extends StatelessWidget {
       children: [
         const GreetingWidget(),
         const SizedBox(height: 20),
-        const SizedBox(height: 10),
-        GestureDetector(
-          onTap: () {
-            Navigator.of(context).pushNamed(AppRoutes.unitTopics);
-          },
-          child: TrainingTopicWidget(
-            contentName: 'Training',
-            title: 'Unit',
-            description: 'Learn new vocabulary pronunciation',
-            image: Image.asset(
-              TrainingScreenImage.unit,
+        LockContentWidget(
+          width: 400,
+          height: 300,
+          lockContent: GestureDetector(
+            onTap: () {
+              Navigator.of(context).pushNamed(AppRoutes.unitTopics);
+            },
+            child: TrainingTopicWidget(
+              contentName: 'Training',
+              title: 'Unit',
+              description: 'Learn new vocabulary pronunciation',
+              image: Image.asset(
+                TrainingScreenImage.unit,
+              ),
+              mainColor: AppColors.lightGreen,
+              leadingColor: AppColors.darkGreen,
+              leadingTitleColor: AppColors.white,
             ),
-            mainColor: AppColors.lightGreen,
-            leadingColor: AppColors.darkGreen,
-            leadingTitleColor: AppColors.white,
           ),
         ),
         const SizedBox(height: 20),
-        GestureDetector(
-          onTap: () {
-            Navigator.of(context).pushNamed(AppRoutes.testTopics);
-          },
-          child: TrainingTopicWidget(
-            contentName: 'Training',
-            title: 'Test',
-            description: 'Our test simulator will help you!',
-            image: Image.asset(
-              TrainingScreenImage.test,
+        LockContentWidget(
+          width: 400,
+          height: 300,
+          lockContent: GestureDetector(
+            onTap: () {
+              Navigator.of(context).pushNamed(AppRoutes.testTopics);
+            },
+            child: TrainingTopicWidget(
+              contentName: 'Training',
+              title: 'Test',
+              description: 'Our test simulator will help you!',
+              image: Image.asset(
+                TrainingScreenImage.test,
+              ),
+              mainColor: AppColors.lightRed,
+              leadingColor: AppColors.red,
             ),
-            mainColor: AppColors.lightRed,
-            leadingColor: AppColors.red,
           ),
         ),
       ],

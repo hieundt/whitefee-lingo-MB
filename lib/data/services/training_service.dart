@@ -44,9 +44,16 @@ class TestService {
 }
 
 class UnitService {
+  var api = 'https://backenddictionary-production.up.railway.app/unit';
   Future<Unit> getUnitByName(String name) async {
-    var api = 'https://backenddictionary-production.up.railway.app/unit';
     var unitApi = '$api/byname/$name';
+    final response = await Dio().get(unitApi);
+    final result = Unit.fromJson(response.data);
+    return result;
+  }
+
+  Future<Unit> getUnitById(String id) async {
+    var unitApi = '$api/byid/$id';
     final response = await Dio().get(unitApi);
     final result = Unit.fromJson(response.data);
     return result;

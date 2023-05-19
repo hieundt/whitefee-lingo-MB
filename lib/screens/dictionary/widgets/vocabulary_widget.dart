@@ -1,13 +1,11 @@
 import 'package:dictionary/data/services/user_service.dart';
-import 'package:dictionary/providers/user_provider.dart';
 import 'package:dictionary/res/images.dart';
 import 'package:dictionary/screens/dictionary/widgets/favorite_marker.dart';
-import 'package:dictionary/screens/dictionary/widgets/pronounce_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import '../../../data/models/vocabulary_model/vocabulary_model.dart';
 import '../../../res/themes.dart';
+import 'pronounce_widget.dart';
 
 class VocabularyWidget extends StatelessWidget {
   final Vocabulary vocabulary;
@@ -18,7 +16,6 @@ class VocabularyWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //var userProvider = Provider.of<UserProvider>(context).currentUserId;
     return Container(
       padding: const EdgeInsets.all(10),
       decoration: AppContainerStyle.border.copyWith(
@@ -49,28 +46,32 @@ class VocabularyWidget extends StatelessWidget {
                 ),
               ),
               //! Bug
-              // vocabulary.pronounce != null
-              //     ? Expanded(
-              //         flex: 1,
-              //         child: PronounceWidget(url: vocabulary.pronounce ?? ''),
-              //       )
-              //     : const Icon(
-              //         CupertinoIcons.speaker_3,
-              //         size: 40,
-              //       ),
-              //! Bug user, bug vocabulary id when not search
-              Expanded(
-                flex: 1,
-                child: vocabulary.id == null
-                    ? const Icon(
-                        CupertinoIcons.bookmark,
-                        size: 50,
-                      )
-                    : FavoriteMarker(
-                        userId: UserService.currentUserId!,
-                        vocabularyId: vocabulary.id!,
-                      ),
-              ),
+              vocabulary.pronounce != null
+                  ? Expanded(
+                      flex: 1,
+                      child: PronounceWidget(url: vocabulary.pronounce ?? ''),
+                    )
+                  : const Icon(
+                      CupertinoIcons.speaker_3,
+                      size: 40,
+                    ),
+              UserService.currentUserId != null
+                  ? Expanded(
+                      flex: 1,
+                      child: vocabulary.id == null
+                          ? const Icon(
+                              CupertinoIcons.bookmark,
+                              size: 50,
+                            )
+                          : VocabularyFavoriteMarker(
+                              userId: UserService.currentUserId!,
+                              vocabularyId: vocabulary.id!,
+                            ),
+                    )
+                  : const SizedBox(
+                      height: 50,
+                      width: 50,
+                    ),
             ],
           ),
           const SizedBox(height: 30),

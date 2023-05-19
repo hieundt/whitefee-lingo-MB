@@ -1,6 +1,8 @@
+import 'package:dictionary/screens/training/widgets/favorite_marker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../../data/services/training_service.dart';
+import '../../../data/services/user_service.dart';
 import '../../../res/images.dart';
 import '../../../res/themes.dart';
 import '../../../utils.dart';
@@ -66,35 +68,39 @@ class UnitTopicsScreen extends StatelessWidget {
               ),
               children: [
                 //Real data
-                GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (BuildContext context) =>
-                            UnitStartScreen(unit: unit),
+                UnitFavoriteMarker(
+                  userId: UserService.currentUserId!,
+                  unitId: unit.id!,
+                  unit: GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (BuildContext context) =>
+                              UnitStartScreen(unit: unit),
+                        ),
+                      );
+                    },
+                    child: Container(
+                      decoration: AppContainerStyle.border.copyWith(
+                        color: AppColors.white,
                       ),
-                    );
-                  },
-                  child: Container(
-                    decoration: AppContainerStyle.border.copyWith(
-                      color: AppColors.white,
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Image.network(
-                          fit: BoxFit.cover,
-                          unit.image!,
-                          width: 100,
-                          height: 60,
-                        ),
-                        const SizedBox(height: 10),
-                        Text(
-                          unit.name!,
-                          style: AppTextStyle.medium15,
-                        ),
-                      ],
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Image.network(
+                            fit: BoxFit.cover,
+                            unit.image!,
+                            width: 100,
+                            height: 60,
+                          ),
+                          const SizedBox(height: 10),
+                          Text(
+                            unit.name!,
+                            style: AppTextStyle.medium15,
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),

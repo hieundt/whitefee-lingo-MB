@@ -1,6 +1,6 @@
+import 'package:dictionary/data/models/user_models/favorite_unit_model.dart';
 import 'package:dictionary/data/models/user_models/test_history_model.dart';
 import 'package:dio/dio.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../models/user_models/favorite_vocabulary_model.dart';
 import '../models/user_models/user_model.dart';
 
@@ -8,6 +8,8 @@ var api = 'https://backenddictionary-production.up.railway.app';
 
 class UserService {
   var userApi = '$api/user';
+
+  static String? currentUserId;
 
   Future<List<User>> getAllUserData() async {
     final response = await Dio().get(userApi);
@@ -72,8 +74,6 @@ class UserService {
       },
     );
   }
-
-  static String? currentUserId;
 }
 
 class UserHistoryService {
@@ -149,12 +149,51 @@ class UserFavoriteCollectionService {
     required String userId,
     required String vocabularyId,
   }) async {
+    await Dio().delete('$favoritevocabularyApi/byvocaid/$vocabularyId/$userId');
+  }
+
+  var favoriteUnitApi = '$api/favoriteunit';
+
+  Future<List<FavoriteUnit>> getFavoriteUnit(String userId) async {
+    final response = await Dio().get('$favoriteUnitApi/$userId');
+    List<FavoriteUnit> result =
+        (response.data as List).map((e) => FavoriteUnit.fromJson(e)).toList();
+    return result;
+  }
+
+  Future<bool> isFavoriteUnit({
+    required String userId,
+    required String unitId,
+  }) async {
+    final favoriteList = await getFavoriteUnit(userId);
+    final favoriteMap = {
+      for (var element in favoriteList) element.unitId: element
+    };
+
+    final isFavorite = favoriteMap[unitId];
+    if (isFavorite != null && isFavorite.unitId == unitId) {
+      return true;
+    }
+    return false;
+  }
+
+  Future<void> markFavoriteUnit({
+    required String userId,
+    required String unitId,
+  }) async {
     await Dio().post(
       favoritevocabularyApi,
       data: {
         "userId": userId,
-        "vocabularyId": vocabularyId,
+        "vocabularyId": unitId,
       },
     );
+  }
+
+  Future<void> removeFavoriteUnit({
+    required String userId,
+    required String unitId,
+  }) async {
+    await Dio().delete('$favoriteUnitApi/byunitid/$unitId/$userId');
   }
 }

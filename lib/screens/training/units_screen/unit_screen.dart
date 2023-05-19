@@ -64,14 +64,6 @@ class _UnitScreenState extends State<UnitScreen> {
                 const SizedBox(width: 20),
                 UnitActionButtron(
                   onPressed: () {
-                    controller.swipeUp();
-                  },
-                  icon: CupertinoIcons.bookmark_fill,
-                  iconColor: AppColors.darkBrown,
-                ),
-                const SizedBox(width: 20),
-                UnitActionButtron(
-                  onPressed: () {
                     controller.swipeRight();
                   },
                   icon: CupertinoIcons.arrow_turn_up_right,
