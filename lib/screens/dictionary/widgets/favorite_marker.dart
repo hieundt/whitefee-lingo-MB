@@ -18,13 +18,22 @@ class FavoriteMarker extends StatefulWidget {
 }
 
 class _FavoriteMarkerState extends State<FavoriteMarker> {
+  //Mocking
+  //var checkerMock = false;
+  late IconData marker;
+
+  @override
+  void initState() {
+    super.initState();
+    marker = CupertinoIcons.bookmark;
+  }
+
   @override
   Widget build(BuildContext context) {
-    var userProvider = Provider.of<UserProvider>(context).currentUserId;
-    var marker = CupertinoIcons.bookmark;
+    //var marker = CupertinoIcons.bookmark;
     return FutureBuilder(
       future: UserFavoriteCollectionService().isFavoriteVocabulary(
-        userId: userProvider!,
+        userId: UserService.currentUserId!,
         vocabularyId: widget.vocabularyId,
       ),
       builder: (context, snapshot) {
@@ -32,13 +41,25 @@ class _FavoriteMarkerState extends State<FavoriteMarker> {
           var checker = snapshot.data!;
           return GestureDetector(
             onTap: () async {
+              // print(checkerMock);
+              // if (checkerMock == false) {
+              //   setState(() {
+              //     checkerMock = true;
+              //     marker = CupertinoIcons.bookmark_solid;
+              //   });
+              // } else {
+              //   setState(() {
+              //     checkerMock = false;
+              //     marker = CupertinoIcons.bookmark;
+              //   });
+              // }
               print(checker);
               if (checker == false) {
                 setState(() {
                   marker = CupertinoIcons.bookmark_fill;
                 });
                 await UserFavoriteCollectionService().markFavoriteVocabulary(
-                  userId: userProvider,
+                  userId: UserService.currentUserId!,
                   vocabularyId: widget.vocabularyId,
                 );
               } else {
@@ -46,6 +67,7 @@ class _FavoriteMarkerState extends State<FavoriteMarker> {
                   marker = CupertinoIcons.bookmark;
                 });
               }
+              print(checker);
             },
             child: Icon(
               marker,

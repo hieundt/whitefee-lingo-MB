@@ -104,7 +104,7 @@ class TestHistoryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var userProvider = Provider.of<UserProvider>(context);
+    //var userProvider = Provider.of<UserProvider>(context);
     return Scaffold(
       appBar: const AppBarWidget(
         screenTitle: 'Test history',
@@ -116,7 +116,7 @@ class TestHistoryScreen extends StatelessWidget {
       ),
       body: FutureBuilder(
         future: UserHistoryService()
-            .getTestHistoryOfUser(userProvider.currentUserId!),
+            .getTestHistoryOfUser(UserService.currentUserId!),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             var history = snapshot.data!;

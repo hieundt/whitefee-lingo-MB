@@ -1,12 +1,9 @@
-import 'package:flutter/material.dart';
+// import 'package:dictionary/data/services/user_service.dart';
+// import 'package:flutter/material.dart';
 
-class UserProvider extends ChangeNotifier {
-  late String? _currentUserId;
-
-  String? get currentUserId => _currentUserId;
-
-  set currentUserId(String? id) {
-    _currentUserId = id;
-    notifyListeners();
-  }
-}
+// class UserProvider extends ChangeNotifier {
+//   void setCurrentUserId(String? id) {
+//     UserService.currentUserId = id;
+//     notifyListeners();
+//   }
+// }

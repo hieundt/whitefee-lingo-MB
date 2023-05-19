@@ -439,12 +439,12 @@ class TestCongratsScreen extends StatefulWidget {
 class _TestCongratsScreenState extends State<TestCongratsScreen> {
   @override
   Widget build(BuildContext context) {
-    var userProvider = Provider.of<UserProvider>(context);
+    //var userProvider = Provider.of<UserProvider>(context);
     var testProvider = Provider.of<TestProvider>(context);
 
     return FutureBuilder(
-      future: UserHistoryService()
-          .getTestHistoryOfUser(userProvider.currentUserId!),
+      future:
+          UserHistoryService().getTestHistoryOfUser(UserService.currentUserId!),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           return Padding(
@@ -475,7 +475,7 @@ class _TestCongratsScreenState extends State<TestCongratsScreen> {
                   label: const Text(' Mark Complete!'),
                   onPressed: () async {
                     await UserHistoryService().createTestHistory(
-                      userId: userProvider.currentUserId,
+                      userId: UserService.currentUserId,
                       testId: widget.test.id,
                       totalPoint: testProvider.totalPoint,
                       testDate: DateTime.now().toIso8601String(),

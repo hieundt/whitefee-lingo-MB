@@ -18,7 +18,7 @@ class VocabularyWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var userProvider = Provider.of<UserProvider>(context).currentUserId;
+    //var userProvider = Provider.of<UserProvider>(context).currentUserId;
     return Container(
       padding: const EdgeInsets.all(10),
       decoration: AppContainerStyle.border.copyWith(
@@ -67,7 +67,7 @@ class VocabularyWidget extends StatelessWidget {
                         size: 50,
                       )
                     : FavoriteMarker(
-                        userId: userProvider!,
+                        userId: UserService.currentUserId!,
                         vocabularyId: vocabulary.id!,
                       ),
               ),

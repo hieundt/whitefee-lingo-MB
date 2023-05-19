@@ -28,6 +28,7 @@ class UserService {
     required String password,
   }) async {
     final response = await Dio().get('$userApi/login/$email/$password');
+    if (response.data == null) return null;
     User? result = User?.fromJson(response.data);
     return result;
 
@@ -72,22 +73,7 @@ class UserService {
     );
   }
 
-  //These 3 shit store, remove and get userId from disk
-  Future<void> saveUserId(String id) async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString('userId', id);
-  }
-
-  Future<void> removeUserId() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.remove('userId');
-  }
-
-  Future<String?> getSavedUserId() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? id = prefs.getString('userId');
-    return id;
-  }
+  static String? currentUserId;
 }
 
 class UserHistoryService {

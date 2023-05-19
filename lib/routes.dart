@@ -26,7 +26,7 @@ class AppRoutes {
 }
 
 var appRoutes = {
-  AppRoutes.initial: (context) => const InitialState(),
+  //AppRoutes.initial: (context) => const InitialState(),
   AppRoutes.home: (context) => const HomeScreen(),
   AppRoutes.unitTopics: (context) => const UnitTopicsScreen(),
   AppRoutes.testTopics: (context) => const TestTopicsScreen(),

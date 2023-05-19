@@ -5,15 +5,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'providers/dictionary_provider.dart';
 import 'providers/navigation_bar_provider.dart';
 import 'providers/test_provider.dart';
-import 'providers/user_provider.dart';
 import 'routes.dart';
 
+late final SharedPreferences prefs;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
-  String? currentUserId = await UserService().getSavedUserId();
-  print(currentUserId);
-
+  prefs = await SharedPreferences.getInstance();
+  String? id = prefs.getString('userId');
+  if (id != null) UserService.currentUserId = id;
   runApp(
     MultiProvider(
       providers: [
@@ -26,9 +25,9 @@ void main() async {
         ChangeNotifierProvider(
           create: (_) => TestProvider(),
         ),
-        ChangeNotifierProvider(
-          create: (_) => UserProvider(),
-        ),
+        // ChangeNotifierProvider(
+        //   create: (_) => UserProvider(),
+        // ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -36,19 +35,11 @@ void main() async {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        //home: const LoginScreen(),
-        initialRoute: currentUserId == null ? AppRoutes.login : AppRoutes.home,
+        initialRoute: UserService.currentUserId == null
+            ? AppRoutes.login
+            : AppRoutes.home,
         routes: appRoutes,
       ),
     ),
   );
 }
-
-// class DictionaryPal extends StatelessWidget {
-//   const DictionaryPal({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return
-//   }
-// }

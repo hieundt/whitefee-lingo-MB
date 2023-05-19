@@ -14,7 +14,7 @@ class FavoriteVocabularyScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var userProvider = Provider.of<UserProvider>(context).currentUserId;
+    //var userProvider = Provider.of<UserProvider>(context).currentUserId;
     return Scaffold(
       appBar: const AppBarWidget(
         screenTitle: 'Favorite vocabularies',
@@ -26,7 +26,7 @@ class FavoriteVocabularyScreen extends StatelessWidget {
       ),
       body: FutureBuilder(
         future: UserFavoriteCollectionService()
-            .getFavoriteVocabulary(userProvider!),
+            .getFavoriteVocabulary(UserService.currentUserId!),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             var favorite = snapshot.data!;

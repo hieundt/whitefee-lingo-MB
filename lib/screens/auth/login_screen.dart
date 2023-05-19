@@ -1,6 +1,9 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../data/services/user_service.dart';
+import '../../main.dart';
 import '../../providers/user_provider.dart';
 import '../../res/images.dart';
 import '../../res/themes.dart';
@@ -9,7 +12,11 @@ import '../../utils.dart';
 import 'widgets/app_text_fields.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+  final bool? enableSkip;
+  const LoginScreen({
+    super.key,
+    this.enableSkip = true,
+  });
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -29,11 +36,8 @@ class _LoginScreenState extends State<LoginScreen> {
     super.initState();
   }
 
-  Future<void> selectBirthday() async {}
-
   @override
   Widget build(BuildContext context) {
-    var userProvider = Provider.of<UserProvider>(context);
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -108,10 +112,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                   password: _password.text.toString(),
                                 );
                                 if (currentUser != null) {
-                                  //userProvider.currentUser = currentUser.id;
-                                  await UserService()
-                                      .saveUserId(currentUser.id!);
-                                  if (!mounted) return;
+                                  await prefs.setString(
+                                      'userId', currentUser.id!);
+                                  //if (!mounted) return;
                                   Navigator.of(context).pushReplacementNamed(
                                     AppRoutes.home,
                                   );
@@ -174,20 +177,22 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                         const SizedBox(height: 20),
-                        TextButton(
-                          onPressed: () {
-                            if (!mounted) return;
-                            Navigator.of(context).pushReplacementNamed(
-                              AppRoutes.home,
-                            );
-                          },
-                          child: Text(
-                            'Skip for now',
-                            style: AppTextStyle.medium20.copyWith(
-                              color: AppColors.gray,
-                            ),
-                          ),
-                        ),
+                        widget.enableSkip == false
+                            ? const SizedBox.shrink()
+                            : TextButton(
+                                onPressed: () {
+                                  if (!mounted) return;
+                                  Navigator.of(context).pushReplacementNamed(
+                                    AppRoutes.home,
+                                  );
+                                },
+                                child: Text(
+                                  'Skip for now',
+                                  style: AppTextStyle.medium20.copyWith(
+                                    color: AppColors.gray,
+                                  ),
+                                ),
+                              ),
                       ],
                     ),
                   ),
