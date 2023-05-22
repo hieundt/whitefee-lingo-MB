@@ -57,26 +57,20 @@ class DictionaryVersion2 extends StatelessWidget {
           return Scaffold(
             appBar: AppBarWidget(
               actions: [
-                SizedBox.fromSize(
-                  size: const Size(56, 56),
-                  child: ClipOval(
-                    child: Material(
-                      elevation: 5,
-                      color: AppColors.semiGrey,
-                      child: InkWell(
-                        onTap: () => showSearch(
-                          context: context,
-                          delegate: AppSearchDelegate(
-                            dataList: vocabularyList,
-                            onItemSelected: provider.handleItemSelected,
-                          ),
-                        ),
-                        child: const Icon(
-                          CupertinoIcons.search,
-                          color: AppColors.black,
-                          size: 25,
-                        ),
-                      ),
+                GestureDetector(
+                  onTap: () => showSearch(
+                    context: context,
+                    delegate: AppSearchDelegate(
+                      dataList: vocabularyList,
+                      onItemSelected: provider.handleItemSelected,
+                    ),
+                  ),
+                  child: const CircleAvatar(
+                    backgroundColor: AppColors.semiGrey,
+                    child: Icon(
+                      CupertinoIcons.search,
+                      color: AppColors.black,
+                      size: 20,
                     ),
                   ),
                 )
@@ -91,8 +85,8 @@ class DictionaryVersion2 extends StatelessWidget {
                   ),
                   const SizedBox(height: 20),
                   ContentWidget(
-                    title: 'Knowledge',
-                    description: 'Gain knowledge by learning new vocabularies',
+                    title: 'Gain knowledge',
+                    description: 'Explore and learning new vocabularies',
                     image: Image.asset(
                       DictionaryScreenImage.explore,
                       scale: 5,
@@ -100,7 +94,7 @@ class DictionaryVersion2 extends StatelessWidget {
                   ),
                   const SizedBox(height: 20),
                   ContentWidget(
-                    title: 'Improve',
+                    title: 'Special tests',
                     description:
                         'Our traing test will help you improve your skill',
                     image: Image.asset(
@@ -111,8 +105,7 @@ class DictionaryVersion2 extends StatelessWidget {
                   const SizedBox(height: 20),
                   ContentWidget(
                     title: 'Collections',
-                    description:
-                        'We manage your personal information and favorite collections',
+                    description: 'Add and custom your favorite collections',
                     image: Image.asset(
                       DictionaryScreenImage.user,
                       scale: 5,

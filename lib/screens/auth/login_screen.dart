@@ -1,10 +1,9 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+
 import '../../data/services/user_service.dart';
 import '../../main.dart';
-import '../../providers/user_provider.dart';
 import '../../res/images.dart';
 import '../../res/themes.dart';
 import '../../routes.dart';
@@ -38,7 +37,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print(UserService.currentUserId);
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(

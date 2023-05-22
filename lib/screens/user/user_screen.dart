@@ -26,7 +26,6 @@ class UserScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(UserService.currentUserId);
     return Scaffold(
       appBar: const AppBarWidget(),
       body: FutureBuilder(

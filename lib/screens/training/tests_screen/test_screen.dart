@@ -7,7 +7,6 @@ import '../../../data/models/test_models/question_model.dart';
 import '../../../data/models/test_models/test_model.dart';
 import '../../../data/services/training_service.dart';
 import '../../../data/services/user_service.dart';
-import '../../../providers/user_provider.dart';
 import '../../../res/images.dart';
 import '../../../res/themes.dart';
 import '../../../utils.dart';

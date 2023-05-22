@@ -1,10 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:provider/provider.dart';
 import '../../data/services/training_service.dart';
 import '../../data/services/user_service.dart';
-import '../../providers/user_provider.dart';
 import '../../res/themes.dart';
 import '../../utils.dart';
 import '../home/widgets/app_bar_widget.dart';
