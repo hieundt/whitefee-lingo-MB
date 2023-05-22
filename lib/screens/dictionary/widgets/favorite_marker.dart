@@ -22,7 +22,9 @@ class _VocabularyFavoriteMarkerState extends State<VocabularyFavoriteMarker> {
   @override
   void initState() {
     super.initState();
-    initMarker();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      initMarker();
+    });
   }
 
   Future<void> initMarker() async {
@@ -71,7 +73,9 @@ class _VocabularyFavoriteMarkerState extends State<VocabularyFavoriteMarker> {
             ),
           );
         } else {
-          return const SizedBox.shrink();
+          return SizedBox.fromSize(
+            size: const Size(50, 50),
+          );
         }
       },
     );

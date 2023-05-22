@@ -68,42 +68,45 @@ class UnitTopicsScreen extends StatelessWidget {
               ),
               children: [
                 //Real data
-                UnitFavoriteMarker(
-                  userId: UserService.currentUserId!,
-                  unitId: unit.id!,
-                  unit: GestureDetector(
-                    onTap: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (BuildContext context) =>
-                              UnitStartScreen(unit: unit),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (BuildContext context) =>
+                            UnitStartScreen(unit: unit),
+                      ),
+                    );
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.all(5),
+                    decoration: AppContainerStyle.border.copyWith(
+                      color: AppColors.white,
+                    ),
+                    child: Column(
+                      children: [
+                        Align(
+                          alignment: Alignment.topRight,
+                          child: UnitFavoriteMarker(
+                            userId: UserService.currentUserId!,
+                            unitId: unit.id!,
+                          ),
                         ),
-                      );
-                    },
-                    child: Container(
-                      decoration: AppContainerStyle.border.copyWith(
-                        color: AppColors.white,
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Image.network(
-                            fit: BoxFit.cover,
-                            unit.image!,
-                            width: 100,
-                            height: 60,
-                          ),
-                          const SizedBox(height: 10),
-                          Text(
-                            unit.name!,
-                            style: AppTextStyle.medium15,
-                          ),
-                        ],
-                      ),
+                        Image.network(
+                          fit: BoxFit.cover,
+                          unit.image!,
+                          width: 100,
+                          height: 60,
+                        ),
+                        const SizedBox(height: 10),
+                        Text(
+                          unit.name!,
+                          style: AppTextStyle.medium15,
+                        ),
+                      ],
                     ),
                   ),
                 ),
+
                 //Only Ui
                 GestureDetector(
                   onTap: () async {
@@ -115,13 +118,11 @@ class UnitTopicsScreen extends StatelessWidget {
                     );
                   },
                   child: Container(
-                    width: 100,
+                    padding: const EdgeInsets.all(5),
                     decoration: AppContainerStyle.border.copyWith(
                       color: AppColors.white,
                     ),
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Image.asset(
                           image[0],
@@ -147,13 +148,11 @@ class UnitTopicsScreen extends StatelessWidget {
                     );
                   },
                   child: Container(
-                    width: 100,
+                    padding: const EdgeInsets.all(5),
                     decoration: AppContainerStyle.border.copyWith(
                       color: AppColors.white,
                     ),
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Image.asset(
                           image[1],
@@ -179,13 +178,11 @@ class UnitTopicsScreen extends StatelessWidget {
                     );
                   },
                   child: Container(
-                    width: 100,
+                    padding: const EdgeInsets.all(5),
                     decoration: AppContainerStyle.border.copyWith(
                       color: AppColors.white,
                     ),
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Image.asset(
                           image[2],
@@ -211,13 +208,11 @@ class UnitTopicsScreen extends StatelessWidget {
                     );
                   },
                   child: Container(
-                    width: 100,
+                    padding: const EdgeInsets.all(5),
                     decoration: AppContainerStyle.border.copyWith(
                       color: AppColors.white,
                     ),
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Image.asset(
                           image[3],

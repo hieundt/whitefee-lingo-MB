@@ -29,7 +29,7 @@ class FavoriteUnitScreen extends StatelessWidget {
             return favorite.isNotEmpty
                 ? ListView.separated(
                     padding: const EdgeInsets.all(10),
-                    itemCount: 10,
+                    itemCount: favorite.length,
                     separatorBuilder: (context, index) {
                       return const SizedBox(height: 20);
                     },

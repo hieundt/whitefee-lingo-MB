@@ -182,10 +182,10 @@ class UserFavoriteCollectionService {
     required String unitId,
   }) async {
     await Dio().post(
-      favoritevocabularyApi,
+      favoriteUnitApi,
       data: {
         "userId": userId,
-        "vocabularyId": unitId,
+        "unitId": unitId,
       },
     );
   }
