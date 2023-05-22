@@ -1,8 +1,7 @@
 import 'package:dictionary/data/services/user_service.dart';
 import 'package:dictionary/res/images.dart';
-import 'package:dictionary/screens/dictionary/widgets/favorite_marker.dart';
+import 'package:dictionary/screens/dictionary/widgets/vocabulary_favorite_marker.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import '../../../data/models/vocabulary_model/vocabulary_model.dart';
 import '../../../res/themes.dart';
 import 'pronounce_widget.dart';
@@ -20,68 +19,67 @@ class VocabularyWidget extends StatelessWidget {
       padding: const EdgeInsets.all(10),
       decoration: AppContainerStyle.border.copyWith(
         color: AppColors.white,
+        borderRadius: BorderRadius.circular(15),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          UserService.currentUserId != null
+              ? Align(
+                  alignment: Alignment.topRight,
+                  child: vocabulary.id == null
+                      ? const Icon(
+                          CupertinoIcons.bookmark,
+                          size: 50,
+                        )
+                      : VocabularyFavoriteMarker(
+                          userId: UserService.currentUserId!,
+                          vocabularyId: vocabulary.id!,
+                        ),
+                )
+              : const SizedBox(
+                  height: 50,
+                  width: 50,
+                ),
+          const SizedBox(height: 5),
           Row(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Expanded(
                 flex: 2,
-                child: Column(
-                  children: [
-                    Text(
-                      vocabulary.word ?? 'Vocabulary',
-                      style: AppTextStyle.bold15,
-                    ),
-                    Text(
-                      vocabulary.type ?? 'type',
-                      style: AppTextStyle.regular15,
-                    ),
-                    Text(
-                      vocabulary.phonetics ?? 'phonetics',
-                      style: AppTextStyle.phonetics,
-                    )
-                  ],
+                child: RichText(
+                  text: TextSpan(
+                    children: [
+                      TextSpan(
+                        text: vocabulary.word ?? 'Vocabulary ',
+                        style: AppTextStyle.bold25.copyWith(
+                          fontSize: 20,
+                        ),
+                      ),
+                      TextSpan(
+                        text: ' [${vocabulary.phonetics ?? 'phonetics'}]',
+                        style: AppTextStyle.phonetics,
+                      ),
+                    ],
+                  ),
                 ),
               ),
-              //! Bug
-              vocabulary.pronounce != null
-                  ? Expanded(
-                      flex: 1,
-                      child: PronounceWidget(url: vocabulary.pronounce ?? ''),
-                    )
-                  : const Icon(
-                      CupertinoIcons.speaker_3,
-                      size: 40,
-                    ),
-              UserService.currentUserId != null
-                  ? Expanded(
-                      flex: 1,
-                      child: vocabulary.id == null
-                          ? const Icon(
-                              CupertinoIcons.bookmark,
-                              size: 50,
-                            )
-                          : VocabularyFavoriteMarker(
-                              userId: UserService.currentUserId!,
-                              vocabularyId: vocabulary.id!,
-                            ),
-                    )
-                  : const SizedBox(
-                      height: 50,
-                      width: 50,
-                    ),
+              Expanded(
+                flex: 1,
+                child: vocabulary.pronounce != null
+                    ? PronounceWidget(url: vocabulary.pronounce ?? '')
+                    : const Icon(
+                        CupertinoIcons.speaker_3,
+                        size: 40,
+                      ),
+              ),
             ],
           ),
-          const SizedBox(height: 30),
-          const Divider(
-            thickness: 3,
-            indent: 20,
-            endIndent: 20,
-            color: AppColors.black,
+          Text(
+            vocabulary.type ?? 'type',
+            style: AppTextStyle.regular25,
           ),
-          const SizedBox(height: 30),
+          const SizedBox(height: 10),
           vocabulary.image != null
               ? Image.network(
                   vocabulary.image!,

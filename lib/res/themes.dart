@@ -135,9 +135,9 @@ class AppTextStyle {
   );
 
   static final phonetics = GoogleFonts.firaSans(
-    fontSize: 15,
-    color: AppColors.black,
-    fontWeight: FontWeight.w300,
+    fontSize: 20,
+    color: AppColors.darkGray,
+    fontWeight: FontWeight.w500,
   );
 }
 

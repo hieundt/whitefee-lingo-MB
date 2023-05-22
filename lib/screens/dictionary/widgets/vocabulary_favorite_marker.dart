@@ -69,7 +69,7 @@ class _VocabularyFavoriteMarkerState extends State<VocabularyFavoriteMarker> {
             child: Icon(
               marker,
               size: 50,
-              color: AppColors.darkBrown,
+              color: AppColors.red,
             ),
           );
         } else {

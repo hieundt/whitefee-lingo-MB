@@ -24,7 +24,7 @@ class _PronounceWidgetState extends State<PronounceWidget> {
   @override
   Widget build(BuildContext context) {
     return SizedBox.fromSize(
-      size: const Size(85, 85),
+      size: const Size(80, 80),
       child: ClipOval(
         child: Material(
           shape: RoundedRectangleBorder(
@@ -41,8 +41,8 @@ class _PronounceWidgetState extends State<PronounceWidget> {
               children: [
                 const Icon(
                   CupertinoIcons.speaker_3_fill,
-                  size: 40,
-                  color: AppColors.darkGreen,
+                  size: 30,
+                  color: AppColors.black,
                 ),
                 Text(
                   "Phonetics",

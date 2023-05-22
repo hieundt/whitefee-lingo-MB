@@ -1,4 +1,4 @@
-import 'package:dictionary/screens/training/widgets/favorite_marker.dart';
+import 'package:dictionary/screens/training/widgets/unit_favorite_marker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../../data/services/training_service.dart';
