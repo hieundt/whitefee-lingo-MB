@@ -6,11 +6,13 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   final String screenTitle;
   final Color? titleColor;
   final Widget? leading;
+  final List<Widget>? actions;
   const AppBarWidget({
     super.key,
     this.screenTitle = 'Dictionary Pal',
     this.leading,
     this.titleColor = AppColors.darkGreen,
+    this.actions,
   });
 
   @override
@@ -35,6 +37,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
       elevation: 0,
       centerTitle: true,
       backgroundColor: AppColors.transparent,
+      actions: actions,
     );
   }
 

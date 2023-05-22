@@ -190,7 +190,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 child: Text(
                                   'Skip for now',
                                   style: AppTextStyle.medium20.copyWith(
-                                    color: AppColors.gray,
+                                    color: AppColors.grey,
                                   ),
                                 ),
                               ),

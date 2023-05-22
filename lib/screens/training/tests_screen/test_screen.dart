@@ -259,7 +259,7 @@ class OptionWidget extends StatefulWidget {
 }
 
 class _OptionWidgetState extends State<OptionWidget> {
-  Color? color = AppColors.lightGray;
+  Color? color = AppColors.lightGrey;
   @override
   Widget build(BuildContext context) {
     var testProvider = Provider.of<TestProvider>(context);
@@ -287,7 +287,7 @@ class _OptionWidgetState extends State<OptionWidget> {
               ? (testProvider.selected!.correct == true
                   ? color = AppColors.green
                   : color = AppColors.red)
-              : color = AppColors.lightGray;
+              : color = AppColors.lightGrey;
 
           if (widget.option.correct == true) {
             testProvider.addPoint(widget.point);

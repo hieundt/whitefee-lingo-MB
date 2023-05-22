@@ -10,7 +10,7 @@ class AppLoadingIndicator extends StatelessWidget {
       child: CircularProgressIndicator(
         valueColor: AlwaysStoppedAnimation<Color>(AppColors.darkGreen),
         strokeWidth: 4.0,
-        backgroundColor: AppColors.gray,
+        backgroundColor: AppColors.grey,
       ),
     );
   }

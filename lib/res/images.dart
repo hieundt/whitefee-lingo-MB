@@ -4,6 +4,9 @@ class AppLogoImage {
 
 class DictionaryScreenImage {
   static const blank = 'assets/blank_space.png';
+  static const explore = 'assets/explore.png';
+  static const skill = 'assets/skill.png';
+  static const user = 'assets/user.png';
 }
 
 class TrainingScreenImage {

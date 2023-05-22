@@ -23,7 +23,7 @@ class InformationWidget extends StatelessWidget {
       title: Text(
         title ?? '',
         style: AppTextStyle.regular15.copyWith(
-          color: AppColors.darkGray,
+          color: AppColors.darkGrey,
         ),
       ),
       subtitle: Text(
@@ -61,7 +61,7 @@ class FavoriteWidget extends StatelessWidget {
       child: InkWell(
         borderRadius: BorderRadius.circular(15),
         onTap: onTap,
-        splashColor: AppColors.gray,
+        splashColor: AppColors.grey,
         child: ListTile(
           dense: true,
           leading: leading,

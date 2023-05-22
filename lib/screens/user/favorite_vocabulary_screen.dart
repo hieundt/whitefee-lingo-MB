@@ -44,7 +44,7 @@ class FavoriteVocabularyScreen extends StatelessWidget {
                     child: Text(
                       'Your favorite vocabularies appear hear',
                       style: AppTextStyle.medium15.copyWith(
-                        color: AppColors.gray,
+                        color: AppColors.grey,
                       ),
                     ),
                   );

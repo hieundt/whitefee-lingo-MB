@@ -46,7 +46,7 @@ class AppTextField extends StatelessWidget {
       },
       decoration: InputDecoration(
         hintStyle: AppTextStyle.medium13.copyWith(
-          color: AppColors.darkGray,
+          color: AppColors.darkGrey,
         ),
         hintText: hint,
         errorText: error,
@@ -119,7 +119,7 @@ class _AppPasswordFieldState extends State<AppPasswordField> {
       },
       decoration: InputDecoration(
         hintStyle: AppTextStyle.medium13.copyWith(
-          color: AppColors.darkGray,
+          color: AppColors.darkGrey,
         ),
         hintText: widget.hint,
         errorText: widget.error,
@@ -133,7 +133,7 @@ class _AppPasswordFieldState extends State<AppPasswordField> {
           icon: Icon(
             _hidePassword ? CupertinoIcons.eye_slash : CupertinoIcons.eye,
             size: 20,
-            color: AppColors.darkGray,
+            color: AppColors.darkGrey,
           ),
         ),
         border: OutlineInputBorder(

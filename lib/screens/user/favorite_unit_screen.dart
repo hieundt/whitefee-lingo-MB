@@ -41,7 +41,7 @@ class FavoriteUnitScreen extends StatelessWidget {
                     child: Text(
                       'Your favorite units appear hear',
                       style: AppTextStyle.medium15.copyWith(
-                        color: AppColors.gray,
+                        color: AppColors.grey,
                       ),
                     ),
                   );

@@ -111,7 +111,7 @@ class _QuestionAudioWidgetState extends State<QuestionAudioWidget> {
           Expanded(
             flex: 2,
             child: Slider(
-              inactiveColor: AppColors.gray,
+              inactiveColor: AppColors.grey,
               activeColor: AppColors.black,
               thumbColor: AppColors.black,
               min: 0,

@@ -1,5 +1,3 @@
-import 'package:dictionary/initial_state.dart';
-
 import 'screens/auth/login_screen.dart';
 import 'screens/auth/signup_screen.dart';
 import 'screens/home/home_sceen.dart';

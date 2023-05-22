@@ -11,9 +11,10 @@ class AppColors {
 
   static const dark = Color(0xFF36454F);
 
-  static const lightGray = Color(0xFFF2F2F2);
-  static const gray = Color(0XFFB7BAC4);
-  static const darkGray = Color(0xFF686868);
+  static const lightGrey = Color(0xFFF2F2F2);
+  static const grey = Color(0XFFB7BAC4);
+  static const semiGrey = Color(0xFFE0E0E0);
+  static const darkGrey = Color(0xFF686868);
 
   static const lightGreen = Color(0xFFC8E6C9);
   static const green = Color(0xFF69F0AE);
@@ -136,7 +137,7 @@ class AppTextStyle {
 
   static final phonetics = GoogleFonts.firaSans(
     fontSize: 20,
-    color: AppColors.darkGray,
+    color: AppColors.darkGrey,
     fontWeight: FontWeight.w500,
   );
 }

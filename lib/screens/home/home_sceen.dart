@@ -1,12 +1,10 @@
+import 'package:dictionary/screens/dictionary/dictionary_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../providers/navigation_bar_provider.dart';
-import '../dictionary/dictionary_screen.dart';
-import '../game/words_game_screen.dart';
 import '../training/training_screen.dart';
 import '../user/user_screen.dart';
-import 'widgets/app_bar_widget.dart';
 import 'widgets/app_navigation_bar.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -18,9 +16,8 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final pages = [
-    const DictionaryScreen(),
+    const DictionaryVersion2(),
     const TrainingScreen(),
-    const WordsGameScreen(),
     const UserScreen(),
   ];
 
@@ -31,7 +28,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return SafeArea(
       child: Scaffold(
-        appBar: const AppBarWidget(),
         body: Padding(
           padding: const EdgeInsets.all(10),
           child: pages.elementAt(pageIndex),
@@ -40,7 +36,6 @@ class _HomeScreenState extends State<HomeScreen> {
           items: [
             AppNavigationBarItem(icon: CupertinoIcons.house_alt_fill),
             AppNavigationBarItem(icon: CupertinoIcons.create),
-            AppNavigationBarItem(icon: CupertinoIcons.rocket_fill),
             AppNavigationBarItem(icon: CupertinoIcons.person_fill),
           ],
           currentIndex: pageIndex,
