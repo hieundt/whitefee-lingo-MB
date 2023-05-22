@@ -1,5 +1,4 @@
 import 'package:dictionary/data/services/user_service.dart';
-import 'package:dictionary/utils.dart';
 import 'package:flutter/cupertino.dart';
 import '../../../res/themes.dart';
 

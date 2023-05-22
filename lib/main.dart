@@ -25,13 +25,10 @@ void main() async {
         ChangeNotifierProvider(
           create: (_) => TestProvider(),
         ),
-        // ChangeNotifierProvider(
-        //   create: (_) => UserProvider(),
-        // ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'My app',
+        title: ' Dictionary Pal',
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),

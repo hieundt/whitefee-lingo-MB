@@ -27,18 +27,27 @@ class FavoriteVocabularyScreen extends StatelessWidget {
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             var favorite = snapshot.data!;
-            return ListView.separated(
-              padding: const EdgeInsets.all(10),
-              itemCount: favorite.length,
-              separatorBuilder: (context, index) {
-                return const SizedBox(height: 20);
-              },
-              itemBuilder: (context, index) {
-                return FavoriteVocabularyWidget(
-                  vocabularyId: favorite[index].vocabularyId!,
-                );
-              },
-            );
+            return favorite.isNotEmpty
+                ? ListView.separated(
+                    padding: const EdgeInsets.all(10),
+                    itemCount: favorite.length,
+                    separatorBuilder: (context, index) {
+                      return const SizedBox(height: 20);
+                    },
+                    itemBuilder: (context, index) {
+                      return FavoriteVocabularyWidget(
+                        vocabularyId: favorite[index].vocabularyId!,
+                      );
+                    },
+                  )
+                : Center(
+                    child: Text(
+                      'Your favorite vocabularies appear hear',
+                      style: AppTextStyle.medium15.copyWith(
+                        color: AppColors.gray,
+                      ),
+                    ),
+                  );
           } else {
             return const AppLoadingIndicator();
           }

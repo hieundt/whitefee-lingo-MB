@@ -38,6 +38,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print(UserService.currentUserId);
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -155,7 +156,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         const SizedBox(height: 30),
                         GestureDetector(
                           onTap: () {
-                            Navigator.of(context).pushReplacementNamed(
+                            Navigator.of(context).pushNamed(
                               AppRoutes.signup,
                             );
                           },

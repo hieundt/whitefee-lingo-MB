@@ -22,7 +22,15 @@ class _VocabularyFavoriteMarkerState extends State<VocabularyFavoriteMarker> {
   @override
   void initState() {
     super.initState();
-    marker = CupertinoIcons.bookmark;
+    initMarker();
+  }
+
+  Future<void> initMarker() async {
+    bool checker = await UserFavoriteCollectionService().isFavoriteVocabulary(
+      userId: UserService.currentUserId!,
+      vocabularyId: widget.vocabularyId,
+    );
+    marker = checker ? CupertinoIcons.bookmark_fill : CupertinoIcons.bookmark;
   }
 
   @override
@@ -35,10 +43,9 @@ class _VocabularyFavoriteMarkerState extends State<VocabularyFavoriteMarker> {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           var checker = snapshot.data!;
+
           return GestureDetector(
             onTap: () async {
-              print('tapped');
-              print(checker);
               if (checker == false) {
                 setState(() {
                   marker = CupertinoIcons.bookmark_fill;
@@ -56,7 +63,6 @@ class _VocabularyFavoriteMarkerState extends State<VocabularyFavoriteMarker> {
                   vocabularyId: widget.vocabularyId,
                 );
               }
-              print(checker);
             },
             child: Icon(
               marker,

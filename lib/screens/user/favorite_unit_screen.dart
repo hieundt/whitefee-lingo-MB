@@ -26,16 +26,25 @@ class FavoriteUnitScreen extends StatelessWidget {
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             var favorite = snapshot.data!;
-            return ListView.separated(
-              padding: const EdgeInsets.all(10),
-              itemCount: 10,
-              separatorBuilder: (context, index) {
-                return const SizedBox(height: 20);
-              },
-              itemBuilder: (context, index) => FavoriteUnitWidget(
-                unitId: favorite[index].unitId!,
-              ),
-            );
+            return favorite.isNotEmpty
+                ? ListView.separated(
+                    padding: const EdgeInsets.all(10),
+                    itemCount: 10,
+                    separatorBuilder: (context, index) {
+                      return const SizedBox(height: 20);
+                    },
+                    itemBuilder: (context, index) => FavoriteUnitWidget(
+                      unitId: favorite[index].unitId!,
+                    ),
+                  )
+                : Center(
+                    child: Text(
+                      'Your favorite units appear hear',
+                      style: AppTextStyle.medium15.copyWith(
+                        color: AppColors.gray,
+                      ),
+                    ),
+                  );
           } else {
             return const AppLoadingIndicator();
           }

@@ -179,9 +179,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   title: 'Welcome! new user',
                                   message: 'Your account has been created',
                                 ).then((_) {
-                                  Navigator.of(context).pushReplacementNamed(
-                                    AppRoutes.login,
-                                  );
+                                  Navigator.of(context).pop();
                                 });
 
                                 setState(() {
@@ -215,9 +213,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         const SizedBox(height: 30),
                         GestureDetector(
                           onTap: () {
-                            Navigator.of(context).pushReplacementNamed(
-                              AppRoutes.login,
-                            );
+                            Navigator.of(context).pop();
                           },
                           child: RichText(
                             text: TextSpan(
@@ -227,7 +223,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   style: AppTextStyle.regular13,
                                 ),
                                 TextSpan(
-                                  text: 'Sign in here',
+                                  text: 'Login here',
                                   style: AppTextStyle.bold15.copyWith(
                                     color: AppColors.darkGreen,
                                   ),
