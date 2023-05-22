@@ -60,7 +60,7 @@ class _DictionarySearchBarState extends State<DictionarySearchBar> {
             prefixIconColor: AppColors.black,
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(
-                30,
+                15,
               ),
               borderSide: const BorderSide(
                 color: AppColors.black,
@@ -69,7 +69,7 @@ class _DictionarySearchBarState extends State<DictionarySearchBar> {
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(
-                30,
+                15,
               ),
               borderSide: const BorderSide(
                 color: AppColors.black,

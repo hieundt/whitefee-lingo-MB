@@ -23,33 +23,29 @@ class _PronounceWidgetState extends State<PronounceWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox.fromSize(
-      size: const Size(80, 80),
-      child: ClipOval(
-        child: Material(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30),
-          ),
-          color: AppColors.transparent,
-          child: InkWell(
-            borderRadius: BorderRadius.circular(30),
-            onTap: () {
-              playAudio(widget.url);
-            },
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Icon(
-                  CupertinoIcons.speaker_3_fill,
-                  size: 30,
-                  color: AppColors.black,
+    return SizedBox(
+      child: Material(
+        color: AppColors.transparent,
+        child: InkWell(
+          onTap: () {
+            playAudio(widget.url);
+          },
+          child: Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 10),
+                child: Text(
+                  'US',
+                  style: AppTextStyle.medium13,
                 ),
-                Text(
-                  "Phonetics",
-                  style: AppTextStyle.bold12,
-                ),
-              ],
-            ),
+              ),
+              const SizedBox(width: 5),
+              const Icon(
+                CupertinoIcons.speaker_3_fill,
+                size: 25,
+                color: AppColors.darkGreen,
+              ),
+            ],
           ),
         ),
       ),
@@ -62,3 +58,37 @@ class _PronounceWidgetState extends State<PronounceWidget> {
     audioPlayer.dispose();
   }
 }
+
+//  return SizedBox.fromSize(
+//       size: const Size(50, 50),
+//       child: ClipOval(
+//         child: Material(
+//           shape: RoundedRectangleBorder(
+//             borderRadius: BorderRadius.circular(60),
+//           ),
+//           color: AppColors.transparent,
+//           child: InkWell(
+//             borderRadius: BorderRadius.circular(30),
+//             onTap: () {
+//               playAudio(widget.url);
+//             },
+//             child: Row(
+//               children: [
+//                 Padding(
+//                   padding: const EdgeInsets.only(top: 10),
+//                   child: Text(
+//                     'us',
+//                     style: AppTextStyle.medium13,
+//                   ),
+//                 ),
+//                 const Icon(
+//                   CupertinoIcons.speaker_3_fill,
+//                   size: 25,
+//                   color: AppColors.darkGreen,
+//                 ),
+//               ],
+//             ),
+//           ),
+//         ),
+//       ),
+//     );

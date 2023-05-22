@@ -143,27 +143,6 @@ class UnitStartScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              // const SizedBox(height: 10),
-              // RichText(
-              //   text: TextSpan(
-              //     children: [
-              //       TextSpan(
-              //         text: 'Tap on the ',
-              //         style: AppTextStyle.medium15,
-              //       ),
-              //       TextSpan(
-              //         text: 'bookmark ',
-              //         style: AppTextStyle.bold15.copyWith(
-              //           color: AppColors.darkRed,
-              //         ),
-              //       ),
-              //       TextSpan(
-              //         text: 'to add to favorite list',
-              //         style: AppTextStyle.medium15,
-              //       ),
-              //     ],
-              //   ),
-              // ),
               const SizedBox(height: 30),
               Expanded(
                 child: Image(

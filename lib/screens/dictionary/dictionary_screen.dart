@@ -5,7 +5,6 @@ import '../../data/models/vocabulary_model/vocabulary_model.dart';
 import '../../data/services/vocabulary_service.dart';
 import '../../providers/dictionary_provider.dart';
 import '../../utils.dart';
-import 'widgets/header_widget.dart';
 import 'widgets/vocabulary_widget.dart';
 
 class DictionaryScreen extends StatefulWidget {
@@ -21,15 +20,13 @@ class _DictionaryScreenState extends State<DictionaryScreen> {
     var provider = Provider.of<DictionaryProvider>(context);
     return ListView(
       children: [
-        const HeaderWidget(),
-        const SizedBox(height: 20),
         FutureBuilder<List<Vocabulary>>(
           future: VocabularyService().getAllVocabulary(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
               var vocabularies = snapshot.data!;
               return Stack(
-                clipBehavior: Clip.none,
+                //clipBehavior: Clip.none,
                 children: [
                   Column(
                     children: [

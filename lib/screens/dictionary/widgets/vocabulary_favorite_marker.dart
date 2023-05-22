@@ -17,7 +17,7 @@ class VocabularyFavoriteMarker extends StatefulWidget {
 }
 
 class _VocabularyFavoriteMarkerState extends State<VocabularyFavoriteMarker> {
-  late IconData marker;
+  IconData? marker;
 
   @override
   void initState() {

@@ -16,8 +16,8 @@ class UnitFavoriteMarker extends StatefulWidget {
 }
 
 class _UnitFavoriteMarkerState extends State<UnitFavoriteMarker> {
-  late IconData marker;
-
+  IconData? marker;
+  Color? color;
   @override
   void initState() {
     super.initState();
@@ -31,7 +31,13 @@ class _UnitFavoriteMarkerState extends State<UnitFavoriteMarker> {
       userId: UserService.currentUserId!,
       unitId: widget.unitId,
     );
-    marker = checker ? CupertinoIcons.bookmark_fill : CupertinoIcons.bookmark;
+    if (checker == true) {
+      color = AppColors.darkRed;
+      marker = CupertinoIcons.heart_fill;
+    } else {
+      color = AppColors.black;
+      marker = CupertinoIcons.heart;
+    }
   }
 
   @override
@@ -49,7 +55,8 @@ class _UnitFavoriteMarkerState extends State<UnitFavoriteMarker> {
             onTap: () async {
               if (checker == false) {
                 setState(() {
-                  marker = CupertinoIcons.bookmark_fill;
+                  color = AppColors.darkRed;
+                  marker = CupertinoIcons.heart_fill;
                 });
                 await UserFavoriteCollectionService().markFavoriteUnit(
                   userId: UserService.currentUserId!,
@@ -57,7 +64,8 @@ class _UnitFavoriteMarkerState extends State<UnitFavoriteMarker> {
                 );
               } else {
                 setState(() {
-                  marker = CupertinoIcons.bookmark;
+                  color = AppColors.black;
+                  marker = CupertinoIcons.heart;
                 });
                 await UserFavoriteCollectionService().removeFavoriteUnit(
                   userId: UserService.currentUserId!,
@@ -65,10 +73,13 @@ class _UnitFavoriteMarkerState extends State<UnitFavoriteMarker> {
                 );
               }
             },
-            child: Icon(
-              marker,
-              size: 40,
-              color: AppColors.darkBrown,
+            child: SizedBox.fromSize(
+              size: const Size(50, 50),
+              child: Icon(
+                marker,
+                size: 30,
+                color: color,
+              ),
             ),
           );
         } else {

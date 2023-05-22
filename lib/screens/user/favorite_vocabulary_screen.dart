@@ -74,48 +74,49 @@ class FavoriteVocabularyWidget extends StatelessWidget {
           return Container(
             padding: const EdgeInsets.all(10),
             decoration: AppContainerStyle.border.copyWith(
-              color: AppColors.white,
-            ),
+                color: AppColors.white,
+                borderRadius: BorderRadius.circular(15)),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Expanded(
-                      flex: 2,
-                      child: Column(
+                    RichText(
+                      text: TextSpan(
                         children: [
-                          Text(
-                            vocabulary.word!,
-                            style: AppTextStyle.bold15,
+                          TextSpan(
+                            text: vocabulary.word,
+                            style: AppTextStyle.bold25.copyWith(
+                              color: AppColors.darkGreen,
+                              fontSize: 20,
+                            ),
                           ),
-                          Text(
-                            vocabulary.type!,
-                            style: AppTextStyle.regular15,
-                          ),
-                          Text(
-                            vocabulary.phonetics!,
+                          TextSpan(
+                            text: ' [${vocabulary.phonetics}]',
                             style: AppTextStyle.phonetics,
-                          )
+                          ),
                         ],
                       ),
                     ),
-                    Expanded(
-                      flex: 1,
-                      child: PronounceWidget(
-                        url: vocabulary.pronounce!,
-                      ),
+                    const SizedBox(width: 15),
+                    Container(
+                      padding: const EdgeInsets.only(bottom: 15),
+                      child: PronounceWidget(url: vocabulary.pronounce!),
                     ),
                   ],
                 ),
-                const SizedBox(height: 30),
-                const Divider(
-                  thickness: 3,
-                  indent: 20,
-                  endIndent: 20,
-                  color: AppColors.black,
+                Text(
+                  '*${vocabulary.type}',
+                  style: AppTextStyle.regular15.copyWith(
+                    color: AppColors.darkRed,
+                  ),
                 ),
-                const SizedBox(height: 30),
+                const SizedBox(height: 5),
+                const Divider(
+                  color: AppColors.black,
+                  thickness: 2,
+                ),
                 Image.network(
                   vocabulary.image!,
                   scale: 3,

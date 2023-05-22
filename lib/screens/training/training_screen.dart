@@ -1,3 +1,4 @@
+import 'package:dictionary/data/services/user_service.dart';
 import 'package:dictionary/screens/user/widgets/lock_content_widget.dart';
 import 'package:flutter/material.dart';
 import '../../res/images.dart';
@@ -69,6 +70,7 @@ class TrainingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(UserService.currentUserId);
     return ListView(
       children: [
         const GreetingWidget(),

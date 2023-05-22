@@ -77,10 +77,9 @@ class UnitFlipCard extends StatelessWidget {
                   vocabulary.image!,
                   scale: 3,
                 ),
-                //! Bug
-                // PronounceWidget(
-                //   url: vocabulary.pronounce!,
-                // ),
+                PronounceWidget(
+                  url: vocabulary.pronounce!,
+                ),
               ],
             ),
             const SizedBox(height: 30),

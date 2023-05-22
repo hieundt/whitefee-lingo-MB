@@ -8,20 +8,9 @@ class HeaderWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        RichText(
-          text: TextSpan(
-            children: [
-              TextSpan(
-                text: 'Let\'s ',
-                style: AppTextStyle.regular25,
-              ),
-              TextSpan(
-                text: 'explore',
-                style: AppTextStyle.regular25,
-              ),
-            ],
-          ),
-          textAlign: TextAlign.center,
+        Text(
+          'Let\'s explore',
+          style: AppTextStyle.regular25,
         ),
         const SizedBox(height: 10),
         Text(
@@ -38,7 +27,6 @@ class HeaderWidget extends StatelessWidget {
             decorationThickness: 7,
             decorationColor: AppColors.yellow,
           ),
-          textAlign: TextAlign.center,
         ),
       ],
     );
