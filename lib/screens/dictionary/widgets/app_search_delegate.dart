@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:dictionary/data/models/vocabulary_model/vocabulary_model.dart';
+
+import '../../../data/models/vocabulary_model/vocabulary_model.dart';
 import '../../../res/themes.dart';
 import '../vocabulary_screen.dart';
 

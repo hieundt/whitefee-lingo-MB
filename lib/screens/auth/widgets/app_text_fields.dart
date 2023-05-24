@@ -10,7 +10,7 @@ enum AppTextFieldType {
 class AppTextField extends StatelessWidget {
   final TextEditingController controller;
   final String hint;
-  final AppTextFieldType validator;
+  final AppTextFieldType? validator;
   final TextInputType? inputType;
   final TextCapitalization textCapitalization;
   final String? error;
@@ -19,7 +19,7 @@ class AppTextField extends StatelessWidget {
     super.key,
     required this.controller,
     required this.hint,
-    required this.validator,
+    this.validator,
     this.inputType,
     this.textCapitalization = TextCapitalization.none,
     this.error,

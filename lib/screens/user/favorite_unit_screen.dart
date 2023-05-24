@@ -1,7 +1,8 @@
-import 'package:dictionary/data/services/user_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../data/services/training_service.dart';
+import '../../data/services/user_service.dart';
+import '../../main.dart';
 import '../../res/themes.dart';
 import '../../utils.dart';
 import '../home/widgets/app_bar_widget.dart';
@@ -11,18 +12,24 @@ class FavoriteUnitScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final userId = UserService.currentUserId;
     return Scaffold(
-      appBar: const AppBarWidget(
+      appBar: AppBarWidget(
         screenTitle: 'Favorite Unit',
         titleColor: AppColors.darkBrown,
-        leading: Icon(
-          CupertinoIcons.square_favorites_alt,
-          color: AppColors.darkBrown,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          icon: const Icon(
+            Icons.arrow_back_ios_new_rounded,
+            color: Colors.black,
+          ),
         ),
       ),
       body: FutureBuilder(
-        future: UserFavoriteCollectionService().getFavoriteUnit(userId!),
+        future: UserFavoriteCollectionService().getFavoriteUnit(
+          prefs.getString('userId')!,
+        ),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             var favorite = snapshot.data!;
@@ -38,11 +45,51 @@ class FavoriteUnitScreen extends StatelessWidget {
                     ),
                   )
                 : Center(
-                    child: Text(
-                      'Your favorite units appear hear',
-                      style: AppTextStyle.medium15.copyWith(
-                        color: AppColors.grey,
-                      ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const Icon(
+                          CupertinoIcons.square_favorites_alt,
+                          color: AppColors.black,
+                          size: 50,
+                        ),
+                        const SizedBox(height: 20),
+                        Text(
+                          'Your favorites list is empty',
+                          style: AppTextStyle.medium20,
+                        ),
+                        const SizedBox(height: 20),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 30),
+                          child: RichText(
+                            textAlign: TextAlign.center,
+                            text: TextSpan(
+                              children: [
+                                TextSpan(
+                                  text: 'Tap on the ',
+                                  style: AppTextStyle.medium15.copyWith(
+                                    color: AppColors.darkGrey,
+                                  ),
+                                ),
+                                const WidgetSpan(
+                                  child: Icon(
+                                    CupertinoIcons.heart,
+                                    color: AppColors.darkGrey,
+                                  ),
+                                ),
+                                TextSpan(
+                                  text:
+                                      ' icon of your favorite unit topic to show them here',
+                                  style: AppTextStyle.medium15.copyWith(
+                                    color: AppColors.darkGrey,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        )
+                      ],
                     ),
                   );
           } else {

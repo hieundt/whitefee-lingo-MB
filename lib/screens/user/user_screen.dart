@@ -1,16 +1,17 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:dictionary/screens/auth/login_screen.dart';
-import 'package:dictionary/screens/home/widgets/app_bar_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../../data/models/user_models/user_model.dart';
 import '../../data/services/user_service.dart';
 import '../../main.dart';
+import '../../res/images.dart';
 import '../../res/themes.dart';
 import '../../routes.dart';
 import '../../utils.dart';
+import '../auth/login_screen.dart';
+import '../home/widgets/app_bar_widget.dart';
 import 'widgets/user_information_widget.dart';
 
 class UserScreen extends StatelessWidget {
@@ -27,7 +28,14 @@ class UserScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppBarWidget(),
+      appBar: AppBarWidget(
+        leading: Padding(
+          padding: const EdgeInsets.all(5),
+          child: Image.asset(
+            AppLogoImage.logo,
+          ),
+        ),
+      ),
       body: FutureBuilder(
         future: checkIfUserExist(),
         builder: (context, snapshot) {
@@ -81,7 +89,7 @@ class UserScreen extends StatelessWidget {
                         InformationWidget(
                           leading: const Icon(CupertinoIcons.envelope_open),
                           title: 'Email',
-                          subtitle: '@${currentUser.email}',
+                          subtitle: '${currentUser.email}',
                         ),
                         InformationWidget(
                           leading: const Icon(CupertinoIcons.gift),

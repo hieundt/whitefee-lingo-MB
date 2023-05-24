@@ -8,15 +8,16 @@ class Vocabulary {
   String? image;
   String? meaning;
 
-  Vocabulary(
-      {this.id,
-      this.type,
-      this.word,
-      this.hint,
-      this.phonetics,
-      this.pronounce,
-      this.image,
-      this.meaning});
+  Vocabulary({
+    this.id,
+    this.type,
+    this.word,
+    this.hint,
+    this.phonetics,
+    this.pronounce,
+    this.image,
+    this.meaning,
+  });
 
   Vocabulary.fromJson(Map<String, dynamic> json) {
     id = json['id'];

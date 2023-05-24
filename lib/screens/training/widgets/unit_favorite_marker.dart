@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import '../../../data/services/user_service.dart';
+import '../../../main.dart';
 import '../../../res/themes.dart';
 
 class UnitFavoriteMarker extends StatefulWidget {
@@ -28,7 +29,7 @@ class _UnitFavoriteMarkerState extends State<UnitFavoriteMarker> {
 
   Future<void> initMarker() async {
     bool checker = await UserFavoriteCollectionService().isFavoriteUnit(
-      userId: UserService.currentUserId!,
+      userId: prefs.getString('userId')!,
       unitId: widget.unitId,
     );
     if (checker == true) {
@@ -44,7 +45,7 @@ class _UnitFavoriteMarkerState extends State<UnitFavoriteMarker> {
   Widget build(BuildContext context) {
     return FutureBuilder(
       future: UserFavoriteCollectionService().isFavoriteUnit(
-        userId: UserService.currentUserId!,
+        userId: prefs.getString('userId')!,
         unitId: widget.unitId,
       ),
       builder: (context, snapshot) {
@@ -59,7 +60,7 @@ class _UnitFavoriteMarkerState extends State<UnitFavoriteMarker> {
                   marker = CupertinoIcons.heart_fill;
                 });
                 await UserFavoriteCollectionService().markFavoriteUnit(
-                  userId: UserService.currentUserId!,
+                  userId: prefs.getString('userId')!,
                   unitId: widget.unitId,
                 );
               } else {
@@ -68,7 +69,7 @@ class _UnitFavoriteMarkerState extends State<UnitFavoriteMarker> {
                   marker = CupertinoIcons.heart;
                 });
                 await UserFavoriteCollectionService().removeFavoriteUnit(
-                  userId: UserService.currentUserId!,
+                  userId: prefs.getString('userId')!,
                   unitId: widget.unitId,
                 );
               }

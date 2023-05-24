@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../data/models/vocabulary_model/vocabulary_model.dart';
-import '../../data/services/user_service.dart';
+import '../../main.dart';
 import '../../res/themes.dart';
 import 'widgets/pronounce_widget.dart';
 import 'widgets/vocabulary_favorite_marker.dart';
@@ -50,11 +50,11 @@ class VocabularyScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              UserService.currentUserId != null
+              prefs.getString('userId') != null
                   ? Align(
                       alignment: Alignment.topRight,
                       child: VocabularyFavoriteMarker(
-                        userId: UserService.currentUserId!,
+                        userId: prefs.getString('userId')!,
                         vocabularyId: vocabulary.id!,
                       ),
                     )

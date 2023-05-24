@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../../res/images.dart';
 import '../../../res/themes.dart';
 
 class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
@@ -18,24 +17,14 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: Row(
-        children: [
-          leading ??
-              Image.asset(
-                AppLogoImage.logo,
-                scale: 15,
-              ),
-          const SizedBox(width: 10),
-          Text(
-            screenTitle,
-            style: AppTextStyle.medium20.copyWith(
-              color: titleColor,
-            ),
-          ),
-        ],
+      leading: leading,
+      title: Text(
+        screenTitle,
+        style: AppTextStyle.medium20.copyWith(
+          color: titleColor,
+        ),
       ),
       elevation: 0,
-      //centerTitle: true,
       backgroundColor: AppColors.transparent,
       actions: actions,
     );

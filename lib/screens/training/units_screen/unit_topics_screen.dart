@@ -1,11 +1,11 @@
-import 'package:dictionary/screens/training/widgets/unit_favorite_marker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../../data/services/training_service.dart';
-import '../../../data/services/user_service.dart';
+import '../../../main.dart';
 import '../../../res/images.dart';
 import '../../../res/themes.dart';
 import '../../../utils.dart';
+import '../widgets/unit_favorite_marker.dart';
 import 'unit_screen.dart';
 
 class UnitTopicsScreen extends StatelessWidget {
@@ -87,7 +87,7 @@ class UnitTopicsScreen extends StatelessWidget {
                         Align(
                           alignment: Alignment.topRight,
                           child: UnitFavoriteMarker(
-                            userId: UserService.currentUserId!,
+                            userId: prefs.getString('userId')!,
                             unitId: unit.id!,
                           ),
                         ),
@@ -124,6 +124,7 @@ class UnitTopicsScreen extends StatelessWidget {
                     ),
                     child: Column(
                       children: [
+                        const HeartWidget(),
                         Image.asset(
                           image[0],
                           width: 100,
@@ -154,6 +155,7 @@ class UnitTopicsScreen extends StatelessWidget {
                     ),
                     child: Column(
                       children: [
+                        const HeartWidget(),
                         Image.asset(
                           image[1],
                           width: 100,
@@ -184,6 +186,7 @@ class UnitTopicsScreen extends StatelessWidget {
                     ),
                     child: Column(
                       children: [
+                        const HeartWidget(),
                         Image.asset(
                           image[2],
                           width: 100,
@@ -214,6 +217,7 @@ class UnitTopicsScreen extends StatelessWidget {
                     ),
                     child: Column(
                       children: [
+                        const HeartWidget(),
                         Image.asset(
                           image[3],
                           width: 100,
@@ -234,6 +238,25 @@ class UnitTopicsScreen extends StatelessWidget {
             return const AppLoadingIndicator();
           }
         },
+      ),
+    );
+  }
+}
+
+class HeartWidget extends StatelessWidget {
+  const HeartWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.topRight,
+      child: SizedBox.fromSize(
+        size: const Size(50, 50),
+        child: const Icon(
+          CupertinoIcons.heart,
+          size: 30,
+          color: AppColors.black,
+        ),
       ),
     );
   }

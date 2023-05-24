@@ -1,16 +1,13 @@
-import 'package:dictionary/data/models/user_models/favorite_unit_model.dart';
-import 'package:dictionary/data/models/user_models/test_history_model.dart';
 import 'package:dio/dio.dart';
-import '../../main.dart';
+import '../models/user_models/favorite_unit_model.dart';
 import '../models/user_models/favorite_vocabulary_model.dart';
+import '../models/user_models/test_history_model.dart';
 import '../models/user_models/user_model.dart';
 
 var api = 'https://backenddictionary-production.up.railway.app';
 
 class UserService {
   var userApi = '$api/user';
-
-  static String? currentUserId = prefs.getString('userId');
 
   Future<List<User>> getAllUserData() async {
     final response = await Dio().get(userApi);

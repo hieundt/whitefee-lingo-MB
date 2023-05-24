@@ -1,8 +1,8 @@
-import 'package:dictionary/screens/dictionary/dictionary_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../providers/navigation_bar_provider.dart';
+import '../dictionary/dictionary_screen.dart';
 import '../training/training_screen.dart';
 import '../user/user_screen.dart';
 import 'widgets/app_navigation_bar.dart';
@@ -16,7 +16,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final pages = [
-    const DictionaryVersion2(),
+    const DictionaryScreen(),
     const TrainingScreen(),
     const UserScreen(),
   ];

@@ -1,4 +1,3 @@
-import 'package:dictionary/providers/test_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -7,6 +6,8 @@ import '../../../data/models/test_models/question_model.dart';
 import '../../../data/models/test_models/test_model.dart';
 import '../../../data/services/training_service.dart';
 import '../../../data/services/user_service.dart';
+import '../../../main.dart';
+import '../../../providers/test_provider.dart';
 import '../../../res/images.dart';
 import '../../../res/themes.dart';
 import '../../../utils.dart';
@@ -346,7 +347,6 @@ class _OptionWidgetState extends State<OptionWidget> {
                       duration: const Duration(microseconds: 300),
                       curve: Curves.linear,
                     );
-                    //if (!mounted) return;
                     Navigator.pop(context);
                   },
                 ),
@@ -438,12 +438,11 @@ class TestCongratsScreen extends StatefulWidget {
 class _TestCongratsScreenState extends State<TestCongratsScreen> {
   @override
   Widget build(BuildContext context) {
-    //var userProvider = Provider.of<UserProvider>(context);
     var testProvider = Provider.of<TestProvider>(context);
 
     return FutureBuilder(
       future:
-          UserHistoryService().getTestHistoryOfUser(UserService.currentUserId!),
+          UserHistoryService().getTestHistoryOfUser(prefs.getString('userId')!),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           return Padding(
@@ -474,7 +473,7 @@ class _TestCongratsScreenState extends State<TestCongratsScreen> {
                   label: const Text(' Mark Complete!'),
                   onPressed: () async {
                     await UserHistoryService().createTestHistory(
-                      userId: UserService.currentUserId,
+                      userId: prefs.getString('userId'),
                       testId: widget.test.id,
                       totalPoint: testProvider.totalPoint,
                       testDate: DateTime.now().toIso8601String(),

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../../data/services/training_service.dart';
 import '../../data/services/user_service.dart';
+import '../../main.dart';
 import '../../res/themes.dart';
 import '../../utils.dart';
 import '../home/widgets/app_bar_widget.dart';
@@ -102,36 +103,71 @@ class TestHistoryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //var userProvider = Provider.of<UserProvider>(context);
     return Scaffold(
-      appBar: const AppBarWidget(
+      appBar: AppBarWidget(
         screenTitle: 'Test history',
         titleColor: AppColors.darkBrown,
-        leading: Icon(
-          CupertinoIcons.hourglass,
-          color: AppColors.darkBrown,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          icon: const Icon(
+            Icons.arrow_back_ios_new_rounded,
+            color: Colors.black,
+          ),
         ),
       ),
       body: FutureBuilder(
-        future: UserHistoryService()
-            .getTestHistoryOfUser(UserService.currentUserId!),
+        future: UserHistoryService().getTestHistoryOfUser(
+          prefs.getString('userId')!,
+        ),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             var history = snapshot.data!;
-            return ListView.separated(
-              padding: const EdgeInsets.all(20),
-              itemCount: history.length,
-              separatorBuilder: (context, index) {
-                return const SizedBox(height: 20);
-              },
-              itemBuilder: (context, index) {
-                return HistoryWidget(
-                  testDate: history[index].testDate,
-                  totalPoint: history[index].totalPoint,
-                  testId: history[index].testId,
-                );
-              },
-            );
+            return history.isNotEmpty
+                ? ListView.separated(
+                    padding: const EdgeInsets.all(20),
+                    itemCount: history.length,
+                    separatorBuilder: (context, index) {
+                      return const SizedBox(height: 20);
+                    },
+                    itemBuilder: (context, index) {
+                      return HistoryWidget(
+                        testDate: history[index].testDate,
+                        totalPoint: history[index].totalPoint,
+                        testId: history[index].testId,
+                      );
+                    },
+                  )
+                : Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const Icon(
+                          CupertinoIcons.hourglass,
+                          color: AppColors.black,
+                          size: 50,
+                        ),
+                        const SizedBox(height: 20),
+                        Text(
+                          'Your test history is empty',
+                          style: AppTextStyle.medium20,
+                        ),
+                        const SizedBox(height: 20),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 30),
+                          child: Text(
+                            'Review the result and improve your point here',
+                            textAlign: TextAlign.center,
+                            style: AppTextStyle.medium15.copyWith(
+                              color: AppColors.darkGrey,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
           } else {
             return const AppLoadingIndicator();
           }

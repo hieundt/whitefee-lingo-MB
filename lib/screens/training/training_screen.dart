@@ -1,11 +1,17 @@
-import 'package:dictionary/screens/user/widgets/lock_content_widget.dart';
 import 'package:flutter/material.dart';
-import '../../data/services/user_service.dart';
+import '../../main.dart';
 import '../../res/images.dart';
 import '../../res/themes.dart';
 import '../../routes.dart';
 import '../home/widgets/app_bar_widget.dart';
+import '../user/widgets/lock_content_widget.dart';
 import 'widgets/training_topic_widget.dart';
+
+extension StringExtension on String {
+  String capitalize() {
+    return "${this[0].toUpperCase()}${substring(1).toLowerCase()}";
+  }
+}
 
 class GreetingWidget extends StatelessWidget {
   const GreetingWidget({super.key});
@@ -21,10 +27,6 @@ class GreetingWidget extends StatelessWidget {
         return 'Afternoon,';
       }
       return 'Evening,';
-    }
-
-    String getUser() {
-      return 'Fred';
     }
 
     return Column(
@@ -45,22 +47,24 @@ class GreetingWidget extends StatelessWidget {
           textAlign: TextAlign.center,
         ),
         const SizedBox(height: 10),
-        Text(
-          getUser(),
-          style: AppTextStyle.bold25.copyWith(
-            color: AppColors.transparent,
-            shadows: [
-              const Shadow(
-                offset: Offset(0, -5),
-                color: AppColors.darkGreen,
-              ),
-            ],
-            decoration: TextDecoration.underline,
-            decorationThickness: 7,
-            decorationColor: AppColors.yellow,
-          ),
-          textAlign: TextAlign.center,
-        ),
+        prefs.getString('userId') != null
+            ? Text(
+                prefs.getString('userName')!.capitalize(),
+                style: AppTextStyle.bold25.copyWith(
+                  color: AppColors.transparent,
+                  shadows: [
+                    const Shadow(
+                      offset: Offset(0, -5),
+                      color: AppColors.darkGreen,
+                    ),
+                  ],
+                  decoration: TextDecoration.underline,
+                  decorationThickness: 7,
+                  decorationColor: AppColors.yellow,
+                ),
+                textAlign: TextAlign.center,
+              )
+            : const SizedBox.shrink(),
       ],
     );
   }
@@ -71,9 +75,15 @@ class TrainingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(UserService.currentUserId);
     return Scaffold(
-      appBar: const AppBarWidget(),
+      appBar: AppBarWidget(
+        leading: Padding(
+          padding: const EdgeInsets.all(5),
+          child: Image.asset(
+            AppLogoImage.logo,
+          ),
+        ),
+      ),
       body: ListView(
         children: [
           const GreetingWidget(),

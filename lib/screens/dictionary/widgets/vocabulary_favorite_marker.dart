@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import '../../../data/services/user_service.dart';
+import '../../../main.dart';
 import '../../../res/themes.dart';
 
 class VocabularyFavoriteMarker extends StatefulWidget {
@@ -29,7 +30,7 @@ class _VocabularyFavoriteMarkerState extends State<VocabularyFavoriteMarker> {
 
   Future<void> initMarker() async {
     bool checker = await UserFavoriteCollectionService().isFavoriteVocabulary(
-      userId: UserService.currentUserId!,
+      userId: prefs.getString('userId')!,
       vocabularyId: widget.vocabularyId,
     );
     marker = checker ? CupertinoIcons.bookmark_fill : CupertinoIcons.bookmark;
@@ -39,7 +40,7 @@ class _VocabularyFavoriteMarkerState extends State<VocabularyFavoriteMarker> {
   Widget build(BuildContext context) {
     return FutureBuilder(
       future: UserFavoriteCollectionService().isFavoriteVocabulary(
-        userId: UserService.currentUserId!,
+        userId: prefs.getString('userId')!,
         vocabularyId: widget.vocabularyId,
       ),
       builder: (context, snapshot) {
@@ -53,7 +54,7 @@ class _VocabularyFavoriteMarkerState extends State<VocabularyFavoriteMarker> {
                   marker = CupertinoIcons.bookmark_fill;
                 });
                 await UserFavoriteCollectionService().markFavoriteVocabulary(
-                  userId: UserService.currentUserId!,
+                  userId: prefs.getString('userId')!,
                   vocabularyId: widget.vocabularyId,
                 );
               } else {
@@ -61,7 +62,7 @@ class _VocabularyFavoriteMarkerState extends State<VocabularyFavoriteMarker> {
                   marker = CupertinoIcons.bookmark;
                 });
                 await UserFavoriteCollectionService().removeFavoriteVocabulary(
-                  userId: UserService.currentUserId!,
+                  userId: prefs.getString('userId')!,
                   vocabularyId: widget.vocabularyId,
                 );
               }

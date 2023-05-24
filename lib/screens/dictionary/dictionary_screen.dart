@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -43,8 +42,8 @@ class HeaderWidget extends StatelessWidget {
   }
 }
 
-class DictionaryVersion2 extends StatelessWidget {
-  const DictionaryVersion2({super.key});
+class DictionaryScreen extends StatelessWidget {
+  const DictionaryScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -56,6 +55,12 @@ class DictionaryVersion2 extends StatelessWidget {
           var vocabularyList = snapshot.data!;
           return Scaffold(
             appBar: AppBarWidget(
+              leading: Padding(
+                padding: const EdgeInsets.all(5),
+                child: Image.asset(
+                  AppLogoImage.logo,
+                ),
+              ),
               actions: [
                 GestureDetector(
                   onTap: () => showSearch(
@@ -66,9 +71,9 @@ class DictionaryVersion2 extends StatelessWidget {
                     ),
                   ),
                   child: const CircleAvatar(
-                    backgroundColor: AppColors.semiGrey,
+                    backgroundColor: AppColors.white,
                     child: Icon(
-                      CupertinoIcons.search,
+                      Icons.search_sharp,
                       color: AppColors.black,
                       size: 20,
                     ),

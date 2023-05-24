@@ -92,7 +92,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         AppTextField(
                           controller: _email,
                           hint: 'Enter email',
-                          validator: AppTextFieldType.email,
                         ),
                         const SizedBox(height: 10),
                         AppPasswordField(
@@ -112,7 +111,13 @@ class _LoginScreenState extends State<LoginScreen> {
                                 );
                                 if (currentUser != null) {
                                   await prefs.setString(
-                                      'userId', currentUser.id!);
+                                    'userId',
+                                    currentUser.id!,
+                                  );
+                                  await prefs.setString(
+                                    'userName',
+                                    currentUser.userName!,
+                                  );
                                   //if (!mounted) return;
                                   Navigator.of(context).pushReplacementNamed(
                                     AppRoutes.home,

@@ -1,6 +1,7 @@
 import 'package:appinio_swiper/appinio_swiper.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
+
 import '../../../data/models/vocabulary_model/vocabulary_model.dart';
 import '../../../res/themes.dart';
 import '../../dictionary/widgets/pronounce_widget.dart';
