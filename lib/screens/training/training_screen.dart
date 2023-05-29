@@ -21,12 +21,12 @@ class GreetingWidget extends StatelessWidget {
     String getTime() {
       var hour = DateTime.now().hour;
       if (hour < 12) {
-        return 'Morning,';
+        return 'Morning';
       }
       if (hour < 17) {
-        return 'Afternoon,';
+        return 'Afternoon';
       }
-      return 'Evening,';
+      return 'Evening';
     }
 
     return Column(
