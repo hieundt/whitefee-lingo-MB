@@ -35,8 +35,8 @@ Lớp: **SE121.N11**
 
 ### Danh sách các màn hình <a name="screen"></a>
 <p float="left">
- 
-![login](https://github.com/hieundt/dictionary/assets/61895216/25734b59-7e6c-4fe2-a777-439ed085494f)
+ <img src="https://github.com/hieundt/dictionary/assets/61895216/25734b59-7e6c-4fe2-a777-439ed085494f" width="200" />
+
 
 </p>
 
