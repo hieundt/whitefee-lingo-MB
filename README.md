@@ -7,11 +7,11 @@
 [Mô tả project](#project)\
 &nbsp;&nbsp;&nbsp; [Công nghệ sử dụng](#use)\
 &nbsp;&nbsp;&nbsp; [Tính năng chính](#main-feature)\
-&nbsp;&nbsp;&nbsp; [Danh sách các màn hình](#screen)\
+&nbsp;&nbsp;&nbsp; [Danh sách các màn hình](#screen)
 
 ## Thông tin sinh viên <a name="info"></a>
 
-Lớp: **SE121.N11** 
+Lớp: **SE122.N21.PMCL** 
 
 | STT  | Tên                | MSSV      |
 |:-----|:-------------------|:----------|
