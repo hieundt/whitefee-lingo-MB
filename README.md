@@ -8,7 +8,6 @@
 &nbsp;&nbsp;&nbsp; [Công nghệ sử dụng](#use)\
 &nbsp;&nbsp;&nbsp; [Tính năng chính](#main-feature)\
 &nbsp;&nbsp;&nbsp; [Danh sách các màn hình](#screen)\
-[Demo](#demo)
 
 ## Thông tin sinh viên <a name="info"></a>
 
@@ -27,15 +26,15 @@ Lớp: **SE121.N11**
 
 ### Công nghệ sử dụng <a name="use"></a>
 #### UI/UX
- Ngôn ngữ: Dart
- Framework: Flutter
+ - Ngôn ngữ: Dart
+ - Framework: Flutter
 #### BackEnd
- Ngôn ngữ: Java
- Framework Spring/Spring Boot
+ - Ngôn ngữ: Java
+ - Framework Spring/Spring Boot
 #### CI/CD
- Railway
+ - Railway
 #### Database
- MongoDB
+ - MongoDB
  
 [Lên đầu trang](#top)
 ### Tính năng chính <a name="main-feature"></a>
