@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import '../models/vocabulary_model/vocabulary_model.dart';
 
 class VocabularyService {
-  var api = 'https://backenddictionary-production.up.railway.app/vocabulary';
+  var api = 'http://localhost:3000/api/vocabularies';
 
   Future<Vocabulary> getVocabularyByWord(String word) async {
     final response = await Dio().get('$api/byword/$word');
